@@ -1,0 +1,7 @@
+version: '3'
+services:
+  typeschema:
+    image: ghcr.io/apioo/typeapi:master
+    restart: always
+    ports:
+      - "9090:80"

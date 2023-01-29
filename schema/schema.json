@@ -1,0 +1,264 @@
+{
+  "$import": {
+    "typeschema": "./typeschema.json"
+  },
+  "definitions": {
+    "Info": {
+      "description": "The object provides metadata about the API",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "termsOfService": {
+          "type": "string"
+        },
+        "contact": {
+          "$ref": "Contact"
+        },
+        "license": {
+          "$ref": "License"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "version"
+      ]
+    },
+    "Contact": {
+      "description": "Contact information for the exposed API",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "License": {
+      "description": "License information for the exposed API",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "Operations": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "Operation"
+      }
+    },
+    "Operation": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "description": "A short description of the operation. The generated code will include this description at the method so it is recommend to use simple plain text and not use any special characters",
+          "type": "string"
+        },
+        "method": {
+          "description": "The HTTP method which is associated with this operation, must be a valid HTTP method i.e. GET, POST, PUT etc.",
+          "type": "string"
+        },
+        "path": {
+          "description": "The HTTP path which is associated with this operation. A path can also include variable path fragments i.e. /my/path/:year then you can map the variable year oath fragment to a specific argument",
+          "type": "string"
+        },
+        "arguments": {
+          "$ref": "Arguments"
+        },
+        "public": {
+          "description": "Indicates whether this operation is public, default is false. If it is private we try to use the configured security scheme otherwise there is no authentication",
+          "type": "boolean",
+          "default": false
+        },
+        "deprecated": {
+          "description": "Indicates whether this operation is deprecated, default is false. The generated code will also mark the method as deprecated",
+          "type": "boolean",
+          "default": false
+        },
+        "return": {
+          "$ref": "Return"
+        },
+        "throws": {
+          "type": "array",
+          "items": {
+            "$ref": "Throw"
+          }
+        }
+      }
+    },
+    "Arguments": {
+      "description": "Contains a map of arguments. The key will be used as variable name at the generated code so it is recommended to use only a-z and underscore as characters",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "Argument"
+      }
+    },
+    "Argument": {
+      "type": "object",
+      "properties": {
+        "in": {
+          "description": "The location where the value can be found either in the path, query or body. If you choose path, then your path must have fitting variable path fragment",
+          "type": "string",
+          "enum": ["path", "query", "body"]
+        },
+        "schema": {
+          "oneOf": [
+            {
+              "$ref": "typeschema:BooleanType"
+            },
+            {
+              "$ref": "typeschema:NumberType"
+            },
+            {
+              "$ref": "typeschema:StringType"
+            },
+            {
+              "$ref": "typeschema:ReferenceType"
+            }
+          ]
+        }
+      }
+    },
+    "Return": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "The associated HTTP response code",
+          "type": "integer",
+          "default": 200
+        },
+        "schema": {
+          "$ref": "typeschema:ReferenceType"
+        }
+      }
+    },
+    "Throw": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "The associated HTTP response code",
+          "type": "integer",
+          "default": 500
+        },
+        "schema": {
+          "$ref": "typeschema:ReferenceType"
+        }
+      }
+    },
+    "SecurityScheme": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "in": {
+          "type": "string"
+        },
+        "scheme": {
+          "type": "string"
+        },
+        "bearerFormat": {
+          "type": "string"
+        },
+        "flows": {
+          "$ref": "OAuthFlows"
+        },
+        "openIdConnectUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "OAuthFlows": {
+      "type": "object",
+      "properties": {
+        "implicit": {
+          "$ref": "OAuthFlow"
+        },
+        "password": {
+          "$ref": "OAuthFlow"
+        },
+        "clientCredentials": {
+          "$ref": "OAuthFlow"
+        },
+        "authorizationCode": {
+          "$ref": "OAuthFlow"
+        }
+      }
+    },
+    "OAuthFlow": {
+      "type": "object",
+      "properties": {
+        "authorizationUrl": {
+          "type": "string"
+        },
+        "tokenUrl": {
+          "type": "string"
+        },
+        "refreshUrl": {
+          "type": "string"
+        },
+        "scopes": {
+          "$ref": "Scopes"
+        }
+      }
+    },
+    "Scopes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "TypeApi": {
+      "description": "The root TypeApi",
+      "type": "object",
+      "properties": {
+        "$import": {
+          "$ref": "typeschema:Import"
+        },
+        "info": {
+          "$ref": "Info"
+        },
+        "operations": {
+          "$ref": "Operations"
+        },
+        "securityScheme": {
+          "$ref": "SecurityScheme"
+        },
+        "definitions": {
+          "$ref": "typeschema:Definitions"
+        }
+      },
+      "required": [
+        "operations",
+        "definitions"
+      ]
+    }
+  },
+  "$ref": "TypeSchema"
+}
