@@ -43,7 +43,7 @@
   <?php endforeach; ?>
 
   <div class="typeschema-edit">
-    <a href="https://github.com/apioo/typeapi/blob/master/www/src/Website/resource/<?php echo pathinfo(__FILE__, PATHINFO_BASENAME); ?>"><i class="bi bi-pencil"></i> Edit this page</a>
+    <a href="https://github.com/apioo/typeapi/blob/main/www/src/Website/resource/<?php echo pathinfo(__FILE__, PATHINFO_BASENAME); ?>"><i class="bi bi-pencil"></i> Edit this page</a>
   </div>
 </div>
 

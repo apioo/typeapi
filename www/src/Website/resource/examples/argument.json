@@ -1,0 +1,41 @@
+{
+  "operations": {
+    "hello.world.getMessage": {
+      "description": "Returns a hello world message",
+      "method": "GET",
+      "path": "/hello/world",
+      "return": {
+        "schema": {
+          "$ref": "Hello_World"
+        }
+      },
+      "throws": [{
+        "code": 500,
+        "schema": {
+          "$ref": "Error"
+        }
+      }]
+    }
+  },
+  "definitions": {
+    "Hello_World": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

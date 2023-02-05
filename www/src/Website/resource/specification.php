@@ -45,78 +45,68 @@
   <a id="Introduction"></a>
   <h2>Introduction</h2>
 
-  <p>This document describes the TypeSchema specification. TypeSchema is a JSON format to model data structures. It
-  abstracts OOP concepts into a simple and deterministic JSON format which can be turned into code for many different
-  target languages. The main use case of TypeSchema is to describe a data model, it is not designed to validate JSON
-  structures. A data model described in TypeSchema can be used as single source of truth which can be reused in many
-  different environments.</p>
+  <p>This document describes the TypeAPI specification. TypeAPI is a JSON format to describe REST APIs. The goal of this
+  specification is to describe APIs in a way so that it is possible to generate complete type safe client and server code.</p>
+  <p>What is the difference to OpenAPI? The main use case of OpenAPI is to describe every aspect of a REST API, this
+  means the focus is on documenting every possible parameter and payload. This is great for documentation but is a problem
+  for code generation, since this flexibility makes code generation harder. TypeAPI on the other side is fully targeted
+  on code generation, this means you probably can not use TypeAPI for every exotic REST API, but it covers the 80% case.</p>
+  <p>Conceptual the main difference is that with OpenAPI you describe routes and all aspects of a route, at TypeAPI
+  we describe operations, an operation has arguments and those arguments are mapped to values from the HTTP request.
+  Every operation produces a response or throws an exception which are also mapped to an HTTP response. An operation
+  basically represents a method or function in a programming language. This approaches makes it really easy to generate
+  complete type safe and easy to use client and server code.</p>
 
   <hr>
 
   <a id="Root"></a>
   <h2>Root</h2>
 
-  <p>Every TypeSchema has a <a href="#TypeSchema">Root</a> definition. The Root must contain at least the
-  <code>definitions</code> keyword i.e.:</p>
+  <p>Every TypeAPI has a <a href="#TypeAPI">Root</a> definition. The Root must contain at least the
+  <code>operations</code> and <code>definitions</code> keyword i.e.:</p>
   <pre class="json hljs">{
+    "operations": {
+        "hello.world.getMessage": { ... },
+    },
     "definitions": {
         "TypeA": { ... },
         "TypeB": { ... }
     }
 }</pre>
 
-  <p>The <code>definitions</code> keyword contains simply a map containing <a href="#StructType">Struct</a>,
-  <a href="#MapType">Map</a> and <a href="#ReferenceType">Reference</a> types.</p>
+  <p>The <code>operations</code> keyword contains a map containing <a href="#Operation">Operation</a> objects. The key
+  represents the name of the operation. If you use a dot in the name you can group your operations i.e. the operation
+  name <code>hello.world.getMessage</code> would generate the TypeScript client code <code>client.hello.world.getMessage();</code>.
+  Through this you can easily control the design of your client SDK.</p>
 
-  <p>Optional it is possible to include a <code>$ref</code> keyword which points to the default type.</p>
-
-  <hr>
-
-  <a id="Import"></a>
-  <h3>Import</h3>
-
-  <p>Optional it is possible to import other documents through the <code>$import</code> keyword. It contains a map
-  where the key is the namespace and the value points to a remote document. The value is a URN and the supported
-  schemes i.e. <code>file</code>, <code>http</code>, <code>https</code> etc. are out of bound of this specification.</p>
-
-  <pre><code class="json">{
-    "$import": {
-        "MyNamespace": "file:///my_schema.json"
-    }
-}</code></pre>
-
-  <p>Inside a reference it is then possible to reuse all types under the namespace which are defined at the remote
-  document i.e.:</p>
-
-  <pre><code class="json">{
-    "$ref": "MyNamespace:MyType"
-}</code></pre>
-
-  <hr>
-
-  <a id="Types"></a>
-  <h2>Types</h2>
-
-  <p>At TypeSchema every type can be determined based on the used keywords. The following list describes every type
-  and how to use them.</p>
+  <p>The <code>definitions</code> keyword maps to the <a href="https://typeschema.org/specification#Root">TypeSchema</a>
+  specification and represents a map containing <a href="https://typeschema.org/specification#StructType">Struct</a>,
+  <a href="https://typeschema.org/specification#MapType">Map</a> and <a href="https://typeschema.org/specification#ReferenceType">Reference</a>
+  types. Those types are then used to describe incoming and outgoing JSON payloads.</p>
 
   <hr>
 
   <a id="Struct"></a>
-  <h3>Struct</h3>
+  <h3>Operation</h3>
 
   <p>Represents a struct type. A struct type contains a fix set of defined properties. A struct type must have a
   <code>type</code> and <code>properties</code> keyword. The type must be <code>object</code>.</p>
 
   <pre><code class="json">{
-    "type": "object",
-    "properties": {
-        "PropertyA": { ... },
-        "PropertyB": { ... }
-    }
+    "description": "object",
+    "method": "object",
+    "path": "object",
+    "arguments": {
+      "": {
+        "in"
+      }
+    },
+    "return": {
+
+    },
 }</code></pre>
 
-  <p>All allowed properties are described at the <a href="#StructType">Appendix</a>.</p>
+  <p>All allowed properties are described at the <a href="#Operation">Appendix</a>.</p>
 
   <hr>
 
@@ -269,13 +259,13 @@
   <h2>Appendix</h2>
 
   <p>The single source of truth of TypeAPI is the TypeSchema meta schema which describes itself. You can find the
-  current TypeSchema at our <a href="https://github.com/apioo/typeapi/blob/master/schema/schema.json">repository</a>.
+  current TypeSchema at our <a href="https://github.com/apioo/typeapi/blob/main/schema/schema.json">repository</a>.
   The following section contains a HTML representation which we automatically generate from this meta schema.</p>
 
   <?php echo $spec; ?>
 
   <div class="typeschema-edit">
-    <a href="https://github.com/apioo/typeapi/blob/master/www/src/Website/resource/<?php echo pathinfo(__FILE__, PATHINFO_BASENAME); ?>"><i class="bi bi-pencil"></i> Edit this page</a>
+    <a href="https://github.com/apioo/typeapi/blob/main/www/src/Website/resource/<?php echo pathinfo(__FILE__, PATHINFO_BASENAME); ?>"><i class="bi bi-pencil"></i> Edit this page</a>
   </div>
 </div>
 

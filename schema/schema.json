@@ -1,6 +1,6 @@
 {
   "$import": {
-    "typeschema": "./typeschema.json"
+    "typeschema": "file:///typeschema.json"
   },
   "definitions": {
     "Info": {
@@ -71,7 +71,7 @@
       "type": "object",
       "properties": {
         "description": {
-          "description": "A short description of the operation. The generated code will include this description at the method so it is recommend to use simple plain text and not use any special characters",
+          "description": "A short description of the operation. The generated code will include this description at the method so it is recommend to use simple alphanumeric characters",
           "type": "string"
         },
         "method": {
@@ -79,16 +79,23 @@
           "type": "string"
         },
         "path": {
-          "description": "The HTTP path which is associated with this operation. A path can also include variable path fragments i.e. /my/path/:year then you can map the variable year oath fragment to a specific argument",
+          "description": "The HTTP path which is associated with this operation. A path can also include variable path fragments i.e. /my/path/:year then you can map the variable year path fragment to a specific argument",
           "type": "string"
         },
         "arguments": {
           "$ref": "Arguments"
         },
-        "public": {
-          "description": "Indicates whether this operation is public, default is false. If it is private we try to use the configured security scheme otherwise there is no authentication",
+        "security": {
+          "description": "An array of scopes which are required to access this operation",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "authorization": {
+          "description": "Indicates whether this operation needs authorization, if set to false the client will not send an authorization header, default is true",
           "type": "boolean",
-          "default": false
+          "default": true
         },
         "deprecated": {
           "description": "Indicates whether this operation is deprecated, default is false. The generated code will also mark the method as deprecated",
