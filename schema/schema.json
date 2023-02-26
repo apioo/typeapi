@@ -3,65 +3,8 @@
     "typeschema": "file:///typeschema.json"
   },
   "definitions": {
-    "Info": {
-      "description": "The object provides metadata about the API",
-      "type": "object",
-      "properties": {
-        "title": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "termsOfService": {
-          "type": "string"
-        },
-        "contact": {
-          "$ref": "Contact"
-        },
-        "license": {
-          "$ref": "License"
-        },
-        "version": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "title",
-        "version"
-      ]
-    },
-    "Contact": {
-      "description": "Contact information for the exposed API",
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        }
-      }
-    },
-    "License": {
-      "description": "License information for the exposed API",
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "name"
-      ]
-    },
     "Operations": {
+      "description": "A map of operations which are provided by the API. The key of the operation should be a global unique string separated by a dot, we recommend to use the java package naming convention and use your domain reversed as prefix before every operation name",
       "type": "object",
       "additionalProperties": {
         "$ref": "Operation"
@@ -70,10 +13,6 @@
     "Operation": {
       "type": "object",
       "properties": {
-        "description": {
-          "description": "A short description of the operation. The generated code will include this description at the method so it is recommend to use simple alphanumeric characters",
-          "type": "string"
-        },
         "method": {
           "description": "The HTTP method which is associated with this operation, must be a valid HTTP method i.e. GET, POST, PUT etc.",
           "type": "string"
@@ -82,8 +21,30 @@
           "description": "The HTTP path which is associated with this operation. A path can also include variable path fragments i.e. /my/path/:year then you can map the variable year path fragment to a specific argument",
           "type": "string"
         },
+        "return": {
+          "description": "The return type of this operation. The return has also an assigned HTTP success status code which is by default 200",
+          "$ref": "Return"
+        },
         "arguments": {
+          "description": "All arguments provided to this operation. Each argument is mapped to a location from the HTTP request",
           "$ref": "Arguments"
+        },
+        "throws": {
+          "description": "All exceptional states which can occur in case the operation fails. Each exception is also assigned to an HTTP error status code",
+          "type": "array",
+          "items": {
+            "$ref": "Throw"
+          }
+        },
+        "description": {
+          "description": "A short description of this operation. The generated code will include this description at the method so it is recommend to use simple alphanumeric characters and no new lines",
+          "type": "string"
+        },
+        "stability": {
+          "description": "Indicates the stability of this operation. This is based on the stability index from the nodejs project: 0 - Deprecated, 1 - Experimental, 2 - Stable, 3 - Legacy. If not explicit provided the operation is by default experimental.",
+          "type": "integer",
+          "enum": [0, 1, 2, 3],
+          "default": 1
         },
         "security": {
           "description": "An array of scopes which are required to access this operation",
@@ -93,22 +54,15 @@
           }
         },
         "authorization": {
-          "description": "Indicates whether this operation needs authorization, if set to false the client will not send an authorization header, default is true",
+          "description": "Indicates whether this operation needs authorization, if set to false the client will not send an authorization header, default it is true",
           "type": "boolean",
           "default": true
         },
-        "deprecated": {
-          "description": "Indicates whether this operation is deprecated, default is false. The generated code will also mark the method as deprecated",
-          "type": "boolean",
-          "default": false
-        },
-        "return": {
-          "$ref": "Return"
-        },
-        "throws": {
+        "tags": {
+          "description": "Optional an array of tags to group operations. Those tags are used at the client generator to group operations",
           "type": "array",
           "items": {
-            "$ref": "Throw"
+            "type": "string"
           }
         }
       }
@@ -124,7 +78,7 @@
       "type": "object",
       "properties": {
         "in": {
-          "description": "The location where the value can be found either in the path, query or body. If you choose path, then your path must have fitting variable path fragment",
+          "description": "The location where the value can be found either in the path, query or body. If you choose path, then your path must have a fitting variable path fragment",
           "type": "string",
           "enum": ["path", "query", "body"]
         },
@@ -135,6 +89,9 @@
             },
             {
               "$ref": "typeschema:NumberType"
+            },
+            {
+              "$ref": "typeschema:IntegerType"
             },
             {
               "$ref": "typeschema:StringType"
@@ -172,73 +129,53 @@
         }
       }
     },
-    "SecurityScheme": {
+    "Security": {
       "type": "object",
       "properties": {
         "type": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
+          "type": "string",
+          "enum": ["httpBasic", "httpBearer", "apiKey", "oauth2"]
+        }
+      }
+    },
+    "SecurityHttpBasic": {
+      "description": "Describes that the API requires an HTTP Basic authentication, the user needs to provide a username and password at the client",
+      "$extends": "Security"
+    },
+    "SecurityHttpBearer": {
+      "description": "Describes that the API requires an HTTP Bearer authentication, the user needs to provide an access token, how the user obtains this access token is out-of-bound of this specification",
+      "$extends": "Security"
+    },
+    "SecurityApiKey": {
+      "description": "Describes that the API requires an Api-Key authentication, the user needs to provide a token and the client will place this token at the describes header or query parameter",
+      "$extends": "Security",
+      "type": "object",
+      "properties": {
         "name": {
           "type": "string"
         },
         "in": {
           "type": "string"
-        },
-        "scheme": {
-          "type": "string"
-        },
-        "bearerFormat": {
-          "type": "string"
-        },
-        "flows": {
-          "$ref": "OAuthFlows"
-        },
-        "openIdConnectUrl": {
-          "type": "string"
         }
       }
     },
-    "OAuthFlows": {
+    "SecurityOAuth2": {
+      "description": "Describes that the API requires an OAuth2 authentication, the user needs to provide a client id and secret, then the client tries to automatically obtain an access token using the client credentials grant",
+      "$extends": "Security",
       "type": "object",
       "properties": {
-        "implicit": {
-          "$ref": "OAuthFlow"
-        },
-        "password": {
-          "$ref": "OAuthFlow"
-        },
-        "clientCredentials": {
-          "$ref": "OAuthFlow"
-        },
-        "authorizationCode": {
-          "$ref": "OAuthFlow"
-        }
-      }
-    },
-    "OAuthFlow": {
-      "type": "object",
-      "properties": {
-        "authorizationUrl": {
-          "type": "string"
-        },
         "tokenUrl": {
           "type": "string"
         },
-        "refreshUrl": {
+        "authorizationUrl": {
           "type": "string"
         },
         "scopes": {
-          "$ref": "Scopes"
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
-      }
-    },
-    "Scopes": {
-      "type": "object",
-      "additionalProperties": {
-        "type": "string"
       }
     },
     "TypeApi": {
@@ -248,23 +185,33 @@
         "$import": {
           "$ref": "typeschema:Import"
         },
-        "info": {
-          "$ref": "Info"
+        "security": {
+          "oneOf": [{
+            "$ref": "SecurityHttpBasic"
+          }, {
+            "$ref": "SecurityHttpBearer"
+          }, {
+            "$ref": "SecurityApiKey"
+          }, {
+            "$ref": "SecurityOAuth2"
+          }],
+          "discriminator": {
+            "propertyName": "type",
+            "mapping": {
+              "httpBasic": "SecurityHttpBasic",
+              "httpBearer": "SecurityHttpBearer",
+              "apiKey": "SecurityApiKey",
+              "oauth2": "SecurityOAuth2"
+            }
+          }
         },
         "operations": {
           "$ref": "Operations"
         },
-        "securityScheme": {
-          "$ref": "SecurityScheme"
-        },
         "definitions": {
           "$ref": "typeschema:Definitions"
         }
-      },
-      "required": [
-        "operations",
-        "definitions"
-      ]
+      }
     }
   },
   "$ref": "TypeSchema"
