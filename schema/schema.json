@@ -185,6 +185,9 @@
         "$import": {
           "$ref": "typeschema:Import"
         },
+        "baseUrl": {
+          "type": "string"
+        },
         "security": {
           "oneOf": [{
             "$ref": "SecurityHttpBasic"
