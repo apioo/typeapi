@@ -11,7 +11,7 @@
   <h1 class="display-4">FAQ</h1>
 
   <div class="typeschema-edit">
-    <a href="https://github.com/apioo/typeapi/blob/main/www/src/Website/resource/<?php echo pathinfo(__FILE__, PATHINFO_BASENAME); ?>"><i class="bi bi-pencil"></i> Edit this page</a>
+    <a href="https://github.com/apioo/typeapi/blob/main/www/resources/template/<?php echo pathinfo(__FILE__, PATHINFO_BASENAME); ?>"><i class="bi bi-pencil"></i> Edit this page</a>
   </div>
 </div>
 

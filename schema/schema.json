@@ -78,9 +78,9 @@
       "type": "object",
       "properties": {
         "in": {
-          "description": "The location where the value can be found either in the path, query or body. If you choose path, then your path must have a fitting variable path fragment",
+          "description": "The location where the value can be found either in the path, query, header or body. If you choose path, then your path must have a fitting variable path fragment",
           "type": "string",
-          "enum": ["path", "query", "body"]
+          "enum": ["path","query", "header", "body"]
         },
         "schema": {
           "oneOf": [
@@ -186,6 +186,7 @@
           "$ref": "typeschema:Import"
         },
         "baseUrl": {
+          "description": "Optional the base url of the service, if provided the user does not need to provide a base url for your client",
           "type": "string"
         },
         "security": {
@@ -217,5 +218,5 @@
       }
     }
   },
-  "$ref": "TypeSchema"
+  "$ref": "TypeApi"
 }

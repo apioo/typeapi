@@ -1,0 +1,71 @@
+{
+  "operations": {
+    "todo.create": {
+      "description": "Inserts a new todo entry",
+      "method": "POST",
+      "path": "/todo",
+      "arguments": {
+        "payload": {
+          "in": "body",
+          "schema": {
+            "$ref": "Todo"
+          }
+        }
+      },
+      "return": {
+        "schema": {
+          "$ref": "Message"
+        }
+      },
+      "tags": ["todo"]
+    },
+    "product.create": {
+      "description": "Inserts a new product",
+      "method": "POST",
+      "path": "/product",
+      "arguments": {
+        "payload": {
+          "in": "body",
+          "schema": {
+            "$ref": "Product"
+          }
+        }
+      },
+      "return": {
+        "schema": {
+          "$ref": "Message"
+        }
+      },
+      "tags": ["product"]
+    }
+  },
+  "definitions": {
+    "Todo": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "Product": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        }
+      }
+    },
+    "Message": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

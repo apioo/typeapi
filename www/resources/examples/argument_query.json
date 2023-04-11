@@ -1,0 +1,49 @@
+{
+  "operations": {
+    "todo.create": {
+      "description": "Returns available todo entries",
+      "method": "GET",
+      "path": "/todo",
+      "arguments": {
+        "startIndex": {
+          "in": "query",
+          "schema": {
+            "type": "integer"
+          }
+        },
+        "count": {
+          "in": "query",
+          "schema": {
+            "type": "integer"
+          }
+        }
+      },
+      "return": {
+        "schema": {
+          "$ref": "Todos"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Todos": {
+      "type": "object",
+      "properties": {
+        "entries": {
+          "type": "array",
+          "items": {
+            "$ref": "Todo"
+          }
+        }
+      }
+    },
+    "Todo": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

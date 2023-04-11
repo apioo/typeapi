@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="<?php echo $base; ?>/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo $base; ?>/css/highlight.min.css">
   <link rel="stylesheet" href="<?php echo $base; ?>/css/app.css">
-  <link rel="canonical" href="<?php echo $router->getUrl($controller); ?>">
+  <link rel="canonical" href="<?php echo $router->getUrl($method); ?>">
   <script src="<?php echo $base; ?>/js/highlight.min.js"></script>
   <script src="<?php echo $base; ?>/js/jquery.min.js"></script>
   <script src="<?php echo $base; ?>/js/popper.min.js"></script>
@@ -26,13 +26,16 @@
   <a class="navbar-brand" href="<?php echo $url; ?>">TypeAPI</a>
   <ul class="navbar-nav mr-auto">
     <li class="nav-item">
-      <a class="nav-link" href="<?php echo $router->getAbsolutePath(\App\Website\Index::class); ?>">Home</a>
+      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Index::class, 'show']); ?>">Home</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="<?php echo $router->getAbsolutePath(\App\Website\Specification::class); ?>">Specification</a>
+      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Specification::class, 'show']); ?>">Specification</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="<?php echo $router->getAbsolutePath(\App\Website\Faq::class); ?>">FAQ</a>
+      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'show']); ?>">Generator</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Faq::class, 'show']); ?>">FAQ</a>
     </li>
   </ul>
   <a href="https://github.com/apioo/typeapi"><img src="<?php echo $base; ?>/img/github-32.png"></a>

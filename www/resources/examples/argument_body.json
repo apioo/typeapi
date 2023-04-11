@@ -1,32 +1,34 @@
 {
   "operations": {
-    "hello.world.getMessage": {
-      "description": "Returns a hello world message",
-      "method": "GET",
-      "path": "/hello/world",
-      "return": {
-        "schema": {
-          "$ref": "Hello_World"
+    "todo.create": {
+      "description": "Inserts a new todo entry",
+      "method": "POST",
+      "path": "/todo",
+      "arguments": {
+        "payload": {
+          "in": "body",
+          "schema": {
+            "$ref": "Todo"
+          }
         }
       },
-      "throws": [{
-        "code": 500,
+      "return": {
         "schema": {
-          "$ref": "Error"
+          "$ref": "Message"
         }
-      }]
+      }
     }
   },
   "definitions": {
-    "Hello_World": {
+    "Todo": {
       "type": "object",
       "properties": {
-        "message": {
+        "title": {
           "type": "string"
         }
       }
     },
-    "Error": {
+    "Message": {
       "type": "object",
       "properties": {
         "success": {
