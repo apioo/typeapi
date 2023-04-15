@@ -1,6 +1,6 @@
 {
   "operations": {
-    "hello.world.getMessage": {
+    "com.acme.api.hello.getMessage": {
       "description": "Returns a hello world message",
       "method": "GET",
       "path": "/hello/world",

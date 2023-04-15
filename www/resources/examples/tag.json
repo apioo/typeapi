@@ -1,6 +1,6 @@
 {
   "operations": {
-    "todo.create": {
+    "com.acme.api.todo.create": {
       "description": "Inserts a new todo entry",
       "method": "POST",
       "path": "/todo",
@@ -19,7 +19,7 @@
       },
       "tags": ["todo"]
     },
-    "product.create": {
+    "com.acme.api.product.create": {
       "description": "Inserts a new product",
       "method": "POST",
       "path": "/product",

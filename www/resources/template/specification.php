@@ -36,8 +36,16 @@
   <a id="Introduction"></a>
   <h2>Introduction</h2>
 
-  <p>This document describes the TypeAPI specification. TypeAPI is a JSON format to describe REST APIs. The goal of this
-  specification is to describe APIs in a way so that it is possible to generate complete type safe client and server code.</p>
+  <p>This document describes the TypeAPI specification. TypeAPI is a JSON format to describe REST APIs for type-safe
+  code generation.</p>
+
+  <a id="Goals"></a>
+  <h3>Goals</h3>
+
+  <p>dsfsdf</p>
+
+  <a id="Reasoning"></a>
+  <h3>Reasoning</h3>
   <p>What is the difference to OpenAPI? The main use case of OpenAPI and JsonSchema is to describe every aspect of an REST API,
   this means the focus is on documenting every possible parameter and payload. This is great for documentation but is a
   problem for code generation, since this flexibility makes code generation harder. TypeAPI on the other side is fully
@@ -45,8 +53,10 @@
   <p>Conceptual the main difference is that with OpenAPI you describe routes and all aspects of a route, at TypeAPI
   we describe operations, an operation has arguments and those arguments are mapped to values from the HTTP request.
   Every operation returns a response and can throw exceptions which are also mapped to a HTTP response. An operation
-  basically represents a method or function in a programming language. This approaches makes it really easy to generate
+  basically represents a method or function in a programming language. This approache makes it really easy to generate
   complete type safe and easy to use client and server code.</p>
+
+  <p>dsfsdf</p>
 
   <hr>
 
@@ -105,7 +115,7 @@
   <a id="Return"></a>
   <h4>Return</h4>
 
-  <p>Every operation ca define a return type. In the above example the operation simply returns a <code>Hello_World</code>
+  <p>Every operation can define a return type. In the above example the operation simply returns a <code>Hello_World</code>
   object.</p>
 
   <hr>
@@ -113,8 +123,8 @@
   <a id="Arguments"></a>
   <h4>Arguments</h4>
 
-  <p>Through arguments you can map values from the HTTP request to specific arguments. In this example we have an
-  argument <code>status</code> which maps to a query parameter and an argument <code>payload</code> which contains the
+  <p>Through arguments you can map values from the HTTP request to specific arguments. In the following example we have
+  an argument <code>status</code> which maps to a query parameter and an argument <code>payload</code> which contains
   the request payload.</p>
 
   <pre><code class="language-json">{
