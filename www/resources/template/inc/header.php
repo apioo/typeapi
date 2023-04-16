@@ -12,12 +12,13 @@
   <script src="<?php echo $base; ?>/js/popper.min.js"></script>
   <script src="<?php echo $base; ?>/js/bootstrap.min.js"></script>
   <title>TypeAPI</title>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BB1NL30RKL"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CL7811MFT"></script>
   <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-BB1NL30RKL', { 'anonymize_ip': true });
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-8CL7811MFT', { 'anonymize_ip': true });
   </script>
 </head>
 <body>
