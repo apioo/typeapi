@@ -2,11 +2,8 @@
 
 namespace App\Controller;
 
-use App\Model;
 use PSX\Api\Attribute\Get;
 use PSX\Api\Attribute\Path;
-use PSX\Api\Attribute\Tags;
-use PSX\Framework\Base;
 use PSX\Framework\Controller\ControllerAbstract;
 use PSX\Framework\Http\Writer\Template;
 use PSX\Framework\Loader\ReverseRouter;

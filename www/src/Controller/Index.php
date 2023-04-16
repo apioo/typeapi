@@ -7,15 +7,11 @@ use PSX\Api\Attribute\Get;
 use PSX\Api\Attribute\Path;
 use PSX\Api\GeneratorFactory;
 use PSX\Api\GeneratorFactoryInterface;
-use PSX\Framework\Config\Config;
+use PSX\Api\Parser\TypeAPI;
 use PSX\Framework\Config\ConfigInterface;
 use PSX\Framework\Controller\ControllerAbstract;
 use PSX\Framework\Http\Writer\Template;
 use PSX\Framework\Loader\ReverseRouter;
-use PSX\Http\Client\Client;
-use PSX\Api\Parser\TypeAPI;
-use Symfony\Component\DependencyInjection\ParameterBag\ContainerBag;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class Index extends ControllerAbstract
 {
