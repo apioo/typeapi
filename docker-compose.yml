@@ -1,6 +1,6 @@
 version: '3'
 services:
-  typeschema:
+  typeapi:
     image: ghcr.io/apioo/typeapi:main
     restart: always
     ports:
