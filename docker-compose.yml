@@ -3,9 +3,9 @@ services:
   typeapi:
     image: ghcr.io/apioo/typeapi:main
     environment:
-      APP_URL: https://typeapi.org
-      APP_ENV: prod
-      APP_DEBUG: off
+      APP_URL: "https://typeapi.org"
+      APP_ENV: "prod"
+      APP_DEBUG: "off"
     restart: always
     ports:
       - "9700:80"
