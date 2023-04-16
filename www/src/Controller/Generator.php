@@ -45,16 +45,19 @@ class Generator extends ControllerAbstract
     public function generate(Model\Generate $payload): mixed
     {
         try {
-            $specification = (new TypeAPI())->parse($payload->getSchema());
+            $type = $payload->getType() ?? throw new \RuntimeException('Provided no type');
+            $schema = $payload->getSchema() ?? throw new \RuntimeException('Provided no schema');
+
+            $specification = (new TypeAPI())->parse($schema);
 
             $factory = new GeneratorFactory('', '');
-            $generator = $factory->getGenerator($payload->getType());
-            $mime = $factory->getMime($payload->getType());
+            $generator = $factory->getGenerator($type);
+            $mime = $factory->getMime($type);
 
             $response = $generator->generate($specification);
 
             if ($response instanceof Chunks) {
-                $fileName = 'client_sdk_' . substr(md5($payload->getSchema()), 0, 8) . '.zip';
+                $fileName = 'client_sdk_' . substr(md5($schema), 0, 8) . '.zip';
                 $file = $this->directory->getCacheDir() . '/' . $fileName;
 
                 $response->writeTo($file);
