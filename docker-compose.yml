@@ -1,7 +1,7 @@
 version: '3'
 services:
   typeschema:
-    image: ghcr.io/apioo/typeapi:master
+    image: ghcr.io/apioo/typeapi:main
     restart: always
     ports:
       - "9700:80"
