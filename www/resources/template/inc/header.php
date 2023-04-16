@@ -34,9 +34,6 @@
     <li class="nav-item">
       <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'show']); ?>">Generator</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Faq::class, 'show']); ?>">FAQ</a>
-    </li>
   </ul>
   <a href="https://github.com/apioo/typeapi"><img src="<?php echo $base; ?>/img/github-32.png"></a>
 </nav>
