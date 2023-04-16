@@ -35,28 +35,40 @@
 
   <a id="Introduction"></a>
   <h2>Introduction</h2>
-
-  <p>This document describes the TypeAPI specification. TypeAPI is a JSON format to describe REST APIs for type-safe
-  code generation.</p>
+  <p>The TypeAPI specification defines a JSON format to describe REST APIs for type-safe code generation.</p>
 
   <a id="Goals"></a>
   <h3>Goals</h3>
+  <ul>
+    <li>Provide a format to generate clean and ready to use code</li>
+    <li>Provide a simple and stable specification where you can easily build a code generator</li>
+    <li>Optimized for static typed and object-oriented programming languages</li>
+  </ul>
 
-  <p>dsfsdf</p>
+  <a id="Goals"></a>
+  <h3>Non-Goals</h3>
+  <ul>
+    <li>Describe every possible REST API structure and JSON payload</li>
+    <li>Supporting many different Content-Types like XML or <code>x-www-form-urlencoded</code></li>
+    <li>Providing complex JSON validation capabilities</li>
+  </ul>
 
   <a id="Reasoning"></a>
   <h3>Reasoning</h3>
-  <p>What is the difference to OpenAPI? The main use case of OpenAPI and JsonSchema is to describe every aspect of an REST API,
-  this means the focus is on documenting every possible parameter and payload. This is great for documentation but is a
-  problem for code generation, since this flexibility makes code generation harder. TypeAPI on the other side is fully
-  targeted on code generation.</p>
-  <p>Conceptual the main difference is that with OpenAPI you describe routes and all aspects of a route, at TypeAPI
-  we describe operations, an operation has arguments and those arguments are mapped to values from the HTTP request.
-  Every operation returns a response and can throw exceptions which are also mapped to a HTTP response. An operation
-  basically represents a method or function in a programming language. This approache makes it really easy to generate
-  complete type safe and easy to use client and server code.</p>
-
-  <p>dsfsdf</p>
+  <p>For a long time the OpenAPI community was divided into two communities, one building documentation tools and the
+  other trying to build code generation tools. Building documentation tools has very different requirements than
+  building code generation tools. For a documentation tool you can simply render and show all defined endpoints and
+  constraints, a code generation tool on the other side needs to understand the structure and relations of your model.</p>
+  <p>The OpenAPI specification has moved more and more to the documentation community by directly integrating JSON
+  Schema into the specification. The problem with JSON Schema and code generation is, that JSON Schema is a constraint
+  system, based on such constraints it is very difficult or impossible to build a clean code generator since the
+  constraints only define what is not allowed. For a code generator you like to have a schema which explicit models your
+  data structure.</p>
+  <p>With TypeAPI we want build a new home for the code generation community. Conceptual the main difference is that with
+  OpenAPI you describe routes and all aspects of a route, at TypeAPI we describe operations, an operation has arguments
+  and those arguments are mapped to values from the HTTP request. Every operation returns a response and can throw
+  exceptions which are also mapped to a HTTP response. An operation basically represents a method or function in a
+  programming language. This approach makes it really easy to generate complete type safe code.</p>
 
   <hr>
 
@@ -184,7 +196,7 @@ Content-Type: application/json
   <p>Besides the return type an operation can return multiple exceptional states in case an error occurred. Every
   exceptional state is then mapped to a specific status code i.e. 404 or 500. The generated client SDK will then throw
   a fitting exception containing the JSON payload in case the server returns such an error response code. The client
-  will either return the success response or throw an exception. This greatly simplifies the error handling at your
+  will either return the success response or throw an exception. This greatly simplifies error handling at your
   client code.</p>
 
   <pre><code class="language-json">{
@@ -246,9 +258,9 @@ Content-Type: application/json
   <a id="Appendix"></a>
   <h2>Appendix</h2>
 
-  <p>The single source of truth of TypeAPI is the TypeSchema meta schema which describes itself. You can find the
-  current TypeSchema at our <a href="https://github.com/apioo/typeapi/blob/main/schema/schema.json">repository</a>.
-  The following section contains a HTML representation which we automatically generate from this meta schema.</p>
+  <p>The single source of truth of TypeAPI is the TypeSchema meta schema which describes the TypeAPI specification. You
+  can find the current TypeSchema at our <a href="https://github.com/apioo/typeapi/blob/main/schema/schema.json">repository</a>.
+  The following section contains a HTML representation which we automatically generate from this schema.</p>
 
   <?php echo $spec; ?>
 
