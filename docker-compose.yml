@@ -4,4 +4,4 @@ services:
     image: ghcr.io/apioo/typeapi:master
     restart: always
     ports:
-      - "9090:80"
+      - "9700:80"
