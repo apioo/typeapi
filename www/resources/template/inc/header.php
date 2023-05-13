@@ -34,5 +34,5 @@
       <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'show']); ?>">Generator</a>
     </li>
   </ul>
-  <a href="https://github.com/apioo/typeapi"><img src="<?php echo $base; ?>/img/github-32.png" width="32" alt="GitHub logo"></a>
+  <a href="https://github.com/apioo/typeapi"><img src="<?php echo $base; ?>/img/github-32.png" width="32" height="32" alt="GitHub logo"></a>
 </nav>
