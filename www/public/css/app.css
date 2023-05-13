@@ -1,11 +1,14 @@
 
-
 textarea {
   font-family: monospace;
 }
 
 .form-control, .btn {
   border-radius: 0;
+}
+
+.nav-link {
+  color:rgba(255,255,255,.8)
 }
 
 .example-box {
