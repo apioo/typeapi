@@ -9,10 +9,7 @@
   <link rel="preload" href="<?php echo $base; ?>/css/app.min.css" as="style" />
   <link rel="stylesheet" href="<?php echo $base; ?>/css/app.min.css">
   <link rel="canonical" href="<?php echo $router->getUrl($method); ?>">
-  <script async src="<?php echo $base; ?>/js/highlight.min.js"></script>
-  <script async src="<?php echo $base; ?>/js/jquery.min.js"></script>
-  <script async src="<?php echo $base; ?>/js/popper.min.js"></script>
-  <script async src="<?php echo $base; ?>/js/bootstrap.min.js"></script>
+  <script async src="<?php echo $base; ?>/js/app.min.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CL7811MFT"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
