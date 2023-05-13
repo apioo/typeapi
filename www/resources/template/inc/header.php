@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="An OpenAPI alternative to describe REST APIs for type-safe code generation.">
+  <meta name="keywords" content="OpenAPI, TypeAPI, REST, API, Code-Generation">
   <title>TypeAPI</title>
   <link rel="preload" href="<?php echo $base; ?>/css/app.min.css" as="style" />
   <link rel="stylesheet" href="<?php echo $base; ?>/css/app.min.css">
