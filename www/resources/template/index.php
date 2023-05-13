@@ -27,13 +27,13 @@ you have described your API with a TypeAPI specification you automatically get a
       <p class="lead"><?php echo $example->description; ?></p>
       </div>
     </div>
-    <div class="col-6">
+    <div class="col-md-6">
       <div class="psx-object">
         <h1>TypeAPI</h1>
         <div class="example-box"><pre><code class="json"><?php echo $example->schema; ?></code></pre></div>
       </div>
     </div>
-    <div class="col-6">
+    <div class="col-md-6">
       <div class="psx-object">
         <h1>Client SDK</h1>
         <div class="example-box"><pre><code class="javascript"><?php echo htmlspecialchars($example->code); ?></code></pre></div>
