@@ -7,10 +7,6 @@ textarea {
   border-radius: 0;
 }
 
-.nav-link {
-  color:rgba(255,255,255,.8)
-}
-
 .example-box {
   height:400px;
   overflow:auto;
