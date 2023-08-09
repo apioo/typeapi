@@ -100,6 +100,10 @@
               "$ref": "typeschema:ReferenceType"
             }
           ]
+        },
+        "name": {
+          "description": "Optional the actual path, query or header name. If not provided the key of the argument map is used",
+          "type": "string"
         }
       }
     },
