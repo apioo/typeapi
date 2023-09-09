@@ -35,7 +35,9 @@
 
   <a id="Introduction"></a>
   <h2>Introduction</h2>
-  <p>The TypeAPI specification defines a JSON format to describe REST APIs for type-safe code generation.</p>
+
+  <p>This document describes the <a href="https://app.typehub.cloud/d/typehub/typeapi">TypeAPI specification</a>. The
+  TypeAPI specification defines a JSON format to describe REST APIs for type-safe code generation.</p>
 
   <a id="Goals"></a>
   <h3>Goals</h3>
@@ -67,7 +69,7 @@
   <p>With TypeAPI we want build a new home for the code generation community. Conceptual the main difference is that with
   OpenAPI you describe routes and all aspects of a route, at TypeAPI we describe operations, an operation has arguments
   and those arguments are mapped to values from the HTTP request. Every operation returns a response and can throw
-  exceptions which are also mapped to a HTTP response. An operation basically represents a method or function in a
+  exceptions which are also mapped to an HTTP response. An operation basically represents a method or function in a
   programming language. This approach makes it really easy to generate complete type safe code.</p>
 
   <hr>
@@ -75,8 +77,8 @@
   <a id="Root"></a>
   <h2>Root</h2>
 
-  <p>Every TypeAPI has a <a href="#TypeAPI">Root</a> definition. The Root must contain at least the
-  <code>operations</code> and <code>definitions</code> keyword i.e.:</p>
+  <p>Every TypeAPI has a <a href="https://app.typehub.cloud/d/typehub/typeapi#type-TypeAPI">Root</a> definition. The
+  Root must contain at least the <code>operations</code> and <code>definitions</code> keyword i.e.:</p>
   <pre><code class="language-json">{
     "operations": {
         "com.acme.api.hello.getMessage": { ... },
@@ -92,10 +94,9 @@
   <a id="Operations"></a>
   <h3>Operations</h3>
 
-  <p>The <code>operations</code> keyword contains a map containing <a href="#Operation">Operation</a> objects. The key
-  represents the global identifier of this operation. In general we recommend to use as prefix for every operation key
-  the reverse name of your domain (i.e. <code>com.acme.api.myOperation</code>) which makes it globally unique. The
-  generated client code always uses the last part of your operation key as method name.</p>
+  <p>The <code>operations</code> keyword contains a map containing <a href="https://app.typehub.cloud/d/typehub/typeapi#type-Operation">Operation</a>
+  objects. The key represents the identifier of this operation, the generated client code always uses the last part of
+  your operation key as method name.</p>
 
   <pre><code class="language-json">{
     "operations": {
@@ -248,21 +249,12 @@ Content-Type: application/json
   <a id="Definitions"></a>
   <h3>Definitions</h3>
 
-  <p>The <code>definitions</code> keyword maps to the <a href="https://typeschema.org/specification#Root">TypeSchema</a>
-  specification and represents a map containing <a href="https://typeschema.org/specification#StructType">Struct</a>,
-  <a href="https://typeschema.org/specification#MapType">Map</a> and <a href="https://typeschema.org/specification#ReferenceType">Reference</a>
+  <p>The <code>definitions</code> keyword maps to the <a href="https://app.typehub.cloud/d/typehub/typeschema">TypeSchema</a>
+  specification and represents a map containing <a href="https://app.typehub.cloud/d/typehub/typeschema#type-StructType">Struct</a>,
+  <a href="https://app.typehub.cloud/d/typehub/typeschema#type-MapType">Map</a> and <a href="https://app.typehub.cloud/d/typehub/typeschema#type-ReferenceType">Reference</a>
   types. Those types are then used to describe incoming and outgoing JSON payloads.</p>
 
   <hr>
-
-  <a id="Appendix"></a>
-  <h2>Appendix</h2>
-
-  <p>The single source of truth of TypeAPI is the TypeSchema meta schema which describes the TypeAPI specification. You
-  can find the current TypeSchema at our <a href="https://github.com/apioo/typeapi/blob/main/schema/schema.json">repository</a>.
-  The following section contains a HTML representation which we automatically generate from this schema.</p>
-
-  <?php echo $spec; ?>
 
   <div class="typeschema-edit">
     <a href="https://github.com/apioo/typeapi/blob/main/www/resources/template/<?php echo pathinfo(__FILE__, PATHINFO_BASENAME); ?>"><i class="bi bi-pencil"></i> Edit this page</a>
