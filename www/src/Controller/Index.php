@@ -3,12 +3,11 @@
 namespace App\Controller;
 
 use Psr\Cache\CacheItemPoolInterface;
+use PSX\Api\ApiManagerInterface;
 use PSX\Api\Attribute\Get;
 use PSX\Api\Attribute\Path;
 use PSX\Api\GeneratorFactory;
-use PSX\Api\GeneratorFactoryInterface;
-use PSX\Api\Parser\TypeAPI;
-use PSX\Framework\Config\ConfigInterface;
+use PSX\Api\Repository\LocalRepository;
 use PSX\Framework\Controller\ControllerAbstract;
 use PSX\Framework\Http\Writer\Template;
 use PSX\Framework\Loader\ReverseRouter;
@@ -17,13 +16,15 @@ class Index extends ControllerAbstract
 {
     private CacheItemPoolInterface $cache;
     private ReverseRouter $reverseRouter;
-    private ConfigInterface $config;
+    private ApiManagerInterface $apiManager;
+    private GeneratorFactory $generatorFactory;
 
-    public function __construct(CacheItemPoolInterface $cache, ReverseRouter $reverseRouter, ConfigInterface $config)
+    public function __construct(CacheItemPoolInterface $cache, ReverseRouter $reverseRouter, ApiManagerInterface $apiManager, GeneratorFactory $generatorFactory)
     {
         $this->cache = $cache;
         $this->reverseRouter = $reverseRouter;
-        $this->config = $config;
+        $this->apiManager = $apiManager;
+        $this->generatorFactory = $generatorFactory;
     }
 
     #[Get]
@@ -34,7 +35,8 @@ class Index extends ControllerAbstract
         if (!$item->isHit()) {
             $examples = $this->getExamples();
             foreach ($examples as $key => $example) {
-                $examples[$key]['code'] = $this->convert(GeneratorFactoryInterface::MARKUP_CLIENT, $example['schema']);
+                $examples[$key]['schema'] = file_get_contents($example['file']);
+                $examples[$key]['code'] = $this->convert(LocalRepository::MARKUP_CLIENT, $example['file']);
             }
 
             $item->expiresAfter(null);
@@ -54,13 +56,10 @@ class Index extends ControllerAbstract
     }
 
 
-    private function convert(string $type, string $code): string
+    private function convert(string $type, string $file): string
     {
-        $parser = new TypeAPI(__DIR__ . '/../../resources/examples');
-        $schema = $parser->parse($code);
-
-        $factory = new GeneratorFactory($this->config->get('psx_url'), $this->config->get('psx_dispatch'));
-        $generator = $factory->getGenerator($type);
+        $schema = $this->apiManager->getApi($file);
+        $generator = $this->generatorFactory->factory()->getGenerator($type);
 
         return (string) $generator->generate($schema);
     }
@@ -71,31 +70,31 @@ class Index extends ControllerAbstract
         $examples[] = [
             'title' => 'Simple API',
             'description' => 'A simple GET endpoint which returns a hello world message.',
-            'schema' => file_get_contents(__DIR__ . '/../../resources/examples/simple.json'),
+            'file' => __DIR__ . '/../../resources/examples/simple.json',
         ];
 
         $examples[] = [
             'title' => 'Argument Query',
             'description' => 'Through the arguments keyword you can map values from the HTTP request to an argument, in this example we map the HTTP query parameters to the <code>startIndex</code> and <code>count</code> argument',
-            'schema' => file_get_contents(__DIR__ . '/../../resources/examples/argument_query.json'),
+            'file' => __DIR__ . '/../../resources/examples/argument_query.json',
         ];
 
         $examples[] = [
             'title' => 'Argument Body',
             'description' => 'In this example we map the HTTP request body to the <code>payload</code> argument',
-            'schema' => file_get_contents(__DIR__ . '/../../resources/examples/argument_body.json'),
+            'file' => __DIR__ . '/../../resources/examples/argument_body.json',
         ];
 
         $examples[] = [
             'title' => 'Throws',
             'description' => 'Through the throws keyword you can define specific error payloads, the generated client will then also throw an exception in case the server returns such an error code',
-            'schema' => file_get_contents(__DIR__ . '/../../resources/examples/exception.json'),
+            'file' => __DIR__ . '/../../resources/examples/exception.json',
         ];
 
         $examples[] = [
             'title' => 'Tags',
             'description' => 'Through a tag you can group operations',
-            'schema' => file_get_contents(__DIR__ . '/../../resources/examples/tag.json'),
+            'file' => __DIR__ . '/../../resources/examples/tag.json',
         ];
 
         return $examples;
