@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model;
+use PSX\Api\ApiManagerInterface;
 use PSX\Api\Attribute\Get;
 use PSX\Api\Attribute\Path;
 use PSX\Api\Attribute\Post;
@@ -15,16 +16,21 @@ use PSX\Framework\Loader\ReverseRouter;
 use PSX\Http\Environment\HttpResponse;
 use PSX\Http\Writer\File;
 use PSX\Schema\Generator\Code\Chunks;
+use PSX\Schema\SchemaManagerInterface;
 
 class Generator extends ControllerAbstract
 {
     private ReverseRouter $reverseRouter;
     private Directory $directory;
+    private GeneratorFactory $generatorFactory;
+    private SchemaManagerInterface $schemaManager;
 
-    public function __construct(ReverseRouter $reverseRouter, Directory $directory)
+    public function __construct(ReverseRouter $reverseRouter, Directory $directory, GeneratorFactory $generatorFactory, SchemaManagerInterface $schemaManager)
     {
         $this->reverseRouter = $reverseRouter;
         $this->directory = $directory;
+        $this->generatorFactory = $generatorFactory;
+        $this->schemaManager = $schemaManager;
     }
 
     #[Get]
@@ -32,7 +38,7 @@ class Generator extends ControllerAbstract
     public function show(): mixed
     {
         $data = [
-            'types' => GeneratorFactory::getPossibleTypes(),
+            'types' => $this->generatorFactory->factory()->getPossibleTypes(),
             'method' => explode('::', __METHOD__),
         ];
 
@@ -44,16 +50,16 @@ class Generator extends ControllerAbstract
     #[Path('/generator')]
     public function generate(Model\Generate $payload): mixed
     {
+        $repository = $this->generatorFactory->factory();
+
         try {
             $type = $payload->getType() ?? throw new \RuntimeException('Provided no type');
             $schema = $payload->getSchema() ?? throw new \RuntimeException('Provided no schema');
 
-            $specification = (new TypeAPI())->parse($schema);
+            $specification = (new TypeAPI($this->schemaManager))->parse($schema);
 
-            $factory = new GeneratorFactory('', '');
-            $generator = $factory->getGenerator($type);
-            $mime = $factory->getMime($type);
-
+            $generator = $repository->getGenerator($type);
+            $mime = $repository->getMime($type);
             $response = $generator->generate($specification);
 
             if ($response instanceof Chunks) {
@@ -68,7 +74,7 @@ class Generator extends ControllerAbstract
             }
         } catch (\Throwable $e) {
             $data = [
-                'types' => GeneratorFactory::getPossibleTypes(),
+                'types' => $repository->getPossibleTypes(),
                 'method' => explode('::', __METHOD__),
                 'error' => $e->getMessage()
             ];
