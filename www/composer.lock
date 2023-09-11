@@ -1600,16 +1600,16 @@
         },
         {
             "name": "psx/api",
-            "version": "v5.3.7",
+            "version": "v5.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/apioo/psx-api.git",
-                "reference": "401005e4c79fd9432388b4a01fc3227f7a47908a"
+                "reference": "f209d5d0594f96fce1e3f3f2ea1d6c1e29ff20f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/apioo/psx-api/zipball/401005e4c79fd9432388b4a01fc3227f7a47908a",
-                "reference": "401005e4c79fd9432388b4a01fc3227f7a47908a",
+                "url": "https://api.github.com/repos/apioo/psx-api/zipball/f209d5d0594f96fce1e3f3f2ea1d6c1e29ff20f0",
+                "reference": "f209d5d0594f96fce1e3f3f2ea1d6c1e29ff20f0",
                 "shasum": ""
             },
             "require": {
@@ -1659,7 +1659,7 @@
             ],
             "support": {
                 "issues": "https://github.com/apioo/psx-api/issues",
-                "source": "https://github.com/apioo/psx-api/tree/v5.3.7"
+                "source": "https://github.com/apioo/psx-api/tree/v5.4.0"
             },
             "funding": [
                 {
@@ -1675,7 +1675,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-09-08T20:36:09+00:00"
+            "time": "2023-09-10T22:24:35+00:00"
         },
         {
             "name": "psx/data",
@@ -1885,16 +1885,16 @@
         },
         {
             "name": "psx/framework",
-            "version": "v7.4.0",
+            "version": "v7.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/apioo/psx-framework.git",
-                "reference": "84245344b8bbed26c3f87fec3069f44eaea07b8e"
+                "reference": "c87c12e838477c54b334d8a8a384b991e69cb29d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/apioo/psx-framework/zipball/84245344b8bbed26c3f87fec3069f44eaea07b8e",
-                "reference": "84245344b8bbed26c3f87fec3069f44eaea07b8e",
+                "url": "https://api.github.com/repos/apioo/psx-framework/zipball/c87c12e838477c54b334d8a8a384b991e69cb29d",
+                "reference": "c87c12e838477c54b334d8a8a384b991e69cb29d",
                 "shasum": ""
             },
             "require": {
@@ -1954,7 +1954,7 @@
             ],
             "support": {
                 "issues": "https://github.com/apioo/psx-framework/issues",
-                "source": "https://github.com/apioo/psx-framework/tree/v7.4.0"
+                "source": "https://github.com/apioo/psx-framework/tree/v7.4.1"
             },
             "funding": [
                 {
@@ -1970,7 +1970,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-09-03T09:13:29+00:00"
+            "time": "2023-09-11T18:41:23+00:00"
         },
         {
             "name": "psx/http",

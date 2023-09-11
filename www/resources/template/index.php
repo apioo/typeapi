@@ -13,12 +13,6 @@
   </div>
 </div>
 
-<div class="me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center">
-<p class="lead font-weight-normal">Our goal is to remove the need to develop custom client SDKs for an REST API.<br>Once
-you have described your API with a TypeAPI specification you automatically get a ready to use client SDK.</p>
-</div>
-<hr>
-
 <?php foreach($examples as $key => $example): ?>
 <div class="container">
   <div class="row">

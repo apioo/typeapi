@@ -81,7 +81,7 @@
   Root must contain at least the <code>operations</code> and <code>definitions</code> keyword i.e.:</p>
   <pre><code class="language-json">{
     "operations": {
-        "com.acme.api.hello.getMessage": { ... },
+        "getMessage": { ... },
     },
     "definitions": {
         "TypeA": { ... },
@@ -95,12 +95,12 @@
   <h3>Operations</h3>
 
   <p>The <code>operations</code> keyword contains a map containing <a href="https://app.typehub.cloud/d/typehub/typeapi#type-Operation">Operation</a>
-  objects. The key represents the identifier of this operation, the generated client code always uses the last part of
-  your operation key as method name.</p>
+  objects. The key represents the identifier of this operation, through the dot notation i.e. <code>user.getMessage</code> you can group your
+  operations into logical units.</p>
 
   <pre><code class="language-json">{
     "operations": {
-        "com.acme.api.hello.getMessage": {
+        "getMessage": {
             "description": "Returns a hello world message",
             "method": "GET",
             "path": "/hello/world",
@@ -136,13 +136,13 @@
   <a id="Arguments"></a>
   <h4>Arguments</h4>
 
-  <p>Through arguments you can map values from the HTTP request to specific arguments. In the following example we have
-  an argument <code>status</code> which maps to a query parameter and an argument <code>payload</code> which contains
-  the request payload.</p>
+  <p>Through <code>arguments</code> keywords you can map values from the HTTP request to specific method arguments. In
+  the following example we have an argument <code>status</code> which maps to a query parameter and an argument
+  <code>payload</code> which contains the request payload.</p>
 
   <pre><code class="language-json">{
     "operations": {
-        "com.acme.api.hello.insertMessage": {
+        "insertMessage": {
             "description": "Inserts and returns a hello world message",
             "method": "POST",
             "path": "/hello/world",
@@ -195,14 +195,14 @@ Content-Type: application/json
   <h4>Throws</h4>
 
   <p>Besides the return type an operation can return multiple exceptional states in case an error occurred. Every
-  exceptional state is then mapped to a specific status code i.e. 404 or 500. The generated client SDK will then throw
-  a fitting exception containing the JSON payload in case the server returns such an error response code. The client
-  will either return the success response or throw an exception. This greatly simplifies error handling at your
-  client code.</p>
+  exceptional state is then mapped to a specific status code i.e. <code>404</code> or <code>500</code>. The generated
+  client SDK will then throw a fitting exception containing the JSON payload in case the server returns such an error
+  response code. The client will either return the success response or throw an exception. This greatly simplifies error
+  handling at your client code.</p>
 
   <pre><code class="language-json">{
     "operations": {
-        "com.acme.api.hello.getMessage": {
+        "getMessage": {
             "description": "Returns a hello world message",
             "method": "POST",
             "path": "/hello/world",

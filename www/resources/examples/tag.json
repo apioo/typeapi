@@ -1,6 +1,6 @@
 {
   "operations": {
-    "com.acme.api.todo.create": {
+    "todo.create": {
       "description": "Inserts a new todo entry",
       "method": "POST",
       "path": "/todo",
@@ -16,10 +16,9 @@
         "schema": {
           "$ref": "Message"
         }
-      },
-      "tags": ["todo"]
+      }
     },
-    "com.acme.api.product.create": {
+    "product.create": {
       "description": "Inserts a new product",
       "method": "POST",
       "path": "/product",
@@ -35,8 +34,7 @@
         "schema": {
           "$ref": "Message"
         }
-      },
-      "tags": ["product"]
+      }
     }
   },
   "definitions": {

@@ -30,7 +30,7 @@
           <label for="schema" class="form-label">Schema</label>
           <textarea class="form-control" name="schema" id="schema" rows="16">{
   "operations": {
-    "com.acme.api.hello.getMessage": {
+    "getMessage": {
       "description": "Returns a hello world message",
       "method": "GET",
       "path": "/hello/world",

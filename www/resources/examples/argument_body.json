@@ -1,6 +1,6 @@
 {
   "operations": {
-    "com.acme.api.todo.create": {
+    "create": {
       "description": "Inserts a new todo entry",
       "method": "POST",
       "path": "/todo",

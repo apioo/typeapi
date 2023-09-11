@@ -1,6 +1,6 @@
 {
   "operations": {
-    "com.acme.api.todo.getAll": {
+    "getAll": {
       "description": "Returns available todo entries",
       "method": "GET",
       "path": "/todo",
