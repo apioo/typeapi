@@ -1,10 +1,10 @@
 
 <?php include __DIR__ . '/inc/header.php'; ?>
 
-<div class="jumbotron">
+<div class="jumbotron" style="background:url('<?php echo $base; ?>/img/header_bg.png');background-size:cover;background-repeat:no-repeat;background-position:top center;background-color:#222;">
   <div class="container" style="text-align: center">
-    <h1 class="display-4">TypeAPI</h1>
-    <p class="lead">An OpenAPI alternative to describe REST APIs for type-safe code generation.</p>
+    <h1 class="display-4 text-white">TypeAPI</h1>
+    <p class="lead text-white">An OpenAPI alternative to describe REST APIs for type-safe code generation.</p>
     <p>
       <a class="btn btn-primary" href="<?php echo $router->getAbsolutePath([\App\Controller\Specification::class, 'show']); ?>" role="button">Specification</a>
       <a class="btn btn-secondary" href="https://sandbox.typeapi.org" role="button">Editor</a>

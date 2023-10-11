@@ -11,12 +11,16 @@
 
   <h1 class="display-4">Specification</h1>
 
+  <p class="lead">This document describes the <a href="https://app.typehub.cloud/d/typehub/typeapi">TypeAPI specification</a>.
+  The TypeAPI specification defines a JSON format to describe REST APIs for type-safe code generation.</p>
+
   <hr>
 
-  <h2>Table of Contents</h2>
   <ul>
-    <li><a href="#Introduction">Introduction</a></li>
-    <li><a href="#Root">Root</a>
+    <li><a href="#Goals">Goals</a>
+    <li><a href="#Non-Goals">Non-Goals</a>
+    <li><a href="#Reasoning">Reasoning</a>
+    <li><a href="#Schema">Schema</a>
       <ul>
         <li><a href="#Operations">Operations</a>
         <ul>
@@ -28,16 +32,9 @@
         <li><a href="#Definitions">Definitions</a></li>
       </ul>
     </li>
-    <li><a href="#Appendix">Appendix</a></li>
   </ul>
 
   <hr>
-
-  <a id="Introduction"></a>
-  <h2>Introduction</h2>
-
-  <p>This document describes the <a href="https://app.typehub.cloud/d/typehub/typeapi">TypeAPI specification</a>. The
-  TypeAPI specification defines a JSON format to describe REST APIs for type-safe code generation.</p>
 
   <a id="Goals"></a>
   <h3>Goals</h3>
@@ -47,7 +44,7 @@
     <li>Optimized for static typed and object-oriented programming languages</li>
   </ul>
 
-  <a id="Goals"></a>
+  <a id="Non-Goals"></a>
   <h3>Non-Goals</h3>
   <ul>
     <li>Describe every possible REST API structure and JSON payload</li>
@@ -74,8 +71,8 @@
 
   <hr>
 
-  <a id="Root"></a>
-  <h2>Root</h2>
+  <a id="Schema"></a>
+  <h2>Schema</h2>
 
   <p>Every TypeAPI has a <a href="https://app.typehub.cloud/d/typehub/typeapi#type-TypeAPI">Root</a> definition. The
   Root must contain at least the <code>operations</code> and <code>definitions</code> keyword i.e.:</p>

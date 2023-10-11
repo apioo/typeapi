@@ -12,8 +12,10 @@
   <?php if(isset($error)): ?>
     <div class="alert alert-danger"><?php echo $error; ?></div>
   <?php else: ?>
-    <div class="alert alert-info">This generator gives you access to our reference code generator implementation, you can enter a TypeAPI
-    specification and select a target output format to generate a fitting client.</div>
+    <div class="alert alert-info">This generator gives you access to our reference code generator implementation, you
+    can enter a TypeAPI specification and select a target output format to generate a fitting client. Please take a look
+    at the <a href="<?php echo $router->getAbsolutePath([\App\Controller\Ecosystem::class, 'show']); ?>">environment</a>
+    page to see available code generator services.</div>
   <?php endif; ?>
   <div class="row">
     <div class="col-12">
