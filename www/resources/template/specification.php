@@ -37,7 +37,7 @@
   <hr>
 
   <a id="Goals"></a>
-  <h3>Goals</h3>
+  <h2>Goals</h2>
   <ul>
     <li>Provide a format to generate clean and ready to use code</li>
     <li>Provide a simple and stable specification where you can easily build a code generator</li>
@@ -45,7 +45,7 @@
   </ul>
 
   <a id="Non-Goals"></a>
-  <h3>Non-Goals</h3>
+  <h2>Non-Goals</h2>
   <ul>
     <li>Describe every possible REST API structure and JSON payload</li>
     <li>Supporting many different Content-Types like XML or <code>x-www-form-urlencoded</code></li>
@@ -53,7 +53,7 @@
   </ul>
 
   <a id="Reasoning"></a>
-  <h3>Reasoning</h3>
+  <h2>Reasoning</h2>
   <p>For a long time the OpenAPI community was divided into two communities, one building documentation tools and the
   other trying to build code generation tools. Building documentation tools has very different requirements than
   building code generation tools. For a documentation tool you can simply render and show all defined endpoints and

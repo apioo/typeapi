@@ -24,13 +24,13 @@
     </div>
     <div class="col-md-6">
       <div class="psx-object">
-        <h1>TypeAPI</h1>
+        <h3>TypeAPI</h3>
         <div class="example-box"><pre><code class="json"><?php echo $example->schema; ?></code></pre></div>
       </div>
     </div>
     <div class="col-md-6">
       <div class="psx-object">
-        <h1>Client SDK</h1>
+        <h3>Client SDK</h3>
         <div class="example-box"><pre><code class="javascript"><?php echo htmlspecialchars($example->code); ?></code></pre></div>
       </div>
     </div>

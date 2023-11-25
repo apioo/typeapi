@@ -22,7 +22,7 @@
   <hr>
 
   <a id="Generator"></a>
-  <h3>Generator</h3>
+  <h2>Generator</h2>
 
   <p>The following script is a very naive generator implementation which should show how to read a TypeAPI specification
   and produce a different output. In this case we simply generate a documentation format but it should give a good

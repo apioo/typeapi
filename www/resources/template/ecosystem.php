@@ -11,9 +11,11 @@
 
   <h1 class="display-4">Ecosystem</h1>
 
-  <p class="lead">The following page shows different services working with the TypeAPI specification.</p>
+  <p class="lead">The following page shows different services and tools working with the TypeAPI specification.</p>
 
   <hr>
+
+  <h2>Services</h2>
 
   <a id="SDKgen"></a>
   <h3><a href="https://sdkgen.app/">SDKgen</a></h3>
@@ -32,6 +34,21 @@
   integrated with TypeAPI and it can automatically generate a TypeAPI specification.</p>
 
   <hr>
+
+  <h2>Tools</h2>
+
+  <a id="TypeAPI-Editor"></a>
+  <h3><a href="https://github.com/apioo/typeschema-angular-editor">TypeAPI-Editor</a></h3>
+  <p>Angular component which allows you to build and view TypeAPI specifications. We provide a current version at
+  our <a href="https://sandbox.typeapi.org/">Sandbox</a> page.</p>
+
+  <a id="SDKgen-Generator-Action"></a>
+  <h3><a href="https://github.com/apioo/sdkgen-generator-action">SDKgen-Generator-Action</a></h3>
+  <p>GitHub action which allows you to generate code through a GitHub workflow action.</p>
+
+  <a id="SDKgen-Generator-CLI"></a>
+  <h3><a href="https://github.com/apioo/sdkgen-cli">SDKgen-Generator-CLI</a></h3>
+  <p>A simple binary written in go which allows you to generate code.</p>
 
   <div class="typeschema-edit">
     <a href="https://github.com/apioo/typeapi/blob/main/www/resources/template/<?php echo pathinfo(__FILE__, PATHINFO_BASENAME); ?>"><i class="bi bi-pencil"></i> Edit this page</a>
