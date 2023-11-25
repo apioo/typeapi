@@ -14,12 +14,12 @@
   <?php else: ?>
     <div class="alert alert-info">This generator gives you access to our reference code generator implementation, you
     can enter a TypeAPI specification and select a target output format to generate a fitting client. Please take a look
-    at the <a href="<?php echo $router->getAbsolutePath([\App\Controller\Ecosystem::class, 'show']); ?>">environment</a>
+    at the <a href="<?php echo $router->getAbsolutePath([\App\Controller\Ecosystem::class, 'show']); ?>">ecosystem</a>
     page to see available code generator services.</div>
   <?php endif; ?>
   <div class="row">
     <div class="col-12">
-      <form method="POST">
+      <form method="POST" id="generatorForm">
         <div class="mb-3">
           <label for="type" class="form-label">Format</label>
           <select name="type" id="type" class="form-control">
@@ -55,7 +55,7 @@
   }
 }</textarea>
         </div>
-        <input type="submit" class="btn btn-primary" value="Generate">
+        <button class="g-recaptcha btn btn-primary" data-sitekey="<?php echo $recaptcha_key; ?>" data-callback="onSubmit" data-action="submit">Generate</button>
       </form>
     </div>
   </div>
@@ -64,5 +64,11 @@
     <a href="https://github.com/apioo/typeapi/blob/main/www/resources/template/<?php echo pathinfo(__FILE__, PATHINFO_BASENAME); ?>"><i class="bi bi-pencil"></i> Edit this page</a>
   </div>
 </div>
+
+<script>
+function onSubmit(token) {
+  document.getElementById("generatorForm").submit();
+}
+</script>
 
 <?php include __DIR__ . '/inc/footer.php'; ?>

@@ -48,6 +48,7 @@ class Index extends ControllerAbstract
 
         $data = [
             'method' => explode('::', __METHOD__),
+            'title' => 'OpenAPI alternative for type-safe code generation | TypeAPI',
             'examples' => $examples
         ];
 

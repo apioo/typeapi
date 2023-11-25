@@ -23,6 +23,7 @@ class Ecosystem extends ControllerAbstract
     {
         $data = [
             'method' => explode('::', __METHOD__),
+            'title' => 'Ecosystem | TypeAPI',
         ];
 
         $templateFile = __DIR__ . '/../../resources/template/ecosystem.php';

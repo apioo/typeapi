@@ -1,7 +1,7 @@
 
 <?php include __DIR__ . '/inc/header.php'; ?>
 
-<div class="jumbotron" style="background:url('<?php echo $base; ?>/img/header_bg.png');background-size:cover;background-repeat:no-repeat;background-position:top center;background-color:#222;">
+<div class="jumbotron" style="background:url('<?php echo $base; ?>/img/header_bg.png');background-size:cover;background-repeat:no-repeat;background-position:top center;background-color:#222;border-radius:0">
   <div class="container" style="text-align: center">
     <h1 class="display-4 text-white">TypeAPI</h1>
     <p class="lead text-white">An OpenAPI alternative to describe REST APIs for type-safe code generation.</p>

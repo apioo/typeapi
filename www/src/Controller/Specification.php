@@ -23,6 +23,7 @@ class Specification extends ControllerAbstract
     {
         $data = [
             'method' => explode('::', __METHOD__),
+            'title' => 'Specification | TypeAPI',
         ];
 
         $templateFile = __DIR__ . '/../../resources/template/specification.php';

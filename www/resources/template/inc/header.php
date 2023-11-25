@@ -5,13 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="An OpenAPI alternative to describe REST APIs for type-safe code generation.">
   <meta name="keywords" content="OpenAPI, TypeAPI, REST, API, Code-Generation">
-  <title>TypeAPI</title>
+  <title><?php echo $title ?? 'TypeAPI'; ?></title>
   <link rel="preload" href="<?php echo $base; ?>/css/app.min.css" as="style" />
   <link rel="preload" href="<?php echo $base; ?>/js/app.min.js" as="script" />
   <link rel="stylesheet" href="<?php echo $base; ?>/css/app.min.css">
   <link rel="canonical" href="<?php echo $router->getUrl($method); ?>">
   <script async src="<?php echo $base; ?>/js/app.min.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CL7811MFT"></script>
+<?php if (isset($js) && is_array($js)): ?>
+<?php foreach ($js as $link): ?><script src="<?php echo $link; ?>"></script>
+<?php endforeach; ?>
+<?php endif; ?>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
