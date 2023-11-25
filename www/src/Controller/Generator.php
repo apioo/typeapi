@@ -63,7 +63,8 @@ class Generator extends ControllerAbstract
         $repository = $this->generatorFactory->factory();
 
         try {
-            if (!$this->captchaVerifier->verify($payload->getGRecaptchaResponse())) {
+            $recaptchaSecret = $this->config->get('recaptcha_secret');
+            if (!empty($recaptchaSecret) && !$this->captchaVerifier->verify($payload->getGRecaptchaResponse())) {
                 throw new BadRequestException('Invalid captcha');
             }
 
