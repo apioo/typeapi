@@ -19,7 +19,7 @@ class CaptchaVerifier
 
     public function verify(?string $recaptchaResponse): bool
     {
-        if (empty($recaptchaResponse)) {
+        if ($recaptchaResponse === null) {
             return false;
         }
 
