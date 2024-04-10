@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Model;
 use App\Service\CaptchaVerifier;
-use PSX\Api\ApiManagerInterface;
 use PSX\Api\Attribute\Get;
 use PSX\Api\Attribute\Path;
 use PSX\Api\Attribute\Post;
@@ -44,8 +43,12 @@ class Generator extends ControllerAbstract
     #[Path('/generator')]
     public function show(): mixed
     {
+        $types = $this->generatorFactory->factory()->getPossibleTypes();
+        sort($types);
+        $types = array_filter($types, fn (string $type) => str_starts_with($type, 'client-'));
+
         $data = [
-            'types' => $this->generatorFactory->factory()->getPossibleTypes(),
+            'types' => $types,
             'method' => explode('::', __METHOD__),
             'title' => 'SDK Code Generator | TypeAPI',
             'js' => ['https://www.google.com/recaptcha/api.js'],
@@ -78,7 +81,7 @@ class Generator extends ControllerAbstract
             $response = $generator->generate($specification);
 
             if ($response instanceof Chunks) {
-                $fileName = 'client_sdk_' . substr(md5($schema), 0, 8) . '.zip';
+                $fileName = 'client_sdk_' . substr(md5($generator::class . $schema), 0, 8) . '.zip';
                 $file = $this->directory->getCacheDir() . '/' . $fileName;
 
                 $response->writeTo($file);
