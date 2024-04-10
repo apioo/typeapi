@@ -1191,16 +1191,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.27.0",
+            "version": "1.28.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "86e4d5a4b036f8f0be1464522f4c6b584c452757"
+                "reference": "cd06d6b1a1b3c75b0b83f97577869fd85a3cd4fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/86e4d5a4b036f8f0be1464522f4c6b584c452757",
-                "reference": "86e4d5a4b036f8f0be1464522f4c6b584c452757",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/cd06d6b1a1b3c75b0b83f97577869fd85a3cd4fb",
+                "reference": "cd06d6b1a1b3c75b0b83f97577869fd85a3cd4fb",
                 "shasum": ""
             },
             "require": {
@@ -1232,9 +1232,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.27.0"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.28.0"
             },
-            "time": "2024-03-21T13:14:53+00:00"
+            "time": "2024-04-03T18:51:33+00:00"
         },
         {
             "name": "psr/cache",
@@ -1726,16 +1726,16 @@
         },
         {
             "name": "psx/data",
-            "version": "v6.0.0",
+            "version": "v6.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/apioo/psx-data.git",
-                "reference": "5474718d44d79bbd96937062ff6882ddfa35ba03"
+                "reference": "671f84e41ab50deb66b1e818ad001f43f19d4382"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/apioo/psx-data/zipball/5474718d44d79bbd96937062ff6882ddfa35ba03",
-                "reference": "5474718d44d79bbd96937062ff6882ddfa35ba03",
+                "url": "https://api.github.com/repos/apioo/psx-data/zipball/671f84e41ab50deb66b1e818ad001f43f19d4382",
+                "reference": "671f84e41ab50deb66b1e818ad001f43f19d4382",
                 "shasum": ""
             },
             "require": {
@@ -1781,7 +1781,7 @@
             ],
             "support": {
                 "issues": "https://github.com/apioo/psx-data/issues",
-                "source": "https://github.com/apioo/psx-data/tree/v6.0.0"
+                "source": "https://github.com/apioo/psx-data/tree/v6.0.2"
             },
             "funding": [
                 {
@@ -1797,7 +1797,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2023-11-11T17:47:47+00:00"
+            "time": "2024-04-06T09:08:36+00:00"
         },
         {
             "name": "psx/datetime",
@@ -2426,16 +2426,16 @@
         },
         {
             "name": "psx/schema",
-            "version": "v6.1.3",
+            "version": "v6.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/apioo/psx-schema.git",
-                "reference": "b8bfb0f95c5d0c32a0af9af989beff42b75b5500"
+                "reference": "eec184cd8b34b66e91267d480fe40824c7174a45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/apioo/psx-schema/zipball/b8bfb0f95c5d0c32a0af9af989beff42b75b5500",
-                "reference": "b8bfb0f95c5d0c32a0af9af989beff42b75b5500",
+                "url": "https://api.github.com/repos/apioo/psx-schema/zipball/eec184cd8b34b66e91267d480fe40824c7174a45",
+                "reference": "eec184cd8b34b66e91267d480fe40824c7174a45",
                 "shasum": ""
             },
             "require": {
@@ -2487,7 +2487,7 @@
             ],
             "support": {
                 "issues": "https://github.com/apioo/psx-schema/issues",
-                "source": "https://github.com/apioo/psx-schema/tree/v6.1.3"
+                "source": "https://github.com/apioo/psx-schema/tree/v6.2.1"
             },
             "funding": [
                 {
@@ -2503,7 +2503,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2024-04-02T19:49:55+00:00"
+            "time": "2024-04-10T17:11:11+00:00"
         },
         {
             "name": "psx/sql",
