@@ -45,7 +45,7 @@ class Generator extends ControllerAbstract
     {
         $types = $this->generatorFactory->factory()->getPossibleTypes();
         sort($types);
-        $types = array_filter($types, fn (string $type) => str_starts_with($type, 'client-'));
+        $types = array_filter($types, fn (string $type) => str_starts_with($type, 'client-') || str_starts_with($type, 'server-'));
 
         $data = [
             'types' => $types,
