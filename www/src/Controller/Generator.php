@@ -84,7 +84,7 @@ class Generator extends ControllerAbstract
                 $fileName = 'client_sdk_' . substr(md5($generator::class . $schema), 0, 8) . '.zip';
                 $file = $this->directory->getCacheDir() . '/' . $fileName;
 
-                $response->writeTo($file);
+                $response->writeToZip($file);
 
                 return new File($file, $fileName);
             } else {
