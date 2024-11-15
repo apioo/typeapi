@@ -9,5 +9,6 @@ TypeAPI is an OpenAPI alternative to describe REST APIs for type-safe code gener
 
 For more information please visit our website at: https://typeapi.org/
 
-The TypeAPI specification is developed at the [TypeHub platform](https://app.typehub.cloud/d/typehub/typeapi)
-which is a collaborative platform to design TypeSchema and TypeAPI specifications.
+The TypeAPI meta specification which describes the specification itself is located at `./specification/typeapi.json`.
+We automatically push the specification to the [TypeHub platform](https://app.typehub.cloud/d/typehub/typeapi) where
+you can see also a rendered version of the specification and download the auto generated models.
