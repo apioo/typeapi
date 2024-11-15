@@ -1,0 +1,210 @@
+{
+  "import": {
+    "typeschema": "typehub://typehub:typeschema@3.0.0"
+  },
+  "definitions": {
+    "Security": {
+      "description": "",
+      "type": "struct",
+      "base": true,
+      "properties": {
+        "type": {
+          "description": "The global security type of the API must be one of: httpBasic, httpBearer, apiKey or oauth2",
+          "type": "string"
+        }
+      },
+      "discriminator": "type",
+      "mapping": {
+        "SecurityHttpBasic": "httpBasic",
+        "SecurityHttpBearer": "httpBearer",
+        "SecurityApiKey": "apiKey",
+        "SecurityOAuth2": "oauth2"
+      }
+    },
+    "SecurityHttpBasic": {
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "Security"
+      }
+    },
+    "SecurityHttpBearer": {
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "Security"
+      }
+    },
+    "SecurityApiKey": {
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "Security"
+      },
+      "properties": {
+        "name": {
+          "description": "The name of the header or query parameter i.e. \"X-Api-Key\"",
+          "type": "string"
+        },
+        "in": {
+          "description": "Must be either \"header\" or \"query\"",
+          "type": "string"
+        }
+      }
+    },
+    "SecurityOAuth2": {
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "Security"
+      },
+      "properties": {
+        "tokenUrl": {
+          "description": "The OAuth2 token endpoint",
+          "type": "string"
+        },
+        "authorizationUrl": {
+          "description": "Optional the OAuth2 authorization endpoint",
+          "type": "string"
+        },
+        "scopes": {
+          "description": "Optional OAuth2 scopes",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Operation": {
+      "description": "",
+      "type": "struct",
+      "properties": {
+        "method": {
+          "description": "The HTTP method which is associated with this operation, must be a valid HTTP method i.e. GET, POST, PUT etc.",
+          "type": "string"
+        },
+        "path": {
+          "description": "The HTTP path which is associated with this operation. A path can also include variable path fragments i.e. /my/path/:year then you can map the variable year path fragment to a specific argument",
+          "type": "string"
+        },
+        "return": {
+          "description": "The return type of this operation. The return has also an assigned HTTP success status code which is by default 200",
+          "$ref": "Response"
+        },
+        "arguments": {
+          "description": "All arguments provided to this operation. Each argument is mapped to a location from the HTTP request i.e. query or body",
+          "type": "map",
+          "schema": {
+            "type": "reference",
+            "target": "Argument"
+          }
+        },
+        "throws": {
+          "description": "All exceptional states which can occur in case the operation fails. Each exception is assigned to an HTTP error status code",
+          "type": "array",
+          "schema": {
+            "type": "reference",
+            "target": "Response"
+          }
+        },
+        "description": {
+          "description": "A short description of this operation. The generated code will include this description at the method so it is recommend to use simple alphanumeric characters and no new lines",
+          "type": "string"
+        },
+        "stability": {
+          "description": "Indicates the stability of this operation: 0 - Deprecated, 1 - Experimental, 2 - Stable, 3 - Legacy. If not explicit provided the operation is by default experimental.",
+          "type": "integer"
+        },
+        "security": {
+          "description": "An array of scopes which are required to access this operation",
+          "type": "array",
+          "schema": {
+            "type": "string"
+          }
+        },
+        "authorization": {
+          "description": "Indicates whether this operation needs authorization, if set to false the client will not send an authorization header, default it is true",
+          "type": "boolean"
+        },
+        "tags": {
+          "description": "Optional an array of tags to group operations",
+          "type": "array",
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Argument": {
+      "description": "",
+      "type": "struct",
+      "properties": {
+        "in": {
+          "description": "The location where the value can be found either in the path, query, header or body. If you choose path, then your path must have a fitting variable path fragment",
+          "type": "string"
+        },
+        "schema": {
+          "description": "",
+          "type": "reference",
+          "target": "typeschema:PropertyType"
+        },
+        "contentType": {
+          "description": "In case the data is not a JSON payload which you can describe with a schema you can select a content type",
+          "type": "string"
+        },
+        "name": {
+          "description": "Optional the actual path, query or header name. If not provided the key of the argument map is used",
+          "type": "string"
+        }
+      }
+    },
+    "Response": {
+      "description": "",
+      "type": "struct",
+      "properties": {
+        "code": {
+          "description": "The associated HTTP response code. For error responses it is possible to use the 499, 599 or 999 status code to catch all errors",
+          "type": "integer"
+        },
+        "contentType": {
+          "description": "In case the data is not a JSON payload which you can describe with a schema you can select a content type",
+          "type": "string"
+        },
+        "schema": {
+          "description": "",
+          "type": "reference",
+          "target": "typeschema:PropertyType"
+        }
+      }
+    },
+    "TypeAPI": {
+      "description": "The TypeAPI Root",
+      "type": "struct",
+      "parent": {
+        "type": "reference",
+        "target": "typeschema:TypeSchema"
+      },
+      "properties": {
+        "baseUrl": {
+          "description": "Optional the base url of the service, if provided the user does not need to provide a base url for your client",
+          "type": "string"
+        },
+        "security": {
+          "description": "Describes the authorization mechanism which is used by your API",
+          "type": "reference",
+          "target": "Security"
+        },
+        "operations": {
+          "description": "A map of operations which are provided by the API. The key of the operation should be separated by a dot to group operations into logical units i.e. product.getAll or enterprise.product.execute",
+          "type": "map",
+          "schema": {
+            "type": "reference",
+            "target": "Operation"
+          }
+        }
+      }
+    }
+  },
+  "root": "TypeAPI"
+}
