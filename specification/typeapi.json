@@ -90,7 +90,8 @@
         },
         "return": {
           "description": "The return type of this operation. The return has also an assigned HTTP success status code which is by default 200",
-          "$ref": "Response"
+          "type": "reference",
+          "target": "Response"
         },
         "arguments": {
           "description": "All arguments provided to this operation. Each argument is mapped to a location from the HTTP request i.e. query or body",
