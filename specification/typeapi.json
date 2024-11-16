@@ -18,7 +18,7 @@
         "SecurityHttpBasic": "httpBasic",
         "SecurityHttpBearer": "httpBearer",
         "SecurityApiKey": "apiKey",
-        "SecurityOAuth2": "oauth2"
+        "SecurityOAuth": "oauth2"
       }
     },
     "SecurityHttpBasic": {
@@ -52,7 +52,7 @@
         }
       }
     },
-    "SecurityOAuth2": {
+    "SecurityOAuth": {
       "type": "struct",
       "parent": {
         "type": "reference",
