@@ -1,6 +1,6 @@
 {
   "import": {
-    "typeschema": "typehub://typehub:typeschema@3.0.0"
+    "typeschema": "typehub://typehub:typeschema@0.1.1"
   },
   "definitions": {
     "Security": {
@@ -114,7 +114,7 @@
           "type": "string"
         },
         "stability": {
-          "description": "Indicates the stability of this operation: 0 - Deprecated, 1 - Experimental, 2 - Stable, 3 - Legacy. If not explicit provided the operation is by default experimental.",
+          "description": "Indicates the stability of this operation: 0 - Deprecated, 1 - Experimental, 2 - Stable, 3 - Legacy. If not explicit provided the operation is by default experimental",
           "type": "integer"
         },
         "security": {
@@ -127,13 +127,6 @@
         "authorization": {
           "description": "Indicates whether this operation needs authorization, if set to false the client will not send an authorization header, default it is true",
           "type": "boolean"
-        },
-        "tags": {
-          "description": "Optional an array of tags to group operations",
-          "type": "array",
-          "schema": {
-            "type": "string"
-          }
         }
       }
     },
