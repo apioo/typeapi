@@ -131,7 +131,7 @@
       }
     },
     "Argument": {
-      "description": "",
+      "description": "Describes arguments of the operation",
       "type": "struct",
       "properties": {
         "in": {
@@ -139,7 +139,7 @@
           "type": "string"
         },
         "schema": {
-          "description": "",
+          "description": "Schema of the JSON payload",
           "type": "reference",
           "target": "typeschema:PropertyType"
         },
@@ -154,7 +154,7 @@
       }
     },
     "Response": {
-      "description": "",
+      "description": "Describes the response of the operation",
       "type": "struct",
       "properties": {
         "code": {
@@ -166,7 +166,7 @@
           "type": "string"
         },
         "schema": {
-          "description": "",
+          "description": "Schema of the JSON payload",
           "type": "reference",
           "target": "typeschema:PropertyType"
         }
