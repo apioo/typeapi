@@ -12,6 +12,7 @@ use PSX\Api\Attribute\Path;
 use PSX\Api\Attribute\Post;
 use PSX\Api\GeneratorFactory;
 use PSX\Api\Parser\TypeAPI;
+use PSX\Api\SpecificationInterface;
 use PSX\Framework\Config\ConfigInterface;
 use PSX\Framework\Controller\ControllerAbstract;
 use PSX\Framework\Http\Writer\Template;
@@ -96,7 +97,7 @@ class Generator extends ControllerAbstract
             if ($result instanceof Chunks) {
                 $output = $this->buildArray($result);
             } else {
-                $output = (string) $result;
+                $output = $result;
             }
         } catch (\Throwable $e) {
             $output = $e->getMessage();
@@ -140,7 +141,7 @@ class Generator extends ControllerAbstract
 
                 return new File($zipFile, 'typeapi_' . $type . '.zip', 'application/zip');
             } else {
-                return new HttpResponse(200, ['Content-Type' => 'text/plain'], (string) $result);
+                return new HttpResponse(200, ['Content-Type' => 'text/plain'], $result);
             }
         } catch (\Throwable $e) {
             return new HttpResponse(500, ['Content-Type' => 'text/plain'], $e->getMessage());
@@ -153,7 +154,7 @@ class Generator extends ControllerAbstract
         foreach ($result->getChunks() as $fileName => $code) {
             if (is_string($code)) {
                 $chunks[$fileName] = $code;
-            } elseif ($code instanceof Chunks) {
+            } else {
                 $chunks = array_merge($chunks, $this->buildArray($code, isset($prefix) ? $prefix . '/' . $fileName : $fileName));
             }
         }
@@ -162,7 +163,7 @@ class Generator extends ControllerAbstract
     }
 
     /**
-     * @return array{string|null, string, Config, SchemaInterface}
+     * @return array{string|null, string, Config, SpecificationInterface}
      */
     private function parse(string $type, Generate $generate): array
     {
