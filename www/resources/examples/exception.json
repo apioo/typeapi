@@ -6,13 +6,15 @@
       "path": "/hello/world",
       "return": {
         "schema": {
-          "$ref": "Hello_World"
+          "type": "reference",
+          "target": "Hello_World"
         }
       },
       "throws": [{
         "code": 500,
         "schema": {
-          "$ref": "Error"
+          "type": "reference",
+          "target": "Error"
         }
       }]
     }

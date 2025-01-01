@@ -11,33 +11,36 @@
 
   <h1 class="display-4">Specification</h1>
 
-  <p class="lead">This document describes the <a href="https://app.typehub.cloud/d/typehub/typeapi">TypeAPI specification</a>.
-  The TypeAPI specification defines a JSON format to describe REST APIs for type-safe code generation.</p>
-
-  <hr>
-
+  <h2>Table of Contents</h2>
   <ul>
-    <li><a href="#Goals">Goals</a>
-    <li><a href="#Non-Goals">Non-Goals</a>
-    <li><a href="#Reasoning">Reasoning</a>
-    <li><a href="#Schema">Schema</a>
+    <li><a href="#Introduction">Introduction</a>
       <ul>
-        <li><a href="#Operations">Operations</a>
-        <ul>
-            <li><a href="#Return">Return</a></li>
-          <li><a href="#Arguments">Arguments</a></li>
-          <li><a href="#Throws">Throws</a></li>
-        </ul>
-        </li>
-        <li><a href="#Definitions">Definitions</a></li>
+        <li><a href="#Goals">Goals</a></li>
+        <li><a href="#Non-Goals">Non-Goals</a></li>
+        <li><a href="#Reasoning">Reasoning</a></li>
       </ul>
     </li>
+    <li><a href="#Operations">Operations</a>
+      <ul>
+        <li><a href="#Return">Return</a></li>
+        <li><a href="#Arguments">Arguments</a></li>
+        <li><a href="#Throws">Throws</a></li>
+      </ul>
+    </li>
+    <li><a href="#Definitions">Definitions</a></li>
+    <li><a href="#Security">Security</a></li>
   </ul>
 
   <hr>
 
+  <a id="Introduction"></a>
+  <h2>Introduction</h2>
+  <p>This document describes the <a href="https://app.typehub.cloud/d/typehub/typeapi">TypeAPI specification</a>.
+    The TypeAPI specification defines a JSON format to describe REST APIs for type-safe code generation.</p>
+
+
   <a id="Goals"></a>
-  <h2>Goals</h2>
+  <h3>Goals</h3>
   <ul>
     <li>Provide a format to generate clean and ready to use code</li>
     <li>Provide a simple and stable specification where you can easily build a code generator</li>
@@ -45,15 +48,14 @@
   </ul>
 
   <a id="Non-Goals"></a>
-  <h2>Non-Goals</h2>
+  <h3>Non-Goals</h3>
   <ul>
     <li>Describe every possible REST API structure and JSON payload</li>
-    <li>Supporting many different Content-Types like XML or <code>x-www-form-urlencoded</code></li>
     <li>Providing complex JSON validation capabilities</li>
   </ul>
 
   <a id="Reasoning"></a>
-  <h2>Reasoning</h2>
+  <h3>Reasoning</h3>
   <p>For a long time the OpenAPI community was divided into two communities, one building documentation tools and the
   other trying to build code generation tools. Building documentation tools has very different requirements than
   building code generation tools. For a documentation tool you can simply render and show all defined endpoints and
@@ -71,8 +73,8 @@
 
   <hr>
 
-  <a id="Schema"></a>
-  <h2>Schema</h2>
+  <a id="Operations"></a>
+  <h2>Operations</h2>
 
   <p>Every TypeAPI has a <a href="https://app.typehub.cloud/d/typehub/typeapi#type-TypeAPI">Root</a> definition. The
   Root must contain at least the <code>operations</code> and <code>definitions</code> keyword i.e.:</p>
@@ -88,9 +90,6 @@
 
   <hr>
 
-  <a id="Operations"></a>
-  <h3>Operations</h3>
-
   <p>The <code>operations</code> keyword contains a map containing <a href="https://app.typehub.cloud/d/typehub/typeapi#type-Operation">Operation</a>
   objects. The key represents the identifier of this operation, through the dot notation i.e. <code>user.getMessage</code> you can group your
   operations into logical units.</p>
@@ -103,14 +102,15 @@
             "path": "/hello/world",
             "return": {
                 "schema": {
-                    "$ref": "Hello_World"
+                    "type": "reference",
+                    "target": "Hello_World"
                 }
             }
         }
     },
     "definitions": {
         "Hello_World": {
-            "type": "object",
+            "type": "struct",
             "properties": {
                 "message": {
                     "type": "string"
@@ -123,7 +123,7 @@
   <hr>
 
   <a id="Return"></a>
-  <h4>Return</h4>
+  <h3>Return</h3>
 
   <p>Every operation can define a return type. In the above example the operation simply returns a <code>Hello_World</code>
   object.</p>
@@ -131,7 +131,7 @@
   <hr>
 
   <a id="Arguments"></a>
-  <h4>Arguments</h4>
+  <h3>Arguments</h3>
 
   <p>Through <code>arguments</code> keywords you can map values from the HTTP request to specific method arguments. In
   the following example we have an argument <code>status</code> which maps to a query parameter and an argument
@@ -153,20 +153,22 @@
                 "payload": {
                     "in": "body",
                     "schema": {
-                        "$ref": "Hello_World"
+                        "type": "reference",
+                        "target": "Hello_World"
                     }
                 }
             },
             "return": {
                 "schema": {
-                    "$ref": "Hello_World"
+                    "type": "reference",
+                    "target": "Hello_World"
                 }
             }
         }
     },
     "definitions": {
         "Hello_World": {
-            "type": "object",
+            "type": "struct",
             "properties": {
                 "message": {
                     "type": "string"
@@ -189,7 +191,7 @@ Content-Type: application/json
   <hr>
 
   <a id="Throws"></a>
-  <h4>Throws</h4>
+  <h3>Throws</h3>
 
   <p>Besides the return type an operation can return multiple exceptional states in case an error occurred. Every
   exceptional state is then mapped to a specific status code i.e. <code>404</code> or <code>500</code>. The generated
@@ -205,25 +207,28 @@ Content-Type: application/json
             "path": "/hello/world",
             "return": {
                 "schema": {
-                    "$ref": "Hello_World"
+                    "type": "reference",
+                    "target": "Hello_World"
                 }
             },
             "throws": [{
                 "code": 404,
                 "schema": {
-                    "$ref": "Error"
+                    "type": "reference",
+                    "target": "Error"
                 }
             }, {
                 "code": 500,
                 "schema": {
-                    "$ref": "Error"
+                    "type": "reference",
+                    "target": "Error"
                 }
             }]
         }
     },
     "definitions": {
         "Hello_World": {
-            "type": "object",
+            "type": "struct",
             "properties": {
                 "message": {
                     "type": "string"
@@ -231,7 +236,7 @@ Content-Type: application/json
             }
         },
         "Error": {
-            "type": "object",
+            "type": "struct",
             "properties": {
                 "message": {
                     "type": "string"
@@ -244,12 +249,39 @@ Content-Type: application/json
   <hr>
 
   <a id="Definitions"></a>
-  <h3>Definitions</h3>
+  <h2>Definitions</h2>
 
   <p>The <code>definitions</code> keyword maps to the <a href="https://app.typehub.cloud/d/typehub/typeschema">TypeSchema</a>
   specification and represents a map containing <a href="https://app.typehub.cloud/d/typehub/typeschema#type-StructType">Struct</a>,
-  <a href="https://app.typehub.cloud/d/typehub/typeschema#type-MapType">Map</a> and <a href="https://app.typehub.cloud/d/typehub/typeschema#type-ReferenceType">Reference</a>
+  <a href="https://app.typehub.cloud/d/typehub/typeschema#type-MapType">Map</a> or <a href="https://app.typehub.cloud/d/typehub/typeschema#type-ReferenceType">Reference</a>
   types. Those types are then used to describe incoming and outgoing JSON payloads.</p>
+
+  <hr>
+
+  <a id="Security"></a>
+  <h2>Security</h2>
+
+  <p>The <code>security</code> keyword describes the authorization mechanism of the API, the following types are supported:</p>
+  <ul>
+    <li><code>apiKey</code></li>
+    <li><code>httpBasic</code></li>
+    <li><code>httpBearer</code></li>
+    <li><code>oauth2</code></li>
+  </ul>
+
+  <p><a href="https://app.typehub.cloud/d/typehub/typeapi"></a></p>
+
+  <pre><code class="language-json">{
+    "security": {
+        "type": "httpBearer",
+    },
+    "operations": {
+        "getMessage": { ... }
+    },
+    "definitions": {
+        "Hello_World": { ... }
+    }
+}</code></pre>
 
   <hr>
 

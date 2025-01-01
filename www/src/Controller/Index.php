@@ -93,9 +93,9 @@ class Index extends ControllerAbstract
         ];
 
         $examples[] = [
-            'title' => 'Tags',
+            'title' => 'Operation group',
             'description' => 'Through the dot notation at the operation key you can group your operations into logical units',
-            'file' => __DIR__ . '/../../resources/examples/tag.json',
+            'file' => __DIR__ . '/../../resources/examples/operation_group.json',
         ];
 
         return $examples;

@@ -8,67 +8,23 @@
 </nav>
 
 <div class="container">
-  <h1 class="display-4">Generator</h1>
-  <?php if(isset($error)): ?>
-    <div class="alert alert-danger"><?php echo $error; ?></div>
-  <?php else: ?>
-    <div class="alert alert-info">This generator gives you access to our reference code generator implementation, you
-    can enter a TypeAPI specification and select a target output format to generate a fitting client. Please take a look
-    at the <a href="<?php echo $router->getAbsolutePath([\App\Controller\Ecosystem::class, 'show']); ?>">ecosystem</a>
-    page to see available code generator services.</div>
-  <?php endif; ?>
+  <h1 class="display-4">SDK Generator</h1>
+  <p class="lead">This list gives you access to the reference code generator implementation.
+  To prevent misuse the code generator is protected by recaptcha, if you want to invoke the code generator
+  programmatically please take a look at the <a href="https://sdkgen.app/">SDKgen project</a>
+  which offers various integration options like an CLI, GitHub action or REST API.
+  </p>
   <div class="row">
-    <div class="col-12">
-      <form method="POST" id="generatorForm">
-        <div class="mb-3">
-          <label for="type" class="form-label">Format</label>
-          <select name="type" id="type" class="form-control">
-            <?php foreach($types as $type): ?>
-              <option value="<?php echo $type; ?>"><?php echo $type; ?></option>
-            <?php endforeach; ?>
-          </select>
+    <?php foreach ($types as $chunk): ?>
+      <div class="col-6">
+        <div class="list-group">
+          <?php foreach ($chunk as $type => $typeTitle): ?>
+            <a href="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'showType'], ['type' => $type]); ?>" class="list-group-item list-group-item-action"><?php echo $typeTitle; ?></a>
+          <?php endforeach; ?>
         </div>
-        <div class="mb-3">
-          <label for="schema" class="form-label">Schema</label>
-          <textarea class="form-control" name="schema" id="schema" rows="16">{
-  "operations": {
-    "getMessage": {
-      "description": "Returns a hello world message",
-      "method": "GET",
-      "path": "/hello/world",
-      "return": {
-        "schema": {
-          "$ref": "Hello_World"
-        }
-      }
-    }
-  },
-  "definitions": {
-    "Hello_World": {
-      "type": "object",
-      "properties": {
-        "message": {
-          "type": "string"
-        }
-      }
-    }
-  }
-}</textarea>
-        </div>
-        <button class="g-recaptcha btn btn-primary" data-sitekey="<?php echo $recaptcha_key; ?>" data-callback="onSubmit" data-action="submit">Generate</button>
-      </form>
-    </div>
-  </div>
-
-  <div class="typeschema-edit">
-    <a href="https://github.com/apioo/typeapi/blob/main/www/resources/template/<?php echo pathinfo(__FILE__, PATHINFO_BASENAME); ?>"><i class="bi bi-pencil"></i> Edit this page</a>
+      </div>
+    <?php endforeach; ?>
   </div>
 </div>
-
-<script>
-function onSubmit(token) {
-  document.getElementById("generatorForm").submit();
-}
-</script>
 
 <?php include __DIR__ . '/inc/footer.php'; ?>

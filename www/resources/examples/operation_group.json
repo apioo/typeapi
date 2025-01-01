@@ -8,13 +8,15 @@
         "payload": {
           "in": "body",
           "schema": {
-            "$ref": "Todo"
+            "type": "reference",
+            "target": "Todo"
           }
         }
       },
       "return": {
         "schema": {
-          "$ref": "Message"
+          "type": "reference",
+          "target": "Message"
         }
       }
     },
@@ -26,13 +28,15 @@
         "payload": {
           "in": "body",
           "schema": {
-            "$ref": "Product"
+            "type": "reference",
+            "target": "Product"
           }
         }
       },
       "return": {
         "schema": {
-          "$ref": "Message"
+          "type": "reference",
+          "target": "Message"
         }
       }
     }

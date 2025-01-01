@@ -2,15 +2,17 @@
 
 namespace App\Controller;
 
-use App\Model;
+use App\Model\Generate;
 use App\Service\CaptchaVerifier;
+use App\Service\TypeName;
+use PSX\Api\Attribute\Body;
 use PSX\Api\Attribute\Get;
+use PSX\Api\Attribute\Param;
 use PSX\Api\Attribute\Path;
 use PSX\Api\Attribute\Post;
 use PSX\Api\GeneratorFactory;
 use PSX\Api\Parser\TypeAPI;
 use PSX\Framework\Config\ConfigInterface;
-use PSX\Framework\Config\Directory;
 use PSX\Framework\Controller\ControllerAbstract;
 use PSX\Framework\Http\Writer\Template;
 use PSX\Framework\Loader\ReverseRouter;
@@ -18,90 +20,207 @@ use PSX\Http\Environment\HttpResponse;
 use PSX\Http\Exception\BadRequestException;
 use PSX\Http\Writer\File;
 use PSX\Schema\Generator\Code\Chunks;
+use PSX\Schema\Generator\Config;
+use PSX\Schema\SchemaInterface;
 use PSX\Schema\SchemaManagerInterface;
 
 class Generator extends ControllerAbstract
 {
-    private ReverseRouter $reverseRouter;
-    private Directory $directory;
-    private GeneratorFactory $generatorFactory;
-    private SchemaManagerInterface $schemaManager;
-    private CaptchaVerifier $captchaVerifier;
-    private ConfigInterface $config;
+    private const MAX_SCHEMA_LENGTH = 2048;
 
-    public function __construct(ReverseRouter $reverseRouter, Directory $directory, GeneratorFactory $generatorFactory, SchemaManagerInterface $schemaManager, CaptchaVerifier $captchaVerifier, ConfigInterface $config)
+    public function __construct(private ReverseRouter $reverseRouter, private SchemaManagerInterface $schemaManager, private ConfigInterface $config, private CaptchaVerifier $captchaVerifier, private GeneratorFactory $generatorFactory)
     {
-        $this->reverseRouter = $reverseRouter;
-        $this->directory = $directory;
-        $this->generatorFactory = $generatorFactory;
-        $this->schemaManager = $schemaManager;
-        $this->captchaVerifier = $captchaVerifier;
-        $this->config = $config;
     }
 
     #[Get]
     #[Path('/generator')]
     public function show(): mixed
     {
-        $types = $this->generatorFactory->factory()->getPossibleTypes();
-        sort($types);
-        $types = array_filter($types, fn (string $type) => str_starts_with($type, 'client-') || str_starts_with($type, 'server-'));
+        $types = [];
+        foreach ($this->generatorFactory->factory()->getPossibleTypes() as $type) {
+            $displayName = TypeName::getDisplayName($type);
+            if ($displayName === null) {
+                continue;
+            }
+
+            $types[$type] = $displayName;
+        }
+
+        ksort($types);
 
         $data = [
-            'types' => $types,
+            'title' => 'SDK Generator | TypeAPI',
             'method' => explode('::', __METHOD__),
-            'title' => 'SDK Code Generator | TypeAPI',
-            'js' => ['https://www.google.com/recaptcha/api.js'],
-            'recaptcha_key' => $this->config->get('recaptcha_key')
+            'types' => array_chunk($types, (int) ceil(count($types) / 2), true),
         ];
 
         $templateFile = __DIR__ . '/../../resources/template/generator.php';
         return new Template($data, $templateFile, $this->reverseRouter);
     }
 
-    #[Post]
-    #[Path('/generator')]
-    public function generate(Model\Generate $payload): mixed
+    #[Get]
+    #[Path('/generator/:type')]
+    public function showType(string $type): mixed
     {
-        $repository = $this->generatorFactory->factory();
+        $registry = $this->generatorFactory->factory();
+        if (!in_array($type, $registry->getPossibleTypes())) {
+            throw new BadRequestException('Provided an invalid type');
+        }
+
+        $data = [
+            'title' => TypeName::getDisplayName($type) . ' SDK Generator | TypeAPI',
+            'method' => explode('::', __METHOD__),
+            'parameters' => ['type' => $type],
+            'schema' => $this->getSchema(),
+            'type' => $type,
+            'typeName' => TypeName::getDisplayName($type),
+            'js' => ['https://www.google.com/recaptcha/api.js'],
+            'recaptcha_key' => $this->config->get('recaptcha_key'),
+        ];
+
+        $templateFile = __DIR__ . '/../../resources/template/generator/form.php';
+        return new Template($data, $templateFile, $this->reverseRouter);
+    }
+
+    #[Post]
+    #[Path('/generator/:type')]
+    public function generate(string $type, Generate $generate): mixed
+    {
+        [$namespace, $schema, $config, $parsedSchema] = $this->parse($type, $generate);
 
         try {
-            $recaptchaSecret = $this->config->get('recaptcha_secret');
-            if (!empty($recaptchaSecret) && !$this->captchaVerifier->verify($payload->getGRecaptchaResponse())) {
-                throw new BadRequestException('Invalid captcha');
-            }
+            $registry = $this->generatorFactory->factory();
+            $generator = $registry->getGenerator($type, $config);
+            $result = $generator->generate($parsedSchema);
 
-            $type = $payload->getType() ?? throw new BadRequestException('Provided no type');
-            $schema = $payload->getSchema() ?? throw new BadRequestException('Provided no schema');
-
-            $specification = (new TypeAPI($this->schemaManager))->parse($schema);
-
-            $generator = $repository->getGenerator($type);
-            $mime = $repository->getMime($type);
-            $response = $generator->generate($specification);
-
-            if ($response instanceof Chunks) {
-                $fileName = 'client_sdk_' . substr(md5($generator::class . $schema), 0, 8) . '.zip';
-                $file = $this->directory->getCacheDir() . '/' . $fileName;
-
-                $response->writeToZip($file);
-
-                return new File($file, $fileName);
+            if ($result instanceof Chunks) {
+                $output = $this->buildArray($result);
             } else {
-                return new HttpResponse(200, ['Content-Type' => $mime], $response);
+                $output = (string) $result;
             }
         } catch (\Throwable $e) {
-            $data = [
-                'types' => $repository->getPossibleTypes(),
-                'method' => explode('::', __METHOD__),
-                'title' => 'SDK Code Generator | TypeAPI',
-                'js' => ['https://www.google.com/recaptcha/api.js'],
-                'recaptcha_key' => $this->config->get('recaptcha_key'),
-                'error' => $e->getMessage(),
-            ];
-
-            $templateFile = __DIR__ . '/../../resources/template/generator.php';
-            return new Template($data, $templateFile, $this->reverseRouter);
+            $output = $e->getMessage();
         }
+
+        $data = [
+            'title' => TypeName::getDisplayName($type) . ' SDK Generator | TypeAPI',
+            'method' => explode('::', __METHOD__),
+            'parameters' => ['type' => $type],
+            'namespace' => $namespace,
+            'schema' => $schema,
+            'type' => $type,
+            'typeName' => TypeName::getDisplayName($type),
+            'output' => $output,
+            'js' => ['https://www.google.com/recaptcha/api.js'],
+            'recaptcha_key' => $this->config->get('recaptcha_key'),
+        ];
+
+        $templateFile = __DIR__ . '/../../resources/template/generator/form.php';
+        return new Template($data, $templateFile, $this->reverseRouter);
+    }
+
+    #[Post]
+    #[Path('/generator/:type/download')]
+    public function download(#[Param] string $type, #[Body] Generate $generate): mixed
+    {
+        [$namespace, $schema, $config, $parsedSchema] = $this->parse($type, $generate);
+
+        try {
+            $zipFile = $this->config->get('psx_path_cache') . '/typeapi_' . $type . '_' . sha1($schema) . '.zip';
+            if (is_file($zipFile)) {
+                return new File($zipFile, 'typeapi_' . $type . '.zip', 'application/zip');
+            }
+
+            $registry = $this->generatorFactory->factory();
+            $generator = $registry->getGenerator($type, $config);
+            $result = $generator->generate($parsedSchema);
+
+            if ($result instanceof Chunks) {
+                $result->writeToZip($zipFile);
+
+                return new File($zipFile, 'typeapi_' . $type . '.zip', 'application/zip');
+            } else {
+                return new HttpResponse(200, ['Content-Type' => 'text/plain'], (string) $result);
+            }
+        } catch (\Throwable $e) {
+            return new HttpResponse(500, ['Content-Type' => 'text/plain'], $e->getMessage());
+        }
+    }
+
+    private function buildArray(Chunks $result, ?string $prefix = null): array
+    {
+        $chunks = [];
+        foreach ($result->getChunks() as $fileName => $code) {
+            if (is_string($code)) {
+                $chunks[$fileName] = $code;
+            } elseif ($code instanceof Chunks) {
+                $chunks = array_merge($chunks, $this->buildArray($code, isset($prefix) ? $prefix . '/' . $fileName : $fileName));
+            }
+        }
+
+        return $chunks;
+    }
+
+    /**
+     * @return array{string|null, string, Config, SchemaInterface}
+     */
+    private function parse(string $type, Generate $generate): array
+    {
+        $recaptchaSecret = $this->config->get('recaptcha_secret');
+        if (!empty($recaptchaSecret) && !$this->captchaVerifier->verify($generate->getGRecaptchaResponse())) {
+            throw new BadRequestException('Invalid captcha');
+        }
+
+        $namespace = $generate->getNamespace();
+        $schema = $generate->getSchema() ?? throw new \RuntimeException('Provided no schema');
+
+        if (strlen($schema) > self::MAX_SCHEMA_LENGTH) {
+            throw new BadRequestException('Provided schema is too large, allowed max ' . self::MAX_SCHEMA_LENGTH . ' characters');
+        }
+
+        $config = new Config();
+        if ($namespace !== null && $namespace !== '') {
+            $config->put(Config::NAMESPACE, $namespace);
+        }
+
+        $registry = $this->generatorFactory->factory();
+        if (!in_array($type, $registry->getPossibleTypes())) {
+            throw new BadRequestException('Provided an invalid type');
+        }
+
+        $result = (new TypeAPI($this->schemaManager))->parse($schema);
+
+        return [$namespace, $schema, $config, $result];
+    }
+
+    private function getSchema(): string
+    {
+        return <<<'JSON'
+{
+  "operations": {
+    "getMessage": {
+      "description": "Returns a hello world message",
+      "method": "GET",
+      "path": "/hello/world",
+      "return": {
+        "schema": {
+          "type": "reference",
+          "target": "Hello_World"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Hello_World": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
+JSON;
     }
 }

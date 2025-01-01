@@ -18,19 +18,19 @@
   <div class="row">
     <div class="col-12">
       <div class="text-bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-      <h2 class="display-5"><?php echo $example->title; ?></h2>
-      <p class="lead"><?php echo $example->description; ?></p>
+        <h2 class="display-5"><?php echo $example->title; ?></h2>
+        <p class="lead"><?php echo $example->description; ?></p>
       </div>
     </div>
     <div class="col-md-6">
       <div class="psx-object">
-        <h3>TypeAPI</h3>
+        <h1>TypeAPI</h1>
         <div class="example-box"><pre><code class="json"><?php echo $example->schema; ?></code></pre></div>
       </div>
     </div>
     <div class="col-md-6">
       <div class="psx-object">
-        <h3>Client SDK</h3>
+        <h1>Client SDK</h1>
         <div class="example-box"><pre><code class="javascript"><?php echo htmlspecialchars($example->code); ?></code></pre></div>
       </div>
     </div>
@@ -38,6 +38,56 @@
 </div>
 <hr>
 <?php endforeach; ?>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="text-bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+        <h2 class="display-5">Code-Generator</h2>
+        <p class="lead">Through TypeAPI it is possible to generate fully type-safe client/server pairs using proven technology.</p>
+      </div>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Language</th>
+          <th>Client</th>
+          <th>Server</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>C#</td>
+          <td><a href="https://learn.microsoft.com/de-de/dotnet/api/system.net.http.httpclient">HttpClient</a></td>
+          <td><a href="https://asp.net/web-api">ASP Web-API</a></td>
+        </tr>
+        <tr>
+          <td>Java</td>
+          <td><a href="https://hc.apache.org/index.html">Apache HttpClient</a></td>
+          <td><a href="https://spring.io/">Spring</a></td>
+        </tr>
+        <tr>
+          <td>JavaScript</td>
+          <td><a href="https://axios-http.com/">Axios</a></td>
+          <td><a href="https://nestjs.com/">NestJS</a></td>
+        </tr>
+        <tr>
+          <td>PHP</td>
+          <td><a href="https://docs.guzzlephp.org/en/stable/">Guzzle</a></td>
+          <td><a href="https://symfony.com/">Symfony</a></td>
+        </tr>
+        <tr>
+          <td>Python</td>
+          <td><a href="https://requests.readthedocs.io/en/latest/">Requests</a></td>
+          <td><a href="https://fastapi.tiangolo.com/">FastAPI</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<hr>
 
 <div class="container">
   <div class="typeschema-edit">

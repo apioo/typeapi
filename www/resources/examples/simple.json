@@ -6,7 +6,8 @@
       "path": "/hello/world",
       "return": {
         "schema": {
-          "$ref": "Hello_World"
+          "type": "reference",
+          "target": "Hello_World"
         }
       }
     }

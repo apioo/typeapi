@@ -9,7 +9,7 @@
   <link rel="preload" href="<?php echo $base; ?>/css/app.min.css" as="style" />
   <link rel="preload" href="<?php echo $base; ?>/js/app.min.js" as="script" />
   <link rel="stylesheet" href="<?php echo $base; ?>/css/app.min.css">
-  <link rel="canonical" href="<?php echo $router->getUrl($method); ?>">
+  <link rel="canonical" href="<?php echo $router->getUrl($method, isset($parameters) ? (array) $parameters : []); ?>">
   <script async src="<?php echo $base; ?>/js/app.min.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-8CL7811MFT"></script>
 <?php if (isset($js) && is_array($js)): ?>
@@ -36,9 +36,6 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Ecosystem::class, 'show']); ?>">Ecosystem</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Developer::class, 'show']); ?>">Developer</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'show']); ?>">Generator</a>

@@ -31,8 +31,9 @@
       "properties": {
         "entries": {
           "type": "array",
-          "items": {
-            "$ref": "Todo"
+          "schema": {
+            "type": "reference",
+            "target": "Todo"
           }
         }
       }
