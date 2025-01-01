@@ -10,7 +10,7 @@
 
 <div class="container">
   <h1 class="display-4">Ecosystem</h1>
-  <p class="lead">The following page lists libraries and other projects related to TypeSchema.</p>
+  <p class="lead">The following page lists libraries and other projects related to TypeAPI.</p>
 
   <h2>Model</h2>
   <p>We provide auto-generated models of the TypeAPI meta specification which describes itself.
