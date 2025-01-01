@@ -25,7 +25,7 @@ class CaptchaVerifier
 
         $response = $this->httpClient->post('https://www.google.com/recaptcha/api/siteverify', [
             'headers' => [
-                'User-Agent' => 'typeschema.org'
+                'User-Agent' => 'typeapi.org'
             ],
             'form_params' => [
                 'secret'   => $this->secret,
