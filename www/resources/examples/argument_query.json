@@ -20,7 +20,8 @@
       },
       "return": {
         "schema": {
-          "$ref": "Todos"
+          "type": "reference",
+          "target": "Todos"
         }
       }
     }
