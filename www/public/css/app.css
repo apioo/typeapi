@@ -3,18 +3,14 @@ textarea {
   font-family: monospace;
 }
 
-.form-control, .btn {
-  border-radius: 0;
+.typeapi-header {
+  background: url('../img/header_bg.png') no-repeat top center;
+  background-size: cover;
 }
 
-.example-box {
-  height:400px;
-  overflow:auto;
-  background-color: #f0f0f0;
-}
-
-.example-box > pre {
-  margin:0;
+pre {
+  padding: 0!important;
+  max-height: 400px;
 }
 
 .typeschema-edit {
@@ -92,22 +88,6 @@ textarea {
 
 .psx-property-required {
   border-bottom:1px dotted #999;
-}
-
-.table {
-  width:100%;
-  border-spacing:0;
-}
-
-.table th {
-  background-color:#fff;
-  padding:8px;
-  text-align:left;
-}
-
-.table td {
-  padding:8px;
-  border-bottom:1px solid #ccc;
 }
 
 .psx-out {

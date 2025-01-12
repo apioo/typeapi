@@ -29,7 +29,7 @@ class Index extends ControllerAbstract
 
     #[Get]
     #[Path('/')]
-    public function show(): mixed
+    public function show(): Template
     {
         $item = $this->cache->getItem('example-cache');
         if (!$item->isHit()) {

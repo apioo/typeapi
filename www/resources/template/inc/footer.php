@@ -1,35 +1,41 @@
 
-<footer class="bd-footer py-4 py-md-5 mt-5 bg-light">
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-6 col-lg-2 offset-lg-1 mb-3">
-                <p class="font-weight-bold">Links</p>
-                <ul class="list-unstyled text-small">
-                    <li class="mb-2"><a href="https://typeapi.org/">TypeAPI</a></li>
-                    <li class="mb-2"><a href="https://typeschema.org/">TypeSchema</a></li>
-                    <li class="mb-2"><a href="https://typehub.cloud/">TypeHub</a></li>
-                    <li class="mb-2"><a href="https://sdkgen.app/">SDKgen</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-lg-2 offset-lg-1 mb-3">
-                <p class="font-weight-bold">GitHub</p>
-                <ul class="list-unstyled text-small">
-                    <li class="mb-2"><a href="https://github.com/apioo/typeapi">TypeAPI</a></li>
-                    <li class="mb-2"><a href="https://github.com/apioo/typeschema">TypeSchema</a></li>
-                    <li class="mb-2"><a href="https://github.com/apioo/sdkgen-cli">SDKgen CLI</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-lg-2 offset-lg-1 mb-3">
-                <p class="font-weight-bold">Contact</p>
-                <ul class="list-unstyled">
-                    <li class="mb-2"><a href="https://discord.gg/eMrMgwsc6e">Discord</a></li>
-                    <li class="mb-2"><a href="https://twitter.com/ApiooTech">Twitter</a></li>
-                    <li class="mb-2"><a href="https://www.apioo.de/en/contact">Contact</a></li>
-                    <li class="mb-2"><a href="https://www.apioo.de/en/imprint">Imprint</a></li>
-                </ul>
-            </div>
-        </div>
+<footer class="footer">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-4">
+        <aside class="menu">
+          <p class="menu-label">Links</p>
+          <ul class="menu-list">
+            <li><a href="https://typeapi.org/" class="panel-block has-background-white-bis">TypeAPI</a></li>
+            <li><a href="https://typeschema.org/" class="panel-block has-background-white-bis">TypeSchema</a></li>
+            <li><a href="https://typehub.cloud/" class="panel-block has-background-white-bis">TypeHub</a></li>
+            <li><a href="https://sdkgen.app/" class="panel-block has-background-white-bis">SDKgen</a></li>
+          </ul>
+        </aside>
+      </div>
+      <div class="column is-4">
+        <aside class="menu">
+          <p class="menu-label">GitHub</p>
+          <ul class="menu-list">
+            <li><a href="https://github.com/apioo/typeapi" class="panel-block has-background-white-bis">TypeAPI</a></li>
+            <li><a href="https://github.com/apioo/typeschema" class="panel-block has-background-white-bis">TypeSchema</a></li>
+            <li><a href="https://github.com/apioo/sdkgen-cli" class="panel-block has-background-white-bis">SDKgen CLI</a></li>
+          </ul>
+        </aside>
+      </div>
+      <div class="column is-4">
+        <aside class="menu">
+          <p class="menu-label">Contact</p>
+          <ul class="menu-list">
+            <li><a href="https://discord.gg/eMrMgwsc6e" class="panel-block has-background-white-bis">Discord</a></li>
+            <li><a href="https://twitter.com/ApiooTech" class="panel-block has-background-white-bis">Twitter</a></li>
+            <li><a href="https://www.apioo.de/en/contact" class="panel-block has-background-white-bis">Contact</a></li>
+            <li><a href="https://www.apioo.de/en/imprint" class="panel-block has-background-white-bis">Imprint</a></li>
+          </ul>
+        </aside>
+      </div>
     </div>
+  </div>
 </footer>
 
 <div class="apioo-brand">part of the <a href="https://apioo.de">Apioo-Project</a></div>

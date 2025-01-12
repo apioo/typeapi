@@ -19,7 +19,7 @@ class Ecosystem extends ControllerAbstract
 
     #[Get]
     #[Path('/ecosystem')]
-    public function show(): mixed
+    public function show(): Template
     {
         $data = [
             'method' => explode('::', __METHOD__),

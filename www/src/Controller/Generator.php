@@ -22,7 +22,6 @@ use PSX\Http\Exception\BadRequestException;
 use PSX\Http\Writer\File;
 use PSX\Schema\Generator\Code\Chunks;
 use PSX\Schema\Generator\Config;
-use PSX\Schema\SchemaInterface;
 use PSX\Schema\SchemaManagerInterface;
 
 class Generator extends ControllerAbstract
@@ -35,24 +34,31 @@ class Generator extends ControllerAbstract
 
     #[Get]
     #[Path('/generator')]
-    public function show(): mixed
+    public function show(): Template
     {
-        $types = [];
+        $clientTypes = [];
+        $serverTypes = [];
         foreach ($this->generatorFactory->factory()->getPossibleTypes() as $type) {
             $displayName = TypeName::getDisplayName($type);
             if ($displayName === null) {
                 continue;
             }
 
-            $types[$type] = $displayName;
+            if (str_starts_with($type, 'client-')) {
+                $clientTypes[$type] = $displayName;
+            } elseif (str_starts_with($type, 'server-')) {
+                $serverTypes[$type] = $displayName;
+            }
         }
 
-        ksort($types);
+        ksort($clientTypes);
+        ksort($serverTypes);
 
         $data = [
             'title' => 'SDK Generator | TypeAPI',
             'method' => explode('::', __METHOD__),
-            'types' => array_chunk($types, (int) ceil(count($types) / 2), true),
+            'clientTypes' => $clientTypes,
+            'serverTypes' => $serverTypes,
         ];
 
         $templateFile = __DIR__ . '/../../resources/template/generator.php';
@@ -61,7 +67,7 @@ class Generator extends ControllerAbstract
 
     #[Get]
     #[Path('/generator/:type')]
-    public function showType(string $type): mixed
+    public function showType(string $type): Template
     {
         $registry = $this->generatorFactory->factory();
         if (!in_array($type, $registry->getPossibleTypes())) {
@@ -85,7 +91,7 @@ class Generator extends ControllerAbstract
 
     #[Post]
     #[Path('/generator/:type')]
-    public function generate(string $type, Generate $generate): mixed
+    public function generate(string $type, Generate $generate): Template
     {
         [$namespace, $schema, $config, $parsedSchema] = $this->parse($type, $generate);
 

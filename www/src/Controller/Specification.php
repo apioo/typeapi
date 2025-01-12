@@ -19,7 +19,7 @@ class Specification extends ControllerAbstract
 
     #[Get]
     #[Path('/specification')]
-    public function show(): mixed
+    public function show(): Template
     {
         $data = [
             'method' => explode('::', __METHOD__),

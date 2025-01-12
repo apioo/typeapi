@@ -25,21 +25,41 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="<?php echo $url; ?>">TypeAPI</a>
-  <ul class="navbar-nav mr-auto">
-    <li class="nav-item">
-      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Index::class, 'show']); ?>">Home</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Specification::class, 'show']); ?>">Specification</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Ecosystem::class, 'show']); ?>">Ecosystem</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'show']); ?>">Generator</a>
-    </li>
-  </ul>
-  <a href="https://github.com/apioo/typeapi"><img src="<?php echo $base; ?>/img/github-32.png" width="32" height="32" alt="GitHub logo"></a>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="<?php echo $url; ?>"><b>TypeAPI</b></a>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Specification::class, 'show']); ?>">Specification</a>
+      <a class="navbar-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Ecosystem::class, 'show']); ?>">Ecosystem</a>
+      <a class="navbar-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Integration::class, 'show']); ?>">Integration</a>
+      <a class="navbar-item" href="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'show']); ?>">Generator</a>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a href="https://github.com/apioo/typeapi">
+            <img src="<?php echo $base; ?>/img/github-32.png" width="32" height="32" alt="GitHub logo">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </nav>
+
+<section class="section typeapi-header">
+  <div class="container">
+    <h1 class="title has-text-light">TypeAPI</h1>
+    <p class="subtitle has-text-light">An OpenAPI alternative to describe REST APIs for type-safe code generation.</p>
+    <a href="<?php echo $router->getAbsolutePath([\App\Controller\Specification::class, 'show']); ?>" class="button is-primary">Specification</a>
+    <a href="https://sandbox.typeapi.org" class="button">Editor</a>
+    <a href="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'show']); ?>" class="button">Generator</a>
+  </div>
+</section>
