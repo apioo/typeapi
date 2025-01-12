@@ -28,7 +28,6 @@
           <p class="menu-label">Contact</p>
           <ul class="menu-list">
             <li><a href="https://discord.gg/eMrMgwsc6e" class="panel-block">Discord</a></li>
-            <li><a href="https://twitter.com/ApiooTech" class="panel-block">Twitter</a></li>
             <li><a href="https://www.apioo.de/en/contact" class="panel-block">Contact</a></li>
             <li><a href="https://www.apioo.de/en/imprint" class="panel-block">Imprint</a></li>
           </ul>
