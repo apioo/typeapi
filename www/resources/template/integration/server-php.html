@@ -1,0 +1,16 @@
+
+<p>The server code is based on <a href="https://symfony.com/">Symfony</a>. The generated code contains the controller and model classes
+  which are described at the specification. You only need to copy and paste the generated code into your source folder. A simple controller would
+  look like:</p>
+
+<pre class="typeapi-example"><code class="php">class App extends AbstractController
+{
+    #[Route('/hello/world', methods: ['GET'])]
+    #[StatusCode(200)]
+    public function getMessage(): Model\HelloWorld
+    {
+        // @TODO implement method
+    }
+
+}
+</code></pre>

@@ -68,6 +68,7 @@ class Integration extends ControllerAbstract
             'parameters' => ['type' => $type],
             'type' => $type,
             'typeName' => TypeName::getDisplayName($type),
+            'description' => file_get_contents(__DIR__ . '/../../resources/template/integration/' . $type . '.html'),
         ];
 
         $templateFile = __DIR__ . '/../../resources/template/integration/detail.php';

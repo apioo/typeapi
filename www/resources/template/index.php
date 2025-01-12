@@ -56,7 +56,7 @@
         <td><a href="https://spring.io/">Spring</a></td>
       </tr>
       <tr>
-        <td>JavaScript</td>
+        <td>TypeScript</td>
         <td><a href="https://axios-http.com/">Axios</a></td>
         <td><a href="https://nestjs.com/">NestJS</a></td>
       </tr>

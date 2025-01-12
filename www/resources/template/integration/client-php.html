@@ -1,0 +1,13 @@
+
+<p>To integrate the generated client SDK you need to add the <a href="https://packagist.org/packages/sdkgen/client">sdkgen/client</a> package to your
+  project. Then you can simply paste the generate code into the source folder and start using the client for example:</p>
+
+<pre class="typeapi-example"><code class="php">&lt;?php
+
+$credentials = new \Sdkgen\Client\Credentials\Anonymous();
+$client = new Client('http://127.0.0.1:1080', $credentials);
+
+$message = $client->test()->getHello();
+
+echo 'Message: ' . $message->getMessage();
+</code></pre>

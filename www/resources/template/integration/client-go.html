@@ -1,0 +1,18 @@
+
+<p>To integrate the generated client SDK you need to add the <a href="https://github.com/apioo/sdkgen-go">github.com/apioo/sdkgen-go</a> package to your
+  project. Then you can simply paste the generate code into the source folder and start using the client for example:</p>
+
+<pre class="typeapi-example"><code class="go">credentials := sdkgen.Anonymous{}
+
+client, err := NewClient("http://127.0.0.1:1080", credentials)
+if err != nil {
+  log.Fatal(err)
+}
+
+message, err := client.Test().GetHello()
+if err != nil {
+  log.Fatal(err)
+}
+
+fmt.Println("Message: " + message.Message);
+</code></pre>
