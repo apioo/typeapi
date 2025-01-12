@@ -35,7 +35,7 @@
 <section class="section">
   <div class="container">
     <h1 class="title">Code-Generator</h1>
-    <p class="subtitle">Through TypeAPI it is possible to generate fully type-safe client/server pairs using proven technology.</p>
+    <p class="subtitle">Our code generator uses proven technology to generate fully type-safe client/server pairs.</p>
     <table class="table is-striped is-bordered is-fullwidth">
       <thead>
       <tr>
