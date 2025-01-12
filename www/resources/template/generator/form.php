@@ -27,7 +27,7 @@
             <input type="hidden" name="namespace" value="<?php echo htmlspecialchars($namespace ?? ''); ?>">
             <input type="hidden" name="schema" value="<?php echo htmlspecialchars($schema); ?>">
             <button class="g-recaptcha button is-primary" data-sitekey="<?php echo $recaptcha_key; ?>" data-callback="onDownload" data-action="submit">Download</button>
-            <a href="https://github.com/apioo/typeapi/discussions/new?category=<?php echo $type; ?>" class="button">Report Issue</a>
+            <a href="https://github.com/apioo/typeapi/discussions/new?category=<?php echo $type; ?>&body=<?php echo htmlspecialchars(urlencode("Please describe in detail the problem with the following schema\n\n" . '```json' . "\n" . $schema . "\n" . '```' . "\n")); ?>" class="button">Report Issue</a>
           </form>
             <?php if ($output instanceof stdClass): ?>
                 <?php foreach ($output as $fileName => $chunk): ?>
