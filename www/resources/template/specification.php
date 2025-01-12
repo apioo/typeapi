@@ -12,6 +12,7 @@
             <li><a href="#Goals">Goals</a></li>
             <li><a href="#Non-Goals">Non-Goals</a></li>
             <li><a href="#Reasoning">Reasoning</a></li>
+            <li><a href="#Vision">Vision</a></li>
           </ul>
         </li>
         <li><a href="#Operations">Operations</a>
@@ -49,20 +50,38 @@
 
       <a id="Reasoning"></a>
       <h3>Reasoning</h3>
-      <p>For a long time the OpenAPI community was divided into two communities, one building documentation tools and the
-        other trying to build code generation tools. Building documentation tools has very different requirements than
-        building code generation tools. For a documentation tool you can simply render and show all defined endpoints and
-        constraints, a code generation tool on the other side needs to understand the structure and relations of your model.</p>
-      <p>The OpenAPI specification has moved more and more to the documentation community by directly integrating JSON
-        Schema into the specification. The problem with JSON Schema and code generation is, that JSON Schema is a constraint
-        system, based on such constraints it is very difficult or impossible to build a clean code generator since the
-        constraints only define what is not allowed. For a code generator you like to have a schema which explicit models your
-        data structure.</p>
-      <p>With TypeAPI we want build a new home for the code generation community. Conceptual the main difference is that with
-        OpenAPI you describe routes and all aspects of a route, at TypeAPI we describe operations, an operation has arguments
-        and those arguments are mapped to values from the HTTP request. Every operation returns a response and can throw
-        exceptions which are also mapped to an HTTP response. An operation basically represents a method or function in a
-        programming language. This approach makes it really easy to generate complete type safe code.</p>
+      <p></p>
+      <p>We believe that the API world needs a specification which can be used to automatically generate solid type-safe
+        client and server code. The OpenAPI <a href="https://swagger.io/tools/swagger-codegen/">swagger-codegen</a> project
+        exists for a long time to implement such a code generator for the OpenAPI specification, but it has turned out,
+        that the OpenAPI specification and JSON Schema makes it difficult for code generators to generate solid type-safe code.
+        The <a href="https://chriskapp.medium.com/the-benefits-of-code-generation-and-the-problems-of-the-openapi-spec-ec8d75669e04">problems</a>
+        are at the specification level, this means a code generator which
+        is based on OpenAPI needs to somehow solve these inherited problems, by either restricting the specification or by providing a custom format.</p>
+      <p>With TypeAPI we want to provide an alternativ specification to solve these problems. TypeAPI is basically a stricter
+        version of OpenAPI/JSON Schema and it is easy possible to generate an OpenAPI specification based on a TypeAPI specification but not vice versa.
+        We also see already many commercial projects like <a href="https://buildwithfern.com/">Fern</a>, <a href="https://liblab.com/">Liblab</a> or
+        <a href="https://www.stainless.com/">Stainless</a> to solve these problems, but we believe that it would be much better to
+        solve this at the specification level.</p>
+
+      <a id="Vision"></a>
+      <h3>Vision</h3>
+      <p>We see that the world is connected through APIs but integrating external APIs is still a complex problem.
+        We want to move the API ecosystem into a direction where it is no longer needed to implement a client SDK for your API,
+        you only need to describe the API through a TypeAPI specification and everything else can be generated automatically.
+        In the future we also want to extend the TypeAPI specification and code generator to describe GraphQL or RPC APIs so that
+        we have a single client which can talk to various protocols. This means the generated client is always stable, but it is
+        possible to change the underlying technology i.e. if you want to switch from REST to RPC.</p>
+      <p>On the server-side we also want to generate great server-stubs so that it is easy possible to switch the underlying
+        server technology. The code generator automatically generates all controller and model classes
+        for the target server technology i.e. Spring or Symfony and then you only need to implement the actual business logic.</p>
+      <p>At TypeAPI we heavily support the code-first approach, we think it should be possible to generate an API specification
+        directly from your code without the need to add many additional annotations. In the future we want to provide tools to
+        automatically generate a TypeAPI specification directly from various frameworks without the need to manually build the specification.
+        We see many APIs which are not in sync with the specification and we believe that code-first is the correct approach to prevent
+        this, so that the specification is always in sync with the actual implementation. While theoretical the design-first approach would
+        be great we have seen in the past that there is basically no way to prevent API drift at scale and keep the API in sync with the
+        actual implementation.</p>
 
       <hr>
 
@@ -126,7 +145,7 @@
       <a id="Arguments"></a>
       <h3>Arguments</h3>
 
-      <p>Through <code>arguments</code> keywords you can map values from the HTTP request to specific method arguments. In
+      <p>Through the <code>arguments</code> keywords you can map values from the HTTP request to specific method arguments. In
         the following example we have an argument <code>status</code> which maps to a query parameter and an argument
         <code>payload</code> which contains the request payload.</p>
 
@@ -188,7 +207,7 @@ Content-Type: application/json
 
       <p>Besides the return type an operation can return multiple exceptional states in case an error occurred. Every
         exceptional state is then mapped to a specific status code i.e. <code>404</code> or <code>500</code>. The generated
-        client SDK will then throw a fitting exception containing the JSON payload in case the server returns such an error
+        client SDK will throw a fitting exception containing the JSON payload in case the server returns such an error
         response code. The client will either return the success response or throw an exception. This greatly simplifies error
         handling at your client code.</p>
 
@@ -256,10 +275,22 @@ Content-Type: application/json
 
       <p>The <code>security</code> keyword describes the authorization mechanism of the API, the following types are supported:</p>
       <ul>
-        <li><code>apiKey</code></li>
-        <li><code>httpBasic</code></li>
-        <li><code>httpBearer</code></li>
-        <li><code>oauth2</code></li>
+        <li>
+          <p><code>apiKey</code></p>
+          <p>Describes an arbitrary HTTP header containing an access token i.e. <code>X-Api-Key</code> which can be specified with the <code>in</code> and <code>name</code> keyword.</p>
+        </li>
+        <li>
+          <p><code>httpBasic</code></p>
+          <p>Describes an <code>Authorization</code> header using the Basic type. See <a href="https://datatracker.ietf.org/doc/html/rfc7617">RFC7617</a>, base64-encoded credentials.</p>
+        </li>
+        <li>
+          <p><code>httpBearer</code></p>
+          <p>Describes an <code>Authorization</code> header using the Bearer type. See <a href="https://datatracker.ietf.org/doc/html/rfc6750">RFC6750</a>, bearer tokens to access OAuth 2.0-protected resources.</p>
+        </li>
+        <li>
+          <p><code>oauth2</code></p>
+          <p>Describes an OAuth2 endpoint. The client will automatically request an access token using the <code>client_credentials</code> authorization grant on usage. The following keywords can be used: <code>tokenUrl</code>, <code>authorizationUrl</code> and optionally <code>scopes</code></p>
+        </li>
       </ul>
 
       <p><a href="https://app.typehub.cloud/d/typehub/typeapi"></a></p>
