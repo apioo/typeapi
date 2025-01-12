@@ -1,7 +1,7 @@
 <?php
 
 concat(__DIR__ . '/public/css/app.min.css', [
-    __DIR__ . '/public/css/bulma-no-dark-mode.min.css',
+    __DIR__ . '/public/css/bulma.min.css',
     __DIR__ . '/public/css/highlight.min.css',
     __DIR__ . '/public/css/app.css',
 ]);
