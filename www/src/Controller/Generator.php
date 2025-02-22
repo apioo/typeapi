@@ -93,7 +93,7 @@ class Generator extends ControllerAbstract
     #[Path('/generator/:type')]
     public function generate(string $type, Generate $generate): Template
     {
-        [$namespace, $schema, $config, $parsedSchema] = $this->parse($type, $generate);
+        [$schema, $config, $parsedSchema] = $this->parse($type, $generate);
 
         try {
             $registry = $this->generatorFactory->factory();
@@ -113,7 +113,7 @@ class Generator extends ControllerAbstract
             'title' => TypeName::getDisplayName($type) . ' SDK Generator | TypeAPI',
             'method' => explode('::', __METHOD__),
             'parameters' => ['type' => $type],
-            'namespace' => $namespace,
+            'namespace' => $config->get(Config::NAMESPACE),
             'schema' => $schema,
             'type' => $type,
             'typeName' => TypeName::getDisplayName($type),
@@ -130,7 +130,7 @@ class Generator extends ControllerAbstract
     #[Path('/generator/:type/download')]
     public function download(#[Param] string $type, #[Body] Generate $generate): mixed
     {
-        [$namespace, $schema, $config, $parsedSchema] = $this->parse($type, $generate);
+        [$schema, $config, $parsedSchema] = $this->parse($type, $generate);
 
         try {
             $zipFile = $this->config->get('psx_path_cache') . '/typeapi_' . $type . '_' . sha1($schema) . '.zip';
@@ -169,7 +169,7 @@ class Generator extends ControllerAbstract
     }
 
     /**
-     * @return array{string|null, string, Config, SpecificationInterface}
+     * @return array{string, Config, SpecificationInterface}
      */
     private function parse(string $type, Generate $generate): array
     {
@@ -197,7 +197,7 @@ class Generator extends ControllerAbstract
 
         $result = (new TypeAPI($this->schemaManager))->parse($schema);
 
-        return [$namespace, $schema, $config, $result];
+        return [$schema, $config, $result];
     }
 
     private function getSchema(): string
