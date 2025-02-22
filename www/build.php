@@ -7,6 +7,7 @@ concat(__DIR__ . '/public/css/app.min.css', [
 ]);
 
 concat(__DIR__ . '/public/js/app.min.js', [
+    __DIR__ . '/public/js/app.js',
     __DIR__ . '/public/js/highlight.min.js',
 ]);
 
