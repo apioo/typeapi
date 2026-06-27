@@ -64,7 +64,6 @@
     <h1 class="title has-text-light">TypeAPI</h1>
     <p class="subtitle has-text-light">An OpenAPI alternative to describe REST APIs for type-safe code generation.</p>
     <a href="<?php echo $router->getAbsolutePath([\App\Controller\Specification::class, 'show']); ?>" class="button is-primary">Specification</a>
-    <a href="https://sandbox.typeapi.org" class="button">Editor</a>
-    <a href="<?php echo $router->getAbsolutePath([\App\Controller\Generator::class, 'show']); ?>" class="button">Generator</a>
+    <a href="https://sandbox.sdkgen.app/" class="button">Sandbox</a>
   </div>
 </section>
