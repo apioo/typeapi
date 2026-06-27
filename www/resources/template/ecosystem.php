@@ -71,23 +71,21 @@
       </thead>
       <tbody>
       <tr>
-        <td><a href="https://github.com/apioo/typeschema-angular-editor">TypeAPI-Editor</a></td>
-        <td>Angular component which allows you to build and view TypeAPI specifications. We provide a hosted version at
-          our <a href="https://sandbox.typeapi.org/">Sandbox</a> page.</td>
+        <td><a href="https://sandbox.sdkgen.app/">Sandbox</a></td>
+        <td>Angular app which allows you to design a TypeAPI specification and generate client SDKs, server stubs or DTOs.</td>
       </tr>
       <tr>
-        <td><a href="https://github.com/apioo/sdkgen-generator-action">SDKgen-Generator-Action</a></td>
+          <td><a href="https://github.com/apioo/sdkgen-cli">CLI</a></td>
+          <td>A simple binary written in go which allows you to generate code.</td>
+      </tr>
+      <tr>
+        <td><a href="https://github.com/apioo/sdkgen-generator-action">GitHub-Action</a></td>
         <td>GitHub action which allows you to generate code through a GitHub workflow action.</td>
       </tr>
       <tr>
-        <td><a href="https://github.com/apioo/sdkgen-cli">SDKgen-Generator-CLI</a></td>
-        <td>A simple binary written in go which allows you to generate code.</td>
-      </tr>
-      <tr>
         <td><a href="https://sdkgen.app/">SDKgen</a></td>
-        <td>SDKgen is a service which provides a code generator as REST API, you can consume the API either manually or through
-          a simple <a href="https://github.com/apioo/sdkgen-cli">CLI app</a> which helps to integrate it into different
-          environments. Besides this it also provides additional languages like Java and Go.</td>
+        <td>SDKgen is a service which provides a code generator as REST API, it is used by the Sandbox, CLI and GitHub-Action.
+        For more information take a look at the available <a href="https://sdkgen.app/integration">integration options</a>.</td>
       </tr>
       <tr>
         <td><a href="https://typehub.cloud/">TypeHub</a></td>
