@@ -1,96 +1,121 @@
 
 <?php include __DIR__ . '/inc/header.php'; ?>
 
-<section class="section">
-  <div class="container">
-    <div class="content">
-      <h1>Specification</h1>
-      <h2>Table of Contents</h2>
-      <ul>
-        <li><a href="#Introduction">Introduction</a>
-          <ul>
-            <li><a href="#Goals">Goals</a></li>
-            <li><a href="#Non-Goals">Non-Goals</a></li>
-            <li><a href="#Reasoning">Reasoning</a></li>
-            <li><a href="#Vision">Vision</a></li>
-          </ul>
-        </li>
-        <li><a href="#Operations">Operations</a>
-          <ul>
-            <li><a href="#Return">Return</a></li>
-            <li><a href="#Arguments">Arguments</a></li>
-            <li><a href="#Throws">Throws</a></li>
-          </ul>
-        </li>
-        <li><a href="#Definitions">Definitions</a></li>
-        <li><a href="#Security">Security</a></li>
-      </ul>
+<div class="flex max-w-container-max mx-auto pt-16">
+    <!-- Sidebar -->
+    <aside class="hidden md:block fixed h-[calc(100vh-64px)] w-72 border-r border-border-subtle bg-surface-deep pt-8 overflow-y-auto px-6">
+        <div class="mb-8">
+            <h2 class="font-label-caps text-label-caps text-text-muted uppercase tracking-widest mb-4">Contents</h2>
+            <nav class="space-y-3 font-body-md text-body-md text-on-surface-variant">
+                <a class="block hover:text-primary transition-colors" href="#intro"><span class="text-primary/50 mr-2">1.</span> Introduction</a>
+                <div class="pl-4 space-y-2 text-sm opacity-80">
+                    <a class="block hover:text-primary transition-colors" href="#goals">1.1 Goals</a>
+                    <a class="block hover:text-primary transition-colors" href="#non-goals">1.2 Non-Goals</a>
+                    <a class="block hover:text-primary transition-colors" href="#reasoning">1.3 Reasoning</a>
+                    <a class="block hover:text-primary transition-colors" href="#vision">1.4 Vision</a>
+                </div>
+                <a class="block hover:text-primary transition-colors" href="#operations"><span class="text-primary/50 mr-2">2.</span> Operations</a>
+                <div class="pl-4 space-y-2 text-sm opacity-80">
+                    <a class="block hover:text-primary transition-colors" href="#return">2.1 Return</a>
+                    <a class="block hover:text-primary transition-colors" href="#arguments">2.2 Arguments</a>
+                    <a class="block hover:text-primary transition-colors" href="#throws">2.3 Throws</a>
+                </div>
+                <a class="block hover:text-primary transition-colors" href="#definitions"><span class="text-primary/50 mr-2">3.</span> Definitions</a>
+                <a class="block hover:text-primary transition-colors" href="#security"><span class="text-primary/50 mr-2">4.</span> Security</a>
+            </nav>
+        </div>
+    </aside>
 
-      <hr>
-
-      <a id="Introduction"></a>
-      <h2>Introduction</h2>
-      <p>This document describes the <a href="https://app.typehub.cloud/d/typehub/typeapi">TypeAPI specification</a>.
-        The TypeAPI specification defines a JSON format to describe REST APIs for type-safe code generation.</p>
-
-      <a id="Goals"></a>
-      <h3>Goals</h3>
-      <ul>
-        <li>Provide a format to generate clean and ready to use code</li>
-        <li>Provide a simple and stable specification</li>
-        <li>Optimized for static typed and object-oriented programming languages</li>
-      </ul>
-
-      <a id="Non-Goals"></a>
-      <h3>Non-Goals</h3>
-      <ul>
-        <li>Describe every possible REST API structure and JSON payload</li>
-        <li>Providing complex JSON validation capabilities</li>
-      </ul>
-
-      <a id="Reasoning"></a>
-      <h3>Reasoning</h3>
-      <p></p>
-      <p>We believe that the API world needs a specification which can be used to automatically generate solid type-safe
-        client and server code. The OpenAPI <a href="https://swagger.io/tools/swagger-codegen/">swagger-codegen</a> project
-        exists for a long time to implement such a code generator for the OpenAPI specification, but it has turned out,
-        that the OpenAPI specification and JSON Schema makes it difficult for code generators to generate solid type-safe code.
-        The <a href="https://chriskapp.medium.com/the-benefits-of-code-generation-and-the-problems-of-the-openapi-spec-ec8d75669e04">problems</a>
-        are at the specification level, this means a code generator which
-        is based on OpenAPI needs to somehow solve these inherited problems, by either restricting the specification or by providing a custom format.</p>
-      <p>With TypeAPI we want to provide an alternativ specification to solve these problems. TypeAPI is basically a stricter
-        version of OpenAPI/JSON Schema and it is easy possible to generate an OpenAPI specification based on a TypeAPI specification but not vice versa.
-        We also see already many commercial projects like <a href="https://buildwithfern.com/">Fern</a>, <a href="https://liblab.com/">Liblab</a> or
-        <a href="https://www.stainless.com/">Stainless</a> to solve these problems, but we believe that it would be much better to
-        solve this at the specification level.</p>
-
-      <a id="Vision"></a>
-      <h3>Vision</h3>
-      <p>We see that the world is connected through APIs but integrating external APIs is still a complex problem.
-        We want to move the API ecosystem into a direction where it is no longer needed to implement a client SDK for your API,
-        you only need to describe the API through a TypeAPI specification and everything else can be generated automatically.
-        In the future we also want to extend the TypeAPI specification and code generator to describe GraphQL or RPC APIs so that
-        we have a single client which can talk to various protocols. This means the generated client is always stable, but it is
-        possible to change the underlying technology i.e. if you want to switch from REST to RPC.</p>
-      <p>On the server-side we also want to generate great server-stubs so that it is easy possible to switch the underlying
-        server technology. The code generator automatically generates all controller and model classes
-        for the target server technology i.e. Spring or Symfony and then you only need to implement the actual business logic.</p>
-      <p>At TypeAPI we heavily support the code-first approach, we think it should be possible to generate an API specification
-        directly from your code without the need to add many additional annotations. In the future we want to provide tools to
-        automatically generate a TypeAPI specification directly from various frameworks without the need to manually build the specification.
-        We see many APIs which are not in sync with the specification and we believe that code-first is the correct approach to prevent
-        this, so that the specification is always in sync with the actual implementation. While theoretical the design-first approach would
-        be great we have seen in the past that there is basically no way to prevent API drift at scale and keep the API in sync with the
-        actual implementation.</p>
-
-      <hr>
-
-      <a id="Operations"></a>
-      <h2>Operations</h2>
-
-      <p>Every TypeAPI has a <a href="https://app.typehub.cloud/d/typehub/typeapi#type-TypeAPI">Root</a> definition. The
-        Root must contain at least the <code>operations</code> and <code>definitions</code> keyword i.e.:</p>
-      <pre><code class="language-json">{
+    <main class="flex-1 md:ml-72 px-margin-mobile md:px-16 py-12 pb-32">
+        <div class="max-w-3xl mx-auto">
+            <div class="mb-16 border-b border-border-subtle pb-8">
+                <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-6">Specification</h1>
+                <div class="h-1 w-24 bg-primary rounded-full mt-2"></div>
+                <p class="mt-5 font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                    An OpenAPI alternative to describe REST APIs for type-safe code generation.
+                </p>
+            </div>
+            <!-- Section 1: Introduction -->
+            <section class="spec-section scroll-mt-24" id="intro">
+                <h2 class="font-headline-md text-headline-md text-on-surface mb-6 flex items-baseline">
+                    <span class="spec-number">1.</span> Introduction
+                </h2>
+                <p class="font-body-md text-body-md text-on-surface-variant mb-8 leading-relaxed">
+                    This document describes the TypeAPI specification. The TypeAPI specification defines a JSON format to describe REST APIs for type-safe code generation.
+                </p>
+                <div class="mb-12" id="goals">
+                    <h3 class="font-bold text-lg mb-4 flex items-baseline">
+                        <span class="spec-number text-sm">1.1</span> Goals
+                    </h3>
+                    <ul class="list-disc pl-6 space-y-3 font-body-md text-on-surface-variant">
+                        <li>Provide a format to generate clean and ready to use code</li>
+                        <li>Provide a simple and stable specification</li>
+                        <li>Optimized for static typed and object-oriented programming languages</li>
+                    </ul>
+                </div>
+                <div class="mb-12" id="non-goals">
+                    <h3 class="font-bold text-lg mb-4 flex items-baseline">
+                        <span class="spec-number text-sm">1.2</span> Non-Goals
+                    </h3>
+                    <ul class="list-disc pl-6 space-y-3 font-body-md text-on-surface-variant">
+                        <li>Describe non JSON payloads i.e. XML or form-encoded</li>
+                        <li>Describe every possible API structure and JSON payload</li>
+                        <li>Providing complex JSON validation capabilities</li>
+                    </ul>
+                </div>
+                <div class="mb-12" id="reasoning">
+                    <h3 class="font-bold text-lg mb-4 flex items-baseline">
+                        <span class="spec-number text-sm">1.3</span> Reasoning
+                    </h3>
+                    <p class="font-body-md text-on-surface-variant leading-relaxed mb-6">
+                        The current API ecosystem faces significant challenges in the automated generation of high-fidelity, type-safe client and server implementations. While existing standards such as OpenAPI and JSON Schema have established a foundation for API description, their inherent flexibility often introduces complexities that impede the delivery of deterministic, strongly-typed code.
+                    </p>
+                    <p class="font-body-md text-on-surface-variant leading-relaxed">
+                        Code generation utilities based on these specifications frequently encounter structural ambiguities that require either restrictive implementation subsets or proprietary extensions to achieve type safety. TypeAPI addresses these foundational limitations by providing a more rigorous, schema-first alternative. By enforcing a stricter subset of OpenAPI and JSON Schema principles, TypeAPI enables the generation of consistent, production-ready code across diverse programming environments while maintaining compatibility with broader industry standards.
+                    </p>
+                </div>
+                <div class="mb-8" id="vision">
+                    <h3 class="font-bold text-lg mb-4 flex items-baseline">
+                        <span class="spec-number text-sm">1.4</span> Vision
+                    </h3>
+                    <p class="font-body-md text-on-surface-variant leading-relaxed mb-6">
+                        TypeAPI aims to standardize API integration by shifting the industry towards automated, specification-driven workflows. By providing a rigorous machine-readable definition, TypeAPI eliminates the requirement for manual client SDK development and ensures architectural consistency across disparate systems.
+                    </p>
+                    <p class="font-bold text-on-surface mb-2">Client-Side Automation</p>
+                    <p class="font-body-md text-on-surface-variant leading-relaxed mb-6">
+                        The specification facilitates the automatic generation of stable, type-safe client libraries. This enables seamless integration of external services without the overhead of manual implementation, allowing developers to interact with any TypeAPI-compliant service through a standardized interface.
+                    </p>
+                    <p class="font-bold text-on-surface mb-2">Server-Side Abstraction</p>
+                    <p class="font-body-md text-on-surface-variant leading-relaxed mb-6">
+                        TypeAPI decouples business logic from underlying server technology. The specification enables the generation of server stubs, controllers, and data models for diverse frameworks (e.g., Spring, Symfony), allowing for infrastructure migration or technology swaps with minimal impact on core implementation logic.
+                    </p>
+                    <p class="font-bold text-on-surface mb-2">Code-First Integrity</p>
+                    <p class="font-body-md text-on-surface-variant leading-relaxed">
+                        TypeAPI prioritizes a code-first approach to prevent specification drift. By deriving the API definition directly from implementation metadata, TypeAPI ensures that documentation remains a live, accurate reflection of the service. This methodology addresses the inherent limitations of design-first approaches by maintaining absolute synchronization between the specification and the deployed API at scale.
+                    </p>
+                </div>
+                <div class="mb-12" id="specification">
+                    <h3 class="font-bold text-lg mb-4 flex items-baseline">
+                        <span class="spec-number text-sm">1.5</span> Specification
+                    </h3>
+                    <p class="font-body-md text-on-surface-variant leading-relaxed mb-6">
+                        The complete details of the TypeAPI specification are hosted on TypeHub. You can explore the full interactive documentation and schema definitions at the <a href="https://app.typehub.cloud/d/typehub/typeapi" class="text-primary hover:underline">TypeHub Official Specification</a>.
+                    </p>
+                    <p class="font-body-md text-on-surface-variant leading-relaxed">
+                        The source of the specification is developed and maintained on GitHub. You can view the raw JSON definition and contribute to its development at the <a href="https://github.com/apioo/typeapi/blob/main/specification/typeapi.json" class="text-primary hover:underline">TypeAPI GitHub Repository</a>.
+                    </p>
+                </div>
+            </section>
+            <!-- Section 2: Operations -->
+            <section class="spec-section scroll-mt-24" id="operations">
+                <h2 class="font-headline-md text-headline-md text-on-surface mb-6 flex items-baseline">
+                    <span class="spec-number">2.</span> Operations
+                </h2>
+                <p class="font-body-md text-on-surface-variant mb-6">
+                    Every TypeAPI has a Root definition. The Root must contain at least the <code>operations</code> and <code>definitions</code> keyword i.e.:
+                </p>
+                <div class="definition-block">
+<pre class="p-4 overflow-x-auto code-scrollbar font-code-sm text-code-cyan text-sm">{
     "operations": {
         "getMessage": { ... },
     },
@@ -98,15 +123,14 @@
         "TypeA": { ... },
         "TypeB": { ... }
     }
-}</code></pre>
-
-      <hr>
-
-      <p>The <code>operations</code> keyword contains a map containing <a href="https://app.typehub.cloud/d/typehub/typeapi#type-Operation">Operation</a>
-        objects. The key represents the identifier of this operation, through the dot notation i.e. <code>user.getMessage</code> you can group your
-        operations into logical units.</p>
-
-      <pre><code class="language-json">{
+}</pre>
+                </div>
+                <hr class="my-12 border-border-subtle"/>
+                <p class="font-body-md text-on-surface-variant mb-6">
+                    The <code>operations</code> keyword contains a map containing Operation objects. The key represents the identifier of this operation, through the dot notation i.e. <code>user.getMessage</code> you can group your operations into logical units.
+                </p>
+                <div class="definition-block">
+<pre class="p-4 overflow-x-auto code-scrollbar font-code-sm text-code-cyan text-sm">{
     "operations": {
         "getMessage": {
             "description": "Returns a hello world message",
@@ -130,26 +154,25 @@
             }
         }
     }
-}</code></pre>
-
-      <hr>
-
-      <a id="Return"></a>
-      <h3>Return</h3>
-
-      <p>Every operation can define a return type. In the above example the operation simply returns a <code>Hello_World</code>
-        object.</p>
-
-      <hr>
-
-      <a id="Arguments"></a>
-      <h3>Arguments</h3>
-
-      <p>Through the <code>arguments</code> keywords you can map values from the HTTP request to specific method arguments. In
-        the following example we have an argument <code>status</code> which maps to a query parameter and an argument
-        <code>payload</code> which contains the request payload.</p>
-
-      <pre><code class="language-json">{
+}</pre>
+                </div>
+                <div class="mt-12" id="return">
+                    <h3 class="font-bold text-lg mb-4 flex items-baseline">
+                        <span class="spec-number text-sm">2.1</span> Return
+                    </h3>
+                    <p class="font-body-md text-on-surface-variant mb-6 leading-relaxed">
+                        Every operation can define a return type. In the above example the operation simply returns a <code>Hello_World</code> object.
+                    </p>
+                </div>
+                <div class="mt-12" id="arguments">
+                    <h3 class="font-bold text-lg mb-4 flex items-baseline">
+                        <span class="spec-number text-sm">2.2</span> Arguments
+                    </h3>
+                    <p class="font-body-md text-on-surface-variant mb-6 leading-relaxed">
+                        Through the <code>arguments</code> keywords you can map values from the HTTP request to specific method arguments. In the following example we have an argument <code>status</code> which maps to a query parameter and an argument <code>payload</code> which contains the request payload.
+                    </p>
+                    <div class="definition-block">
+<pre class="p-4 overflow-x-auto code-scrollbar font-code-sm text-code-cyan text-sm">{
     "operations": {
         "insertMessage": {
             "description": "Inserts and returns a hello world message",
@@ -188,30 +211,27 @@
             }
         }
     }
-}</code></pre>
-
-      <p>This would map to the following HTTP request.</p>
-
-      <pre><code class="language-http">POST https://api.acme.com/hello/world?status=2
+}</pre>
+                    </div>
+                    <p class="font-body-md text-on-surface-variant my-6">This would map to the following HTTP request.</p>
+                    <div class="definition-block">
+<pre class="p-4 overflow-x-auto code-scrollbar font-code-sm text-on-surface-variant text-sm">POST https://api.acme.com/hello/world?status=2
 Content-Type: application/json
 
 {
   "message": "Hello"
-}
-</code></pre>
-
-      <hr>
-
-      <a id="Throws"></a>
-      <h3>Throws</h3>
-
-      <p>Besides the return type an operation can return multiple exceptional states in case an error occurred. Every
-        exceptional state is then mapped to a specific status code i.e. <code>404</code> or <code>500</code>. The generated
-        client SDK will throw a fitting exception containing the JSON payload in case the server returns such an error
-        response code. The client will either return the success response or throw an exception. This greatly simplifies error
-        handling at your client code.</p>
-
-      <pre><code class="language-json">{
+}</pre>
+                    </div>
+                </div>
+                <div class="mt-12" id="throws">
+                    <h3 class="font-bold text-lg mb-4 flex items-baseline">
+                        <span class="spec-number text-sm">2.3</span> Throws
+                    </h3>
+                    <p class="font-body-md text-on-surface-variant mb-6 leading-relaxed">
+                        Besides the return type an operation can return multiple exceptional states in case an error occurred. Every exceptional state is then mapped to a specific status code i.e. <code>404</code> or <code>500</code>. The generated client SDK will throw a fitting exception containing the JSON payload in case the server returns such an error response code. The client will either return the success response or throw an exception. This greatly simplifies error handling at your client code.
+                    </p>
+                    <div class="definition-block">
+<pre class="p-4 overflow-x-auto code-scrollbar font-code-sm text-code-cyan text-sm">{
     "operations": {
         "getMessage": {
             "description": "Returns a hello world message",
@@ -256,46 +276,47 @@ Content-Type: application/json
             }
         }
     }
-}</code></pre>
-
-      <hr>
-
-      <a id="Definitions"></a>
-      <h2>Definitions</h2>
-
-      <p>The <code>definitions</code> keyword maps to the <a href="https://typeschema.org/">TypeSchema</a>
-        specification and represents a map containing <a href="https://app.typehub.cloud/d/typehub/typeschema#type-StructType">Struct</a>,
-        <a href="https://app.typehub.cloud/d/typehub/typeschema#type-MapType">Map</a> or <a href="https://app.typehub.cloud/d/typehub/typeschema#type-ReferenceType">Reference</a>
-        types. Those types are then used to describe incoming and outgoing JSON payloads.</p>
-
-      <hr>
-
-      <a id="Security"></a>
-      <h2>Security</h2>
-
-      <p>The <code>security</code> keyword describes the authorization mechanism of the API, the following types are supported:</p>
-      <ul>
-        <li>
-          <p><code>apiKey</code></p>
-          <p>Describes an arbitrary HTTP header containing an access token i.e. <code>X-Api-Key</code> which can be specified with the <code>in</code> and <code>name</code> keyword.</p>
-        </li>
-        <li>
-          <p><code>httpBasic</code></p>
-          <p>Describes an <code>Authorization</code> header using the Basic type. See <a href="https://datatracker.ietf.org/doc/html/rfc7617">RFC7617</a>, base64-encoded credentials.</p>
-        </li>
-        <li>
-          <p><code>httpBearer</code></p>
-          <p>Describes an <code>Authorization</code> header using the Bearer type. See <a href="https://datatracker.ietf.org/doc/html/rfc6750">RFC6750</a>, bearer tokens to access OAuth 2.0-protected resources.</p>
-        </li>
-        <li>
-          <p><code>oauth2</code></p>
-          <p>Describes an OAuth2 endpoint. The client will automatically request an access token using the <code>client_credentials</code> authorization grant on usage. The following keywords can be used: <code>tokenUrl</code>, <code>authorizationUrl</code> and optionally <code>scopes</code></p>
-        </li>
-      </ul>
-
-      <p><a href="https://app.typehub.cloud/d/typehub/typeapi"></a></p>
-
-      <pre><code class="language-json">{
+}</pre>
+                    </div>
+                </div>
+            </section>
+            <!-- Section 3: Definitions -->
+            <section class="spec-section scroll-mt-24" id="definitions">
+                <h2 class="font-headline-md text-headline-md text-on-surface mb-6 flex items-baseline">
+                    <span class="spec-number">3.</span> Definitions
+                </h2>
+                <p class="font-body-md text-on-surface-variant mb-8 leading-relaxed">
+                    The <code>definitions</code> keyword maps to the <a href="https://app.typehub.cloud/d/typehub/typeschema" class="text-primary hover:underline">TypeSchema</a> specification and represents a map containing Struct types. Those types are then used to describe incoming and outgoing JSON payloads.
+                </p>
+            </section>
+            <!-- Section 4: Security -->
+            <section class="spec-section scroll-mt-24" id="security">
+                <h2 class="font-headline-md text-headline-md text-on-surface mb-6 flex items-baseline">
+                    <span class="spec-number">4.</span> Security
+                </h2>
+                <p class="font-body-md text-on-surface-variant mb-8 leading-relaxed">
+                    The <code>security</code> keyword describes the authorization mechanism of the API, the following types are supported:
+                </p>
+                <div class="space-y-8">
+                    <div>
+                        <h4 class="font-code-sm text-primary mb-2">apiKey</h4>
+                        <p class="text-on-surface-variant text-sm leading-relaxed">Describes an arbitrary HTTP header containing an access token i.e. <code>X-Api-Key</code> which can be specified with the <code>in</code> and <code>name</code> keyword.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-code-sm text-primary mb-2">httpBasic</h4>
+                        <p class="text-on-surface-variant text-sm leading-relaxed">Describes an <code>Authorization</code> header using the Basic type. See <a href="https://datatracker.ietf.org/doc/html/rfc7617" class="text-secondary hover:underline">RFC7617</a>, base64-encoded credentials.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-code-sm text-primary mb-2">httpBearer</h4>
+                        <p class="text-on-surface-variant text-sm leading-relaxed">Describes an <code>Authorization</code> header using the Bearer type. See <a href="https://datatracker.ietf.org/doc/html/rfc6750" class="text-secondary hover:underline">RFC6750</a>, bearer tokens to access OAuth 2.0-protected resources.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-code-sm text-primary mb-2">oauth2</h4>
+                        <p class="text-on-surface-variant text-sm leading-relaxed">Describes an OAuth2 endpoint. The client will automatically request an access token using the <code>client_credentials</code> authorization grant on usage. The following keywords can be used: <code>tokenUrl</code>, <code>authorizationUrl</code> and optionally <code>scopes</code>.</p>
+                    </div>
+                </div>
+                <div class="definition-block mt-8">
+<pre class="p-4 overflow-x-auto code-scrollbar font-code-sm text-code-cyan text-sm">{
     "security": {
         "type": "httpBearer",
     },
@@ -305,22 +326,11 @@ Content-Type: application/json
     "definitions": {
         "Hello_World": { ... }
     }
-}</code></pre>
-
-    </div>
-    <div class="typeschema-edit">
-      <a href="https://github.com/apioo/typeapi/blob/main/www/resources/template/<?php echo pathinfo(__FILE__, PATHINFO_BASENAME); ?>"><i class="bi bi-pencil"></i> Edit this page</a>
-    </div>
-  </div>
-</section>
-
-<script>window.addEventListener('load', function() { hljs.highlightAll() });</script>
-
-<script>
-    const links = document.querySelectorAll('a.psx-type-link');
-    links.forEach((link) => {
-        link.setAttribute('href', '#' + link.dataset.name);
-    });
-</script>
+}</pre>
+                </div>
+            </section>
+        </div>
+    </main>
+</div>
 
 <?php include __DIR__ . '/inc/footer.php'; ?>
