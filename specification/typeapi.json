@@ -143,12 +143,12 @@
           "type": "string"
         },
         "schema": {
-          "description": "JSON schema describing the structure of the argument payload.",
+          "description": "TypeSchema describing the structure of the argument payload.",
           "type": "reference",
           "target": "typeschema:PropertyType"
         },
         "contentType": {
-          "description": "The content type to use when the payload cannot be described by a JSON schema.",
+          "description": "The content type to use when the payload cannot be described by a TypeSchema.",
           "type": "string"
         },
         "name": {
@@ -166,11 +166,11 @@
           "type": "integer"
         },
         "contentType": {
-          "description": "The content type to use when the response body cannot be described by a JSON schema.",
+          "description": "The content type to use when the response body cannot be described by a TypeSchema.",
           "type": "string"
         },
         "schema": {
-          "description": "JSON schema describing the structure of the response payload.",
+          "description": "TypeSchema describing the structure of the response payload.",
           "type": "reference",
           "target": "typeschema:PropertyType"
         }
