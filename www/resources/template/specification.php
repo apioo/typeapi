@@ -48,9 +48,10 @@
                         <span class="spec-number text-sm">1.1</span> Goals
                     </h3>
                     <ul class="list-disc pl-6 space-y-3 font-body-md text-on-surface-variant">
-                        <li>Provide a format to generate clean and ready to use code</li>
-                        <li>Provide a simple and stable specification</li>
-                        <li>Optimized for static typed and object-oriented programming languages</li>
+                        <li>Enable the generation of clean, production-ready code.</li>
+                        <li>Maintain a minimalist and stable core specification.</li>
+                        <li>Optimize for strictly-typed and object-oriented programming paradigms.</li>
+                        <li>Facilitate the straightforward implementation of custom code generation engines.</li>
                     </ul>
                 </div>
                 <div class="mb-12" id="non-goals">
@@ -58,20 +59,39 @@
                         <span class="spec-number text-sm">1.2</span> Non-Goals
                     </h3>
                     <ul class="list-disc pl-6 space-y-3 font-body-md text-on-surface-variant">
-                        <li>Describe non JSON payloads i.e. XML or form-encoded</li>
-                        <li>Describe every possible API structure and JSON payload</li>
-                        <li>Providing complex JSON validation capabilities</li>
+                        <li>Describe non JSON payloads i.e. XML or form-encoded.</li>
+                        <li>Describe every possible API structure and JSON payload.</li>
+                        <li>Providing complex JSON validation capabilities.</li>
                     </ul>
                 </div>
                 <div class="mb-12" id="reasoning">
                     <h3 class="font-bold text-lg mb-4 flex items-baseline">
-                        <span class="spec-number text-sm">1.3</span> Reasoning
+                        <span class="spec-number text-sm">1.3</span> Reasoning & Motivation
                     </h3>
+                    <p class="font-bold text-on-surface mb-2">The Code Generation Imperative</p>
                     <p class="font-body-md text-on-surface-variant leading-relaxed mb-6">
-                        The current API ecosystem faces significant challenges in the automated generation of high-fidelity, type-safe client and server implementations. While existing standards such as OpenAPI and JSON Schema have established a foundation for API description, their inherent flexibility often introduces complexities that impede the delivery of deterministic, strongly-typed code.
+                        Modern software architecture relies heavily on cross-language API integration, automated SDK generation, and end-to-end type safety. To achieve reliable code generation across strongly typed languages (e.g., TypeScript, Java, C#, Go, Rust), an API description format must provide unambiguous, deterministic mapping to object-oriented and functional type systems.
                     </p>
-                    <p class="font-body-md text-on-surface-variant leading-relaxed">
-                        Code generation utilities based on these specifications frequently encounter structural ambiguities that require either restrictive implementation subsets or proprietary extensions to achieve type safety. TypeAPI addresses these foundational limitations by providing a more rigorous, schema-first alternative. By enforcing a stricter subset of OpenAPI and JSON Schema principles, TypeAPI enables the generation of consistent, production-ready code across diverse programming environments while maintaining compatibility with broader industry standards.
+                    <p class="font-bold text-on-surface mb-2">Limitations of Existing Standards</p>
+                    <p class="font-body-md text-on-surface-variant leading-relaxed mb-6">
+                        Industry-standard specifications such as OpenAPI and JSON Schema were primarily architected for validation and documentation of dynamic JSON payloads rather than strong static type modeling. Consequently, they introduce critical structural challenges for code generators:
+                    </p>
+                    <ul class="list-disc pl-6 space-y-3 font-body-md text-on-surface-variant mb-6">
+                        <li><b>Over-Flexibility & Ambiguity</b>: Constructs like complex dynamic validation keywords, loose pattern properties, and unrestricted anyOf/oneOf/allOf polymorphism often lack direct, idiomatic equivalents in statically typed target languages.</li>
+                        <li><b>Non-Deterministic AST Mapping</b>: Generous schema flexibility forces code generators to rely on heuristic assumptions, language-specific vendor extensions (x-*), or fragile custom parser configurations.</li>
+                        <li><b>Implementation Fragmentation</b>: Because generators must handle edge cases non-uniformly, generated client SDKs and server stubs across different languages frequently drift in behavior, structural representation, and type guarantees.</li>
+                    </ul>
+                    <p class="font-bold text-on-surface mb-2">The TypeAPI Approach</p>
+                    <p class="font-body-md text-on-surface-variant leading-relaxed mb-6">
+                        TypeAPI resolves this friction by establishing a strict, schema-first model explicitly optimized for code generation and cross-language interoperability.
+                    </p>
+                    <ul class="list-disc pl-6 space-y-3 font-body-md text-on-surface-variant mb-6">
+                        <li><b>Type-System Alignment</b>: TypeAPI eliminates schema constructs that cannot be cleanly mapped into native structural or nominal type models, guaranteeing deterministic code synthesis across target runtimes.</li>
+                        <li><b>Zero Custom Extensions Required</b>: By standardizing object structures, primitive mappings, and endpoint operational layouts, TypeAPI removes the need for non-standard vendor annotations to achieve type safety.</li>
+                        <li><b>Ecosystem Compatibility</b>: TypeAPI maintains structural bridgeability with OpenAPI and JSON Schema, allowing seamless import/export workflows while serving as an uncompromising foundation for automated toolchains.</li>
+                    </ul>
+                    <p class="font-body-md text-on-surface-variant leading-relaxed mb-6">
+                        By framing API definitions through the lens of program language semantics rather than dynamic validation constraints, TypeAPI ensures that client SDKs, server interfaces, and data models remain robust, predictable, and maintainable across their entire life cycle.
                     </p>
                 </div>
                 <div class="mb-8" id="vision">
