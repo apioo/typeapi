@@ -4,12 +4,12 @@
   },
   "definitions": {
     "Security": {
-      "description": "",
+      "description": "Describes the authentication mechanism used by the API.",
       "type": "struct",
       "base": true,
       "properties": {
         "type": {
-          "description": "The global security type of the API must be one of: httpBasic, httpBearer, apiKey or oauth2",
+          "description": "The global security type of the API. Must be one of: httpBasic, httpBearer, apiKey, or oauth2.",
           "type": "string"
         }
       },
@@ -43,11 +43,11 @@
       },
       "properties": {
         "name": {
-          "description": "The name of the header or query parameter i.e. \"X-Api-Key\"",
+          "description": "The name of the header or query parameter (e.g., \"X-Api-Key\").",
           "type": "string"
         },
         "in": {
-          "description": "Must be either \"header\" or \"query\"",
+          "description": "The location of the API key. Must be either \"header\" or \"query\".",
           "type": "string"
         }
       }
@@ -60,15 +60,15 @@
       },
       "properties": {
         "tokenUrl": {
-          "description": "The OAuth2 token endpoint",
+          "description": "The OAuth2 token endpoint URL.",
           "type": "string"
         },
         "authorizationUrl": {
-          "description": "Optional the OAuth2 authorization endpoint",
+          "description": "Optional OAuth2 authorization endpoint URL.",
           "type": "string"
         },
         "scopes": {
-          "description": "Optional OAuth2 scopes",
+          "description": "Optional OAuth2 scopes required by default.",
           "type": "array",
           "items": {
             "type": "string"
@@ -77,24 +77,24 @@
       }
     },
     "Operation": {
-      "description": "",
+      "description": "Describes an API endpoint operation.",
       "type": "struct",
       "properties": {
         "method": {
-          "description": "The HTTP method which is associated with this operation, must be a valid HTTP method i.e. GET, POST, PUT etc.",
+          "description": "The HTTP method associated with this operation (e.g., GET, POST, PUT, DELETE).",
           "type": "string"
         },
         "path": {
-          "description": "The HTTP path which is associated with this operation. A path can also include variable path fragments i.e. /my/path/:year then you can map the variable year path fragment to a specific argument",
+          "description": "The HTTP path associated with this operation. May contain path variables (e.g., /my/path/:year) which map to operation arguments.",
           "type": "string"
         },
         "return": {
-          "description": "The return type of this operation. The return has also an assigned HTTP success status code which is by default 200",
+          "description": "The return type of this operation, which defaults to an HTTP status code of 200.",
           "type": "reference",
           "target": "Response"
         },
         "arguments": {
-          "description": "All arguments provided to this operation. Each argument is mapped to a location from the HTTP request i.e. query or body",
+          "description": "All arguments provided to this operation. Each argument maps to an HTTP request location (e.g., path, query, header, or body).",
           "type": "map",
           "schema": {
             "type": "reference",
@@ -102,7 +102,7 @@
           }
         },
         "throws": {
-          "description": "All exceptional states which can occur in case the operation fails. Each exception is assigned to an HTTP error status code",
+          "description": "All exceptional states that can occur if the operation fails. Each exception is assigned an HTTP error status code.",
           "type": "array",
           "schema": {
             "type": "reference",
@@ -110,70 +110,70 @@
           }
         },
         "description": {
-          "description": "A short description of this operation. The generated code will include this description at the method so it is recommend to use simple alphanumeric characters and no new lines",
+          "description": "A short description of this operation. Used in generated code docstrings; plain text without line breaks is recommended.",
           "type": "string"
         },
         "stability": {
-          "description": "Indicates the stability of this operation: 0 - Deprecated, 1 - Experimental, 2 - Stable, 3 - Legacy. If not explicit provided the operation is by default experimental",
+          "description": "Indicates the stability level of this operation: 0 (Deprecated), 1 (Experimental), 2 (Stable), or 3 (Legacy). Defaults to 1 (Experimental).",
           "type": "integer"
         },
         "security": {
-          "description": "An array of scopes which are required to access this operation",
+          "description": "An array of OAuth scopes required to access this specific operation.",
           "type": "array",
           "schema": {
             "type": "string"
           }
         },
         "authorization": {
-          "description": "Indicates whether this operation needs authorization, if set to false the client will not send an authorization header, default it is true",
+          "description": "Indicates whether this operation requires authorization. If set to false, the client will omit authorization headers. Defaults to true.",
           "type": "boolean"
         }
       }
     },
     "Argument": {
-      "description": "Describes arguments of the operation",
+      "description": "Describes an argument passed to an operation.",
       "type": "struct",
       "properties": {
         "in": {
-          "description": "The location where the value can be found either in the path, query, header or body. If you choose path, then your path must have a fitting variable path fragment",
+          "description": "Specifies where the argument value is located: path, query, header, or body. If set to path, the operation path must include a matching path variable.",
           "type": "string"
         },
         "schema": {
-          "description": "Schema of the JSON payload",
+          "description": "JSON schema describing the structure of the argument payload.",
           "type": "reference",
           "target": "typeschema:PropertyType"
         },
         "contentType": {
-          "description": "In case the data is not a JSON payload which you can describe with a schema you can select a content type",
+          "description": "The content type to use when the payload cannot be described by a JSON schema.",
           "type": "string"
         },
         "name": {
-          "description": "Optional the actual path, query or header name. If not provided the key of the argument map is used",
+          "description": "Optional name of the parameter in the path, query, or header. If omitted, the key of the arguments map is used.",
           "type": "string"
         }
       }
     },
     "Response": {
-      "description": "Describes the response of the operation",
+      "description": "Describes an HTTP response returned by an operation.",
       "type": "struct",
       "properties": {
         "code": {
-          "description": "The associated HTTP response code. For error responses it is possible to use the 499, 599 or 999 status code to catch all errors",
+          "description": "The HTTP status code associated with this response. Wildcard error status codes like 499, 599, or 999 can be used to catch all errors.",
           "type": "integer"
         },
         "contentType": {
-          "description": "In case the data is not a JSON payload which you can describe with a schema you can select a content type",
+          "description": "The content type to use when the response body cannot be described by a JSON schema.",
           "type": "string"
         },
         "schema": {
-          "description": "Schema of the JSON payload",
+          "description": "JSON schema describing the structure of the response payload.",
           "type": "reference",
           "target": "typeschema:PropertyType"
         }
       }
     },
     "TypeAPI": {
-      "description": "The TypeAPI Root",
+      "description": "The root specification object of TypeAPI.",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -181,16 +181,16 @@
       },
       "properties": {
         "baseUrl": {
-          "description": "Optional the base url of the service, if provided the user does not need to provide a base url for your client",
+          "description": "Optional base URL of the service. If specified, client SDKs do not require users to manually specify a base URL.",
           "type": "string"
         },
         "security": {
-          "description": "Describes the authorization mechanism which is used by your API",
+          "description": "Describes the default authorization mechanism used across the API.",
           "type": "reference",
           "target": "Security"
         },
         "operations": {
-          "description": "A map of operations which are provided by the API. The key of the operation should be separated by a dot to group operations into logical units i.e. product.getAll or enterprise.product.execute",
+          "description": "A map of operations provided by the API. Keys should use dot-notation to group operations into logical units (e.g., product.getAll or enterprise.product.execute).",
           "type": "map",
           "schema": {
             "type": "reference",
