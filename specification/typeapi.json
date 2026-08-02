@@ -22,6 +22,7 @@
       }
     },
     "SecurityHttpBasic": {
+      "description": "Describes HTTP Basic authentication, requiring a base64-encoded username and password.",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -29,6 +30,7 @@
       }
     },
     "SecurityHttpBearer": {
+      "description": "Describes HTTP Bearer authentication, typically using a bearer token (e.g., JWT).",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -36,6 +38,7 @@
       }
     },
     "SecurityApiKey": {
+      "description": "Describes API key authentication passed via a header or query parameter.",
       "type": "struct",
       "parent": {
         "type": "reference",
@@ -53,6 +56,7 @@
       }
     },
     "SecurityOAuth": {
+      "description": "Describes OAuth 2.0 authentication, defining endpoints and scopes required by the API.",
       "type": "struct",
       "parent": {
         "type": "reference",
