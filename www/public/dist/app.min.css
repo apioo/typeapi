@@ -1278,11 +1278,6 @@ select {
   background-color: rgb(39 42 49 / var(--tw-bg-opacity, 1));
 }
 
-.bg-surface-container-highest {
-  --tw-bg-opacity: 1;
-  background-color: rgb(50 53 60 / var(--tw-bg-opacity, 1));
-}
-
 .bg-surface-container-highest\/30 {
   background-color: rgb(50 53 60 / 0.3);
 }
