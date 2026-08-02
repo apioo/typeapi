@@ -1,97 +1,94 @@
 
-textarea {
-  font-family: monospace;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
 }
 
-.typeapi-header {
-  background: url('../img/header_bg.png') no-repeat top center;
-  background-size: cover;
+.code-glow {
+  box-shadow: 0 0 15px rgba(70, 238, 205, 0.1);
 }
 
-pre {
-  padding: 0!important;
-  max-height: 400px;
+.glass-panel {
+  background: rgba(22, 27, 34, 0.8);
+  backdrop-filter: blur(8px);
 }
 
-.typeschema-edit {
-  margin-top:32px;
-  margin-bottom:32px;
-  text-align:right;
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
-/* psx schema */
-.psx-object {
-  margin:0;
-  margin-bottom:8px;
-  border:1px solid #ccc;
+::-webkit-scrollbar-track {
+  background: #0B0E14;
 }
 
-.psx-object > h1 {
-  font-weight:bold;
-  font-size:1em;
-  margin:0;
-  padding: 10px 15px;
-  padding-left: 8px;
-  border-bottom: 1px solid #999;
-  color: #333;
-  background-color: #f5f5f5;
-  background-repeat: repeat-x;
-  background-image: -webkit-linear-gradient(top,#f5f5f5 0,#e8e8e8 100%);
-  background-image: -o-linear-gradient(top,#f5f5f5 0,#e8e8e8 100%);
-  background-image: -webkit-gradient(linear,left top,left bottom,from(#f5f5f5),to(#e8e8e8));
-  background-image: linear-gradient(to bottom,#f5f5f5 0,#e8e8e8 100%);
+::-webkit-scrollbar-thumb {
+  background: #30363D;
+  border-radius: 4px;
 }
 
-.psx-object-description {
-  margin:8px 0;
-  padding:0 8px;
+::-webkit-scrollbar-thumb:hover {
+  background: #85948f;
 }
 
-.psx-object-json {
-  border-radius:0;
-  border:0;
-  margin:0;
-  padding:8px;
-  background-color:#F0F0F0;
+.spec-number {
+  color: #46eecd;
+  font-family: 'JetBrains Mono', monospace;
+  margin-right: 0.75rem;
+  opacity: 0.7;
 }
 
-.psx-object-json-key {
-  color:#880000;
+.spec-section {
+  border-bottom: 1px solid #30363D;
+  padding-bottom: 4rem;
+  margin-bottom: 4rem;
 }
 
-.psx-object-json-pun {
-  color:#65b042;
+.spec-section:last-child { border-bottom: none; }
+
+code {
+  font-family: 'JetBrains Mono', monospace;
+  background: #21262D;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.9em;
+  color: #58fbda;
 }
 
-.psx-object-properties {
+.definition-block {
+  border: 1px solid #30363D;
+  border-radius: 8px;
+  background: #161B22;
+  margin: 1.5rem 0;
 }
 
-.psx-property-type {
-  font-family:monospace;
-  font-weight:bold;
+.definition-header {
+  background: #1d2026;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #30363D;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #8B949E;
 }
 
-.psx-property-name {
-  font-family:monospace;
-  font-weight:bold;
-}
-
-.psx-property-description {
-  margin-top:8px;
-  font-size:0.9em;
-}
-
-.psx-property-constraint {
-  margin-top:8px;
-  font-size:0.9em;
-}
-
-.psx-property-required {
-  border-bottom:1px dotted #999;
-}
-
-.psx-out {
-  overflow-x:auto;
+.hljs {
+  background: transparent !important;
+  padding: 0 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
 }
 
 .apioo-brand {
