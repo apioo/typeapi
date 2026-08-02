@@ -39,23 +39,23 @@
             </div>
             <div class="space-y-24"><div class="grid grid-cols-1 lg:grid-cols-2 gap-stack-md"><div class="bg-surface-deep border border-border-subtle rounded-xl overflow-hidden code-glow flex flex-col"><div class="bg-surface-elevated px-stack-md py-3 border-b border-border-subtle flex items-center justify-between"><div class="flex items-center gap-2"><span class="font-label-caps text-label-caps">typeapi.json</span></div><span class="font-label-caps text-[10px] text-text-muted">SIMPLE API</span></div><div class="p-stack-md font-code-sm text-code-sm overflow-y-auto bg-surface-container-lowest h-[320px]"><pre class="text-on-surface-variant">{
   <span class="text-code-blue">"operations"</span>: {
-    <span class="text-code-blue">"getMessage"</span>: {
-      <span class="text-text-muted">"method"</span>: <span class="text-code-cyan">"GET"</span>,
-      <span class="text-text-muted">"path"</span>: <span class="text-code-cyan">"/hello/world"</span>,
-      <span class="text-text-muted">"return"</span>: {
-        <span class="text-text-muted">"schema"</span>: {
-          <span class="text-text-muted">"type"</span>: <span class="text-code-cyan">"reference"</span>,
-          <span class="text-text-muted">"target"</span>: <span class="text-code-cyan">"Hello_World"</span>
+    <span class="text-text-muted">"getMessage"</span>: {
+      <span class="text-code-blue">"method"</span>: <span class="text-code-cyan">"GET"</span>,
+      <span class="text-code-blue">"path"</span>: <span class="text-code-cyan">"/hello/world"</span>,
+      <span class="text-code-blue">"return"</span>: {
+        <span class="text-code-blue">"schema"</span>: {
+          <span class="text-code-blue">"type"</span>: <span class="text-code-cyan">"reference"</span>,
+          <span class="text-code-blue">"target"</span>: <span class="text-code-cyan">"Hello_World"</span>
         }
       }
     }
   },
   <span class="text-code-blue">"definitions"</span>: {
-    <span class="text-code-blue">"Hello_World"</span>: {
-      <span class="text-text-muted">"type"</span>: <span class="text-code-cyan">"object"</span>,
-      <span class="text-text-muted">"properties"</span>: {
-        <span class="text-code-blue">"message"</span>: {
-          <span class="text-text-muted">"type"</span>: <span class="text-code-cyan">"string"</span>
+    <span class="text-text-muted">"Hello_World"</span>: {
+      <span class="text-code-blue">"type"</span>: <span class="text-code-cyan">"struct"</span>,
+      <span class="text-code-blue">"properties"</span>: {
+        <span class="text-text-muted">"message"</span>: {
+          <span class="text-code-blue">"type"</span>: <span class="text-code-cyan">"string"</span>
         }
       }
     }
@@ -69,21 +69,28 @@
                 <!-- Argument Query -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-stack-md"><div class="bg-surface-deep border border-border-subtle rounded-xl overflow-hidden code-glow flex flex-col"><div class="bg-surface-elevated px-stack-md py-3 border-b border-border-subtle flex items-center justify-between"><div class="flex items-center gap-2"><span class="font-label-caps text-label-caps">typeapi.json</span></div><span class="font-label-caps text-[10px] text-text-muted">ARGUMENT QUERY</span></div><div class="p-stack-md font-code-sm text-code-sm overflow-y-auto bg-surface-container-lowest h-[320px]"><pre class="text-on-surface-variant">{
   <span class="text-code-blue">"operations"</span>: {
-    <span class="text-code-blue">"getAll"</span>: {
-      <span class="text-text-muted">"method"</span>: <span class="text-code-cyan">"GET"</span>,
-      <span class="text-text-muted">"path"</span>: <span class="text-code-cyan">"/todo"</span>,
+    <span class="text-text-muted">"getAll"</span>: {
+      <span class="text-code-blue">"method"</span>: <span class="text-code-cyan">"GET"</span>,
+      <span class="text-code-blue">"path"</span>: <span class="text-code-cyan">"/todo"</span>,
       <span class="text-code-blue">"arguments"</span>: {
-        <span class="text-code-blue">"startIndex"</span>: {
-          <span class="text-text-muted">"in"</span>: <span class="text-code-cyan">"query"</span>,
-          <span class="text-text-muted">"schema"</span>: { <span class="text-text-muted">"type"</span>: <span class="text-code-cyan">"integer"</span> }
+        <span class="text-text-muted">"startIndex"</span>: {
+          <span class="text-code-blue">"in"</span>: <span class="text-code-cyan">"query"</span>,
+          <span class="text-code-blue">"schema"</span>: {
+            <span class="text-code-blue">"type"</span>: <span class="text-code-cyan">"integer"</span>
+          }
         },
-        <span class="text-code-blue">"count"</span>: {
-          <span class="text-text-muted">"in"</span>: <span class="text-code-cyan">"query"</span>,
-          <span class="text-text-muted">"schema"</span>: { <span class="text-text-muted">"type"</span>: <span class="text-code-cyan">"integer"</span> }
+        <span class="text-text-muted">"count"</span>: {
+          <span class="text-code-blue">"in"</span>: <span class="text-code-cyan">"query"</span>,
+          <span class="text-code-blue">"schema"</span>: {
+            <span class="text-code-blue">"type"</span>: <span class="text-code-cyan">"integer"</span>
+          }
         }
       },
-      <span class="text-text-muted">"return"</span>: {
-        <span class="text-text-muted">"schema"</span>: { <span class="text-text-muted">"type"</span>: <span class="text-code-cyan">"reference"</span>, <span class="text-text-muted">"target"</span>: <span class="text-code-cyan">"Todos"</span> }
+      <span class="text-code-blue">"return"</span>: {
+        <span class="text-code-blue">"schema"</span>: {
+          <span class="text-code-blue">"type"</span>: <span class="text-code-cyan">"reference"</span>,
+          <span class="text-code-blue">"target"</span>: <span class="text-code-cyan">"Todos"</span>
+        }
       }
     }
   }
@@ -96,17 +103,23 @@
                 <!-- Argument Body -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-stack-md"><div class="bg-surface-deep border border-border-subtle rounded-xl overflow-hidden code-glow flex flex-col"><div class="bg-surface-elevated px-stack-md py-3 border-b border-border-subtle flex items-center justify-between"><div class="flex items-center gap-2"><span class="font-label-caps text-label-caps">typeapi.json</span></div><span class="font-label-caps text-[10px] text-text-muted">ARGUMENT BODY</span></div><div class="p-stack-md font-code-sm text-code-sm overflow-y-auto bg-surface-container-lowest h-[320px]"><pre class="text-on-surface-variant">{
   <span class="text-code-blue">"operations"</span>: {
-    <span class="text-code-blue">"create"</span>: {
-      <span class="text-text-muted">"method"</span>: <span class="text-code-cyan">"POST"</span>,
-      <span class="text-text-muted">"path"</span>: <span class="text-code-cyan">"/todo"</span>,
+    <span class="text-text-muted">"create"</span>: {
+      <span class="text-code-blue">"method"</span>: <span class="text-code-cyan">"POST"</span>,
+      <span class="text-code-blue">"path"</span>: <span class="text-code-cyan">"/todo"</span>,
       <span class="text-code-blue">"arguments"</span>: {
-        <span class="text-code-blue">"payload"</span>: {
-          <span class="text-text-muted">"in"</span>: <span class="text-code-cyan">"body"</span>,
-          <span class="text-text-muted">"schema"</span>: { <span class="text-text-muted">"type"</span>: <span class="text-code-cyan">"reference"</span>, <span class="text-text-muted">"target"</span>: <span class="text-code-cyan">"Todo"</span> }
+        <span class="text-text-muted">"payload"</span>: {
+          <span class="text-code-blue">"in"</span>: <span class="text-code-cyan">"body"</span>,
+          <span class="text-code-blue">"schema"</span>: {
+            <span class="text-code-blue">"type"</span>: <span class="text-code-cyan">"reference"</span>,
+            <span class="text-code-blue">"target"</span>: <span class="text-code-cyan">"Todo"</span>
+          }
         }
       },
-      <span class="text-text-muted">"return"</span>: {
-        <span class="text-text-muted">"schema"</span>: { <span class="text-text-muted">"type"</span>: <span class="text-code-cyan">"reference"</span>, <span class="text-text-muted">"target"</span>: <span class="text-code-cyan">"Message"</span> }
+      <span class="text-code-blue">"return"</span>: {
+        <span class="text-code-blue">"schema"</span>: {
+          <span class="text-code-blue">"type"</span>: <span class="text-code-cyan">"reference"</span>,
+          <span class="text-code-blue">"target"</span>: <span class="text-code-cyan">"Message"</span>
+        }
       }
     }
   }
@@ -122,14 +135,14 @@
                 <!-- Throws -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-stack-md"><div class="bg-surface-deep border border-border-subtle rounded-xl overflow-hidden code-glow flex flex-col"><div class="bg-surface-elevated px-stack-md py-3 border-b border-border-subtle flex items-center justify-between"><div class="flex items-center gap-2"><span class="font-label-caps text-label-caps">typeapi.json</span></div><span class="font-label-caps text-[10px] text-text-muted">THROWS</span></div><div class="p-stack-md font-code-sm text-code-sm overflow-y-auto bg-surface-container-lowest h-[320px]"><pre class="text-on-surface-variant">{
   <span class="text-code-blue">"operations"</span>: {
-    <span class="text-code-blue">"getMessage"</span>: {
-      <span class="text-text-muted">"method"</span>: <span class="text-code-cyan">"GET"</span>,
-      <span class="text-text-muted">"path"</span>: <span class="text-code-cyan">"/hello/world"</span>,
+    <span class="text-text-muted">"getMessage"</span>: {
+      <span class="text-code-blue">"method"</span>: <span class="text-code-cyan">"GET"</span>,
+      <span class="text-code-blue">"path"</span>: <span class="text-code-cyan">"/hello/world"</span>,
       <span class="text-code-blue">"throws"</span>: [{
-        <span class="text-code-blue">"code"</span>: 500,
+        <span class="text-code-blue">"code"</span>: <span>500</span>,
         <span class="text-code-blue">"schema"</span>: {
-          <span class="text-text-muted">"type"</span>: <span class="text-code-cyan">"reference"</span>,
-          <span class="text-text-muted">"target"</span>: <span class="text-code-cyan">"Error"</span>
+          <span class="text-code-blue">"type"</span>: <span class="text-code-cyan">"reference"</span>,
+          <span class="text-code-blue">"target"</span>: <span class="text-code-cyan">"Error"</span>
         }
       }]
     }
@@ -144,13 +157,13 @@
                 <!-- Operation Group -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-stack-md"><div class="bg-surface-deep border border-border-subtle rounded-xl overflow-hidden code-glow flex flex-col"><div class="bg-surface-elevated px-stack-md py-3 border-b border-border-subtle flex items-center justify-between"><div class="flex items-center gap-2"><span class="font-label-caps text-label-caps">typeapi.json</span></div><span class="font-label-caps text-[10px] text-text-muted">OPERATION GROUP</span></div><div class="p-stack-md font-code-sm text-code-sm overflow-y-auto bg-surface-container-lowest h-[320px]"><pre class="text-on-surface-variant">{
   <span class="text-code-blue">"operations"</span>: {
-    <span class="text-code-blue">"todo.create"</span>: {
-      <span class="text-text-muted">"method"</span>: <span class="text-code-cyan">"POST"</span>,
-      <span class="text-text-muted">"path"</span>: <span class="text-code-cyan">"/todo"</span>
+    <span class="text-text-muted">"todo.create"</span>: {
+      <span class="text-code-blue">"method"</span>: <span class="text-code-cyan">"POST"</span>,
+      <span class="text-code-blue">"path"</span>: <span class="text-code-cyan">"/todo"</span>
     },
-    <span class="text-code-blue">"product.create"</span>: {
-      <span class="text-text-muted">"method"</span>: <span class="text-code-cyan">"POST"</span>,
-      <span class="text-text-muted">"path"</span>: <span class="text-code-cyan">"/product"</span>
+    <span class="text-text-muted">"product.create"</span>: {
+      <span class="text-code-blue">"method"</span>: <span class="text-code-cyan">"POST"</span>,
+      <span class="text-code-blue">"path"</span>: <span class="text-code-cyan">"/product"</span>
     }
   }
 }</pre></div></div><div class="bg-surface-deep border border-border-subtle rounded-xl overflow-hidden code-glow flex flex-col"><div class="bg-surface-elevated px-stack-md py-3 border-b border-border-subtle flex items-center justify-between"><span class="font-label-caps text-label-caps text-on-surface">Client SDK</span><div class="px-2 py-0.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded text-[10px] font-bold uppercase">TypeScript</div></div><div class="p-stack-md font-code-sm text-code-sm bg-surface-container-lowest h-[320px] flex flex-col"><div class="flex-grow"><pre class="text-on-surface-variant"><span class="text-code-blue">const</span> client = <span class="text-code-cyan">new</span> <span class="text-primary">Client</span>()
