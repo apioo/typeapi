@@ -40,22 +40,30 @@
 </footer>
 
 <nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 pb-safe bg-surface-deep border-t border-border-subtle">
-    <div class="flex flex-col items-center justify-center text-primary bg-surface-container-highest rounded-xl px-3 py-1">
-        <span class="material-symbols-outlined" data-icon="home">home</span>
-        <span class="font-label-caps text-[10px] mt-1">Home</span>
-    </div>
-    <div class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1">
-        <span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
-        <span class="font-label-caps text-[10px] mt-1">Spec</span>
-    </div>
-    <div class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1">
-        <span class="material-symbols-outlined" data-icon="extension">extension</span>
-        <span class="font-label-caps text-[10px] mt-1">Docs</span>
-    </div>
-    <div class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1">
-        <span class="material-symbols-outlined" data-icon="code">code</span>
-        <span class="font-label-caps text-[10px] mt-1">Gen</span>
-    </div>
+    <a href="<?php echo $url; ?>">
+        <div class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1">
+            <span class="material-symbols-outlined" data-icon="home">home</span>
+            <span class="font-label-caps text-[10px] mt-1">Home</span>
+        </div>
+    </a>
+    <a href="<?php echo $router->getAbsolutePath([\App\Controller\Specification::class, 'show']); ?>">
+        <div class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1">
+            <span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+            <span class="font-label-caps text-[10px] mt-1">Spec</span>
+        </div>
+    </a>
+    <a href="<?php echo $router->getAbsolutePath([\App\Controller\Ecosystem::class, 'show']); ?>">
+        <div class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1">
+            <span class="material-symbols-outlined" data-icon="extension">extension</span>
+            <span class="font-label-caps text-[10px] mt-1">Docs</span>
+        </div>
+    </a>
+    <a href="<?php echo $router->getAbsolutePath([\App\Controller\Integration::class, 'show']); ?>">
+        <div class="flex flex-col items-center justify-center text-on-surface-variant px-3 py-1">
+            <span class="material-symbols-outlined" data-icon="code">code</span>
+            <span class="font-label-caps text-[10px] mt-1">Code</span>
+        </div>
+    </a>
 </nav>
 <script>
     const observerOptions = {
