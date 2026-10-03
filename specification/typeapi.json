@@ -1,6 +1,6 @@
 {
   "import": {
-    "typeschema": "typehub://typehub:typeschema@0.1.1"
+    "typeschema": "typehub://typehub:typeschema@0.1.2"
   },
   "definitions": {
     "Security": {
