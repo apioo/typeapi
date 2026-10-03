@@ -1,0 +1,569 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TypeAPI Specification",
+  "type": "object",
+  "properties": {
+    "baseUrl": {
+      "type": "string"
+    },
+    "import": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "security": {
+      "$ref": "#/$defs/Security"
+    },
+    "operations": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/Operation"
+      }
+    },
+    "definitions": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/DefinitionType"
+      }
+    },
+    "root": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "Operation": {
+      "type": "object",
+      "properties": {
+        "arguments": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/Argument"
+          }
+        },
+        "authorization": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "return": {
+          "$ref": "#/$defs/Response"
+        },
+        "security": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "stability": {
+          "type": "integer"
+        },
+        "throws": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Response"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "Argument": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "contentType": {
+          "type": "string"
+        },
+        "in": {
+          "type": "string",
+          "enum": [
+            "path",
+            "query",
+            "header",
+            "body"
+          ]
+        },
+        "name": {
+          "type": "string"
+        },
+        "schema": {
+          "$ref": "#/$defs/PropertyType"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Response": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer"
+        },
+        "contentType": {
+          "type": "string"
+        },
+        "schema": {
+          "$ref": "#/$defs/PropertyType"
+        }
+      },
+      "additionalProperties": false
+    },
+    "Security": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/SecurityApiKey"
+        },
+        {
+          "$ref": "#/$defs/SecurityHttpBasic"
+        },
+        {
+          "$ref": "#/$defs/SecurityHttpBearer"
+        },
+        {
+          "$ref": "#/$defs/SecurityOAuth"
+        }
+      ]
+    },
+    "SecurityApiKey": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "apiKey"
+        },
+        "in": {
+          "type": "string",
+          "enum": [
+            "header",
+            "query"
+          ]
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "in",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "SecurityHttpBasic": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "httpBasic"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "SecurityHttpBearer": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "httpBearer"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "SecurityOAuth": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "oauth2"
+        },
+        "authorizationUrl": {
+          "type": "string"
+        },
+        "tokenUrl": {
+          "type": "string"
+        },
+        "scopes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "DefinitionType": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/StructType"
+        },
+        {
+          "$ref": "#/$defs/MapDefinitionType"
+        },
+        {
+          "$ref": "#/$defs/ArrayDefinitionType"
+        }
+      ]
+    },
+    "StructType": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "struct"
+        },
+        "description": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "base": {
+          "type": "boolean"
+        },
+        "discriminator": {
+          "type": "string"
+        },
+        "mapping": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "parent": {
+          "$ref": "#/$defs/ReferenceType"
+        },
+        "properties": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/PropertyType"
+          }
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "MapDefinitionType": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "map"
+        },
+        "description": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "schema": {
+          "$ref": "#/$defs/PropertyType"
+        }
+      },
+      "required": [
+        "type",
+        "schema"
+      ],
+      "additionalProperties": false
+    },
+    "ArrayDefinitionType": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "array"
+        },
+        "description": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "schema": {
+          "$ref": "#/$defs/PropertyType"
+        }
+      },
+      "required": [
+        "type",
+        "schema"
+      ],
+      "additionalProperties": false
+    },
+    "PropertyType": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/AnyType"
+        },
+        {
+          "$ref": "#/$defs/ArrayType"
+        },
+        {
+          "$ref": "#/$defs/BooleanType"
+        },
+        {
+          "$ref": "#/$defs/GenericType"
+        },
+        {
+          "$ref": "#/$defs/IntegerType"
+        },
+        {
+          "$ref": "#/$defs/MapType"
+        },
+        {
+          "$ref": "#/$defs/NumberType"
+        },
+        {
+          "$ref": "#/$defs/ReferenceType"
+        },
+        {
+          "$ref": "#/$defs/StringType"
+        }
+      ]
+    },
+    "AnyType": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "any"
+        },
+        "description": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "nullable": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "ArrayType": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "array"
+        },
+        "description": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "nullable": {
+          "type": "boolean"
+        },
+        "schema": {
+          "$ref": "#/$defs/PropertyType"
+        }
+      },
+      "required": [
+        "type",
+        "schema"
+      ],
+      "additionalProperties": false
+    },
+    "BooleanType": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "boolean"
+        },
+        "description": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "nullable": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "GenericType": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "generic"
+        },
+        "description": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "nullable": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "IntegerType": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "integer"
+        },
+        "description": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "nullable": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "MapType": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "map"
+        },
+        "description": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "nullable": {
+          "type": "boolean"
+        },
+        "schema": {
+          "$ref": "#/$defs/PropertyType"
+        }
+      },
+      "required": [
+        "type",
+        "schema"
+      ],
+      "additionalProperties": false
+    },
+    "NumberType": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "number"
+        },
+        "description": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "nullable": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    },
+    "ReferenceType": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "reference"
+        },
+        "description": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "nullable": {
+          "type": "boolean"
+        },
+        "target": {
+          "type": "string"
+        },
+        "template": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "target"
+      ],
+      "additionalProperties": false
+    },
+    "StringType": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "deprecated": {
+          "type": "boolean"
+        },
+        "nullable": {
+          "type": "boolean"
+        },
+        "format": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
