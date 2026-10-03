@@ -49,7 +49,14 @@
           "type": "string"
         },
         "method": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "GET",
+            "POST",
+            "PUT",
+            "PATCH",
+            "DELETE"
+          ]
         },
         "path": {
           "type": "string"
@@ -64,7 +71,13 @@
           }
         },
         "stability": {
-          "type": "integer"
+          "type": "integer",
+          "enum": [
+            0,
+            1,
+            2,
+            3
+          ]
         },
         "throws": {
           "type": "array",
@@ -73,6 +86,11 @@
           }
         }
       },
+      "required": [
+        "method",
+        "path",
+        "return"
+      ],
       "additionalProperties": false
     },
     "Argument": {
@@ -93,13 +111,25 @@
             "body"
           ]
         },
-        "name": {
-          "type": "string"
-        },
         "schema": {
           "$ref": "#/$defs/PropertyType"
         }
       },
+      "required": [
+        "in"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "schema"
+          ]
+        },
+        {
+          "required": [
+            "contentType"
+          ]
+        }
+      ],
       "additionalProperties": false
     },
     "Response": {
@@ -118,6 +148,21 @@
           "$ref": "#/$defs/PropertyType"
         }
       },
+      "required": [
+        "code"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "schema"
+          ]
+        },
+        {
+          "required": [
+            "contentType"
+          ]
+        }
+      ],
       "additionalProperties": false
     },
     "Security": {
@@ -566,7 +611,12 @@
           "type": "boolean"
         },
         "format": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "date",
+            "date-time",
+            "time"
+          ]
         },
         "default": {
           "type": "string"
