@@ -453,6 +453,9 @@
         },
         "nullable": {
           "type": "boolean"
+        },
+        "default": {
+          "type": "integer"
         }
       },
       "required": [
@@ -501,6 +504,9 @@
         },
         "nullable": {
           "type": "boolean"
+        },
+        "default": {
+          "type": "number"
         }
       },
       "required": [
@@ -557,6 +563,9 @@
           "type": "boolean"
         },
         "format": {
+          "type": "string"
+        },
+        "default": {
           "type": "string"
         }
       },
